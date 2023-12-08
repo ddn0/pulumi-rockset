@@ -1,0 +1,69 @@
+name: test
+on:
+  push:
+    branches:
+    - main
+    tags:
+    - v*.*.*
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - run: git fetch --force --tags
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        cache-dependency-path: '**/go.sum'
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      with:
+        repo: pulumi/pulumictl
+    - run: make tfgen
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: v1.55.2
+        working-directory: provider
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - run: git fetch --force --tags
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        cache-dependency-path: '**/go.sum'
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "20"
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: "8"
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      with:
+        repo: pulumi/pulumictl
+    - run: make provider
+    - name: Check for uncommitted generated files
+      run: |
+        make build_sdks
+        if [[ $(git status --porcelain | wc -l) != "0" ]]; then
+          git status
+          echo "did you run make build_sdks?"
+          exit 1
+        fi
+    - run: make test

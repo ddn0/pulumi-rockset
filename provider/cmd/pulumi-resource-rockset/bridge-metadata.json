@@ -1,0 +1,499 @@
+{
+    "auto-aliasing": {
+        "resources": {
+            "rockset_alias": {
+                "current": "rockset:index/alias:Alias",
+                "fields": {
+                    "collections": {
+                        "maxItemsOne": true
+                    }
+                }
+            },
+            "rockset_api_key": {
+                "current": "rockset:index/apiKey:ApiKey"
+            },
+            "rockset_collection": {
+                "current": "rockset:index/collection:Collection"
+            },
+            "rockset_collection_mount": {
+                "current": "rockset:index/collectionMount:CollectionMount"
+            },
+            "rockset_dynamodb_collection": {
+                "current": "rockset:index/dynamodbCollection:DynamodbCollection",
+                "fields": {
+                    "source": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "rockset_dynamodb_integration": {
+                "current": "rockset:index/dynamodbIntegration:DynamodbIntegration"
+            },
+            "rockset_gcs_collection": {
+                "current": "rockset:index/gcsCollection:GcsCollection",
+                "fields": {
+                    "source": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "csv": {
+                                    "maxItemsOne": true,
+                                    "elem": {
+                                        "fields": {
+                                            "column_names": {
+                                                "maxItemsOne": false
+                                            },
+                                            "column_types": {
+                                                "maxItemsOne": false
+                                            }
+                                        }
+                                    }
+                                },
+                                "xml": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "rockset_gcs_integration": {
+                "current": "rockset:index/gcsIntegration:GcsIntegration"
+            },
+            "rockset_kafka_collection": {
+                "current": "rockset:index/kafkaCollection:KafkaCollection",
+                "fields": {
+                    "source": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "status": {
+                                    "maxItemsOne": false,
+                                    "elem": {
+                                        "fields": {
+                                            "partitions": {
+                                                "maxItemsOne": false
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "rockset_kafka_integration": {
+                "current": "rockset:index/kafkaIntegration:KafkaIntegration",
+                "fields": {
+                    "kafka_topic_names": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "rockset_kinesis_collection": {
+                "current": "rockset:index/kinesisCollection:KinesisCollection",
+                "fields": {
+                    "source": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "dms_primary_key": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "rockset_kinesis_integration": {
+                "current": "rockset:index/kinesisIntegration:KinesisIntegration"
+            },
+            "rockset_mongodb_collection": {
+                "current": "rockset:index/mongodbCollection:MongodbCollection",
+                "fields": {
+                    "source": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "rockset_mongodb_integration": {
+                "current": "rockset:index/mongodbIntegration:MongodbIntegration"
+            },
+            "rockset_query_lambda": {
+                "current": "rockset:index/queryLambda:QueryLambda",
+                "fields": {
+                    "sql": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "default_parameter": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "rockset_query_lambda_tag": {
+                "current": "rockset:index/queryLambdaTag:QueryLambdaTag"
+            },
+            "rockset_role": {
+                "current": "rockset:index/role:Role",
+                "fields": {
+                    "privilege": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "rockset_s3_collection": {
+                "current": "rockset:index/s3Collection:S3Collection",
+                "fields": {
+                    "source": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "csv": {
+                                    "maxItemsOne": true,
+                                    "elem": {
+                                        "fields": {
+                                            "column_names": {
+                                                "maxItemsOne": false
+                                            },
+                                            "column_types": {
+                                                "maxItemsOne": false
+                                            }
+                                        }
+                                    }
+                                },
+                                "xml": {
+                                    "maxItemsOne": true
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "rockset_s3_integration": {
+                "current": "rockset:index/s3Integration:S3Integration"
+            },
+            "rockset_user": {
+                "current": "rockset:index/user:User",
+                "fields": {
+                    "roles": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "rockset_view": {
+                "current": "rockset:index/view:View"
+            },
+            "rockset_virtual_instance": {
+                "current": "rockset:index/virtualInstance:VirtualInstance"
+            },
+            "rockset_workspace": {
+                "current": "rockset:index/workspace:Workspace"
+            }
+        },
+        "datasources": {
+            "rockset_account": {
+                "current": "rockset:index/getAccount:getAccount",
+                "fields": {
+                    "clusters": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "rockset_query_lambda_tag": {
+                "current": "rockset:index/getQueryLambdaTag:getQueryLambdaTag"
+            },
+            "rockset_user": {
+                "current": "rockset:index/getUser:getUser",
+                "fields": {
+                    "roles": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "rockset_virtual_instance": {
+                "current": "rockset:index/getVirtualInstance:getVirtualInstance"
+            },
+            "rockset_workspace": {
+                "current": "rockset:index/getWorkspace:getWorkspace"
+            }
+        }
+    },
+    "renames": {
+        "resources": {
+            "rockset:index/alias:Alias": "rockset_alias",
+            "rockset:index/apiKey:ApiKey": "rockset_api_key",
+            "rockset:index/collection:Collection": "rockset_collection",
+            "rockset:index/collectionMount:CollectionMount": "rockset_collection_mount",
+            "rockset:index/dynamodbCollection:DynamodbCollection": "rockset_dynamodb_collection",
+            "rockset:index/dynamodbIntegration:DynamodbIntegration": "rockset_dynamodb_integration",
+            "rockset:index/gcsCollection:GcsCollection": "rockset_gcs_collection",
+            "rockset:index/gcsIntegration:GcsIntegration": "rockset_gcs_integration",
+            "rockset:index/kafkaCollection:KafkaCollection": "rockset_kafka_collection",
+            "rockset:index/kafkaIntegration:KafkaIntegration": "rockset_kafka_integration",
+            "rockset:index/kinesisCollection:KinesisCollection": "rockset_kinesis_collection",
+            "rockset:index/kinesisIntegration:KinesisIntegration": "rockset_kinesis_integration",
+            "rockset:index/mongodbCollection:MongodbCollection": "rockset_mongodb_collection",
+            "rockset:index/mongodbIntegration:MongodbIntegration": "rockset_mongodb_integration",
+            "rockset:index/queryLambda:QueryLambda": "rockset_query_lambda",
+            "rockset:index/queryLambdaTag:QueryLambdaTag": "rockset_query_lambda_tag",
+            "rockset:index/role:Role": "rockset_role",
+            "rockset:index/s3Collection:S3Collection": "rockset_s3_collection",
+            "rockset:index/s3Integration:S3Integration": "rockset_s3_integration",
+            "rockset:index/user:User": "rockset_user",
+            "rockset:index/view:View": "rockset_view",
+            "rockset:index/virtualInstance:VirtualInstance": "rockset_virtual_instance",
+            "rockset:index/workspace:Workspace": "rockset_workspace"
+        },
+        "functions": {
+            "rockset:index/getAccount:getAccount": "rockset_account",
+            "rockset:index/getQueryLambdaTag:getQueryLambdaTag": "rockset_query_lambda_tag",
+            "rockset:index/getUser:getUser": "rockset_user",
+            "rockset:index/getVirtualInstance:getVirtualInstance": "rockset_virtual_instance",
+            "rockset:index/getWorkspace:getWorkspace": "rockset_workspace"
+        },
+        "renamedProperties": {
+            "rockset:index/DynamodbCollectionSource:DynamodbCollectionSource": {
+                "awsRegion": "aws_region",
+                "integrationName": "integration_name",
+                "scanEndTime": "scan_end_time",
+                "scanRecordsProcessed": "scan_records_processed",
+                "scanStartTime": "scan_start_time",
+                "scanTotalRecords": "scan_total_records",
+                "streamLastProcessedAt": "stream_last_processed_at",
+                "tableName": "table_name",
+                "useScanApi": "use_scan_api"
+            },
+            "rockset:index/GcsCollectionSource:GcsCollectionSource": {
+                "integrationName": "integration_name"
+            },
+            "rockset:index/GcsCollectionSourceCsv:GcsCollectionSourceCsv": {
+                "columnNames": "column_names",
+                "columnTypes": "column_types",
+                "escapeChar": "escape_char",
+                "firstLineAsColumnNames": "first_line_as_column_names",
+                "quoteChar": "quote_char"
+            },
+            "rockset:index/GcsCollectionSourceXml:GcsCollectionSourceXml": {
+                "attributePrefix": "attribute_prefix",
+                "docTag": "doc_tag",
+                "rootTag": "root_tag",
+                "valueTag": "value_tag"
+            },
+            "rockset:index/KafkaCollectionSource:KafkaCollectionSource": {
+                "consumerGroupId": "consumer_group_id",
+                "integrationName": "integration_name",
+                "offsetResetPolicy": "offset_reset_policy",
+                "statuses": "status",
+                "topicName": "topic_name",
+                "useV3": "use_v3"
+            },
+            "rockset:index/KafkaCollectionSourceStatus:KafkaCollectionSourceStatus": {
+                "documentsProcessed": "documents_processed",
+                "lastConsumedTime": "last_consumed_time"
+            },
+            "rockset:index/KafkaCollectionSourceStatusPartition:KafkaCollectionSourceStatusPartition": {
+                "offsetLag": "offset_lag",
+                "partitionNumber": "partition_number",
+                "partitionOffset": "partition_offset"
+            },
+            "rockset:index/KinesisCollectionSource:KinesisCollectionSource": {
+                "awsRegion": "aws_region",
+                "dmsPrimaryKeys": "dms_primary_key",
+                "integrationName": "integration_name",
+                "streamName": "stream_name"
+            },
+            "rockset:index/MongodbCollectionSource:MongodbCollectionSource": {
+                "collectionName": "collection_name",
+                "databaseName": "database_name",
+                "integrationName": "integration_name",
+                "retrieveFullDocument": "retrieve_full_document",
+                "scanEndTime": "scan_end_time",
+                "scanRecordsProcessed": "scan_records_processed",
+                "scanStartTime": "scan_start_time",
+                "scanTotalRecords": "scan_total_records",
+                "streamLastDeleteProcessedAt": "stream_last_delete_processed_at",
+                "streamLastInsertProcessedAt": "stream_last_insert_processed_at",
+                "streamLastUpdateProcessedAt": "stream_last_update_processed_at",
+                "streamRecordsDeleted": "stream_records_deleted",
+                "streamRecordsInserted": "stream_records_inserted",
+                "streamRecordsUpdated": "stream_records_updated"
+            },
+            "rockset:index/QueryLambdaSql:QueryLambdaSql": {
+                "defaultParameters": "default_parameter"
+            },
+            "rockset:index/RolePrivilege:RolePrivilege": {
+                "resourceName": "resource_name"
+            },
+            "rockset:index/S3CollectionSource:S3CollectionSource": {
+                "integrationName": "integration_name"
+            },
+            "rockset:index/S3CollectionSourceCsv:S3CollectionSourceCsv": {
+                "columnNames": "column_names",
+                "columnTypes": "column_types",
+                "escapeChar": "escape_char",
+                "firstLineAsColumnNames": "first_line_as_column_names",
+                "quoteChar": "quote_char"
+            },
+            "rockset:index/S3CollectionSourceXml:S3CollectionSourceXml": {
+                "attributePrefix": "attribute_prefix",
+                "docTag": "doc_tag",
+                "rootTag": "root_tag",
+                "valueTag": "value_tag"
+            },
+            "rockset:index/collection:Collection": {
+                "ingestTransformation": "ingest_transformation",
+                "retentionSecs": "retention_secs",
+                "waitForCollection": "wait_for_collection",
+                "waitForDocuments": "wait_for_documents"
+            },
+            "rockset:index/collectionMount:CollectionMount": {
+                "createdAt": "created_at",
+                "lastRefreshTime": "last_refresh_time",
+                "snapshotExpirationTime": "snapshot_expiration_time",
+                "virtualInstanceId": "virtual_instance_id",
+                "virtualInstanceRrn": "virtual_instance_rrn"
+            },
+            "rockset:index/dynamodbCollection:DynamodbCollection": {
+                "ingestTransformation": "ingest_transformation",
+                "retentionSecs": "retention_secs",
+                "sources": "source",
+                "waitForCollection": "wait_for_collection",
+                "waitForDocuments": "wait_for_documents"
+            },
+            "rockset:index/dynamodbIntegration:DynamodbIntegration": {
+                "awsRoleArn": "aws_role_arn",
+                "s3ExportBucketName": "s3_export_bucket_name"
+            },
+            "rockset:index/gcsCollection:GcsCollection": {
+                "ingestTransformation": "ingest_transformation",
+                "retentionSecs": "retention_secs",
+                "sources": "source",
+                "waitForCollection": "wait_for_collection",
+                "waitForDocuments": "wait_for_documents"
+            },
+            "rockset:index/gcsIntegration:GcsIntegration": {
+                "serviceAccountKey": "service_account_key"
+            },
+            "rockset:index/getAccount:getAccount": {
+                "accountId": "account_id",
+                "externalId": "external_id",
+                "rocksetUser": "rockset_user"
+            },
+            "rockset:index/getAccountCluster:getAccountCluster": {
+                "apiServer": "api_server",
+                "awsRegion": "aws_region"
+            },
+            "rockset:index/getQueryLambdaTag:getQueryLambdaTag": {
+                "lastExecuted": "last_executed"
+            },
+            "rockset:index/getUser:getUser": {
+                "firstName": "first_name",
+                "lastName": "last_name"
+            },
+            "rockset:index/getVirtualInstance:getVirtualInstance": {
+                "autoSuspendSeconds": "auto_suspend_seconds",
+                "currentSize": "current_size",
+                "desiredSize": "desired_size",
+                "enableRemountOnResume": "enable_remount_on_resume",
+                "mountRefreshIntervalSeconds": "mount_refresh_interval_seconds"
+            },
+            "rockset:index/getWorkspace:getWorkspace": {
+                "collectionCount": "collection_count",
+                "createdAt": "created_at",
+                "createdBy": "created_by"
+            },
+            "rockset:index/kafkaCollection:KafkaCollection": {
+                "ingestTransformation": "ingest_transformation",
+                "retentionSecs": "retention_secs",
+                "sources": "source",
+                "waitForCollection": "wait_for_collection",
+                "waitForDocuments": "wait_for_documents"
+            },
+            "rockset:index/kafkaIntegration:KafkaIntegration": {
+                "bootstrapServers": "bootstrap_servers",
+                "connectionString": "connection_string",
+                "kafkaDataFormat": "kafka_data_format",
+                "kafkaTopicNames": "kafka_topic_names",
+                "schemaRegistryConfig": "schema_registry_config",
+                "securityConfig": "security_config",
+                "useV3": "use_v3",
+                "waitForIntegration": "wait_for_integration"
+            },
+            "rockset:index/kinesisCollection:KinesisCollection": {
+                "ingestTransformation": "ingest_transformation",
+                "retentionSecs": "retention_secs",
+                "sources": "source",
+                "waitForCollection": "wait_for_collection",
+                "waitForDocuments": "wait_for_documents"
+            },
+            "rockset:index/kinesisIntegration:KinesisIntegration": {
+                "awsRoleArn": "aws_role_arn"
+            },
+            "rockset:index/mongodbCollection:MongodbCollection": {
+                "ingestTransformation": "ingest_transformation",
+                "retentionSecs": "retention_secs",
+                "sources": "source",
+                "waitForCollection": "wait_for_collection",
+                "waitForDocuments": "wait_for_documents"
+            },
+            "rockset:index/mongodbIntegration:MongodbIntegration": {
+                "connectionUri": "connection_uri"
+            },
+            "rockset:index/queryLambda:QueryLambda": {
+                "sqls": "sql"
+            },
+            "rockset:index/queryLambdaTag:QueryLambdaTag": {
+                "queryLambda": "query_lambda"
+            },
+            "rockset:index/role:Role": {
+                "createdAt": "created_at",
+                "createdBy": "created_by",
+                "ownerEmail": "owner_email",
+                "privileges": "privilege"
+            },
+            "rockset:index/s3Collection:S3Collection": {
+                "ingestTransformation": "ingest_transformation",
+                "retentionSecs": "retention_secs",
+                "sources": "source",
+                "waitForCollection": "wait_for_collection",
+                "waitForDocuments": "wait_for_documents"
+            },
+            "rockset:index/s3Integration:S3Integration": {
+                "awsRoleArn": "aws_role_arn"
+            },
+            "rockset:index/user:User": {
+                "createdAt": "created_at",
+                "firstName": "first_name",
+                "lastName": "last_name"
+            },
+            "rockset:index/view:View": {
+                "createdBy": "created_by"
+            },
+            "rockset:index/virtualInstance:VirtualInstance": {
+                "autoSuspendSeconds": "auto_suspend_seconds",
+                "currentSize": "current_size",
+                "desiredSize": "desired_size",
+                "monitoringEnabled": "monitoring_enabled",
+                "mountRefreshIntervalSeconds": "mount_refresh_interval_seconds",
+                "remountOnResume": "remount_on_resume"
+            },
+            "rockset:index/workspace:Workspace": {
+                "collectionCount": "collection_count",
+                "createdAt": "created_at",
+                "createdBy": "created_by"
+            },
+            "rockset:index:Provider": {
+                "apiKey": "api_key",
+                "apiServer": "api_server"
+            }
+        },
+        "renamedConfigProperties": {
+            "apiKey": "api_key",
+            "apiServer": "api_server"
+        }
+    }
+}
