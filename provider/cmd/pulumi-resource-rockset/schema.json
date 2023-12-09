@@ -1,0 +1,3395 @@
+{
+    "name": "rockset",
+    "description": "A Pulumi package for creating and managing rockset cloud resources.",
+    "keywords": [
+        "pulumi",
+        "rockset",
+        "category/cloud"
+    ],
+    "homepage": "https://www.pulumi.com",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`rockset` Terraform Provider](https://github.com/rockset/terraform-provider-rockset).",
+    "repository": "https://github.com/ddn0/pulumi-rockset",
+    "publisher": "Pulumi",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "packageReferences": {
+                "Pulumi": "3.*"
+            },
+            "compatibility": "tfbridge20"
+        },
+        "go": {
+            "importBasePath": "github.com/ddn0/pulumi-rockset/sdk/go/rockset",
+            "generateResourceContainerTypes": true,
+            "generateExtraInputTypes": true
+        },
+        "nodejs": {
+            "packageDescription": "A Pulumi package for creating and managing rockset cloud resources.",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/rockset/terraform-provider-rockset)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-rockset` repo](https://github.com/ddn0/pulumi-rockset/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-rockset` repo](https://github.com/rockset/terraform-provider-rockset/issues).",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "compatibility": "tfbridge20",
+            "disableUnionOutputTypes": true
+        },
+        "python": {
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            },
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/rockset/terraform-provider-rockset)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-rockset` repo](https://github.com/ddn0/pulumi-rockset/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-rockset` repo](https://github.com/rockset/terraform-provider-rockset/issues).",
+            "compatibility": "tfbridge20",
+            "pyproject": {}
+        }
+    },
+    "config": {
+        "variables": {
+            "apiKey": {
+                "type": "string",
+                "description": "The API key used to access Rockset\n",
+                "secret": true
+            },
+            "apiServer": {
+                "type": "string",
+                "description": "The API server for accessing Rockset\n"
+            }
+        }
+    },
+    "types": {
+        "rockset:index/DynamodbCollectionSource:DynamodbCollectionSource": {
+            "properties": {
+                "awsRegion": {
+                    "type": "string",
+                    "description": "AWS region name of DynamoDB table, by default us-west-2 is used.\n",
+                    "willReplaceOnChanges": true
+                },
+                "integrationName": {
+                    "type": "string",
+                    "description": "The name of the Rockset DynamoDB integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "rcu": {
+                    "type": "integer",
+                    "description": "Max RCU usage for scan.\n",
+                    "willReplaceOnChanges": true
+                },
+                "scanEndTime": {
+                    "type": "string",
+                    "description": "DynamoDB scan end time.\n"
+                },
+                "scanRecordsProcessed": {
+                    "type": "integer",
+                    "description": "Number of records inserted using scan.\n"
+                },
+                "scanStartTime": {
+                    "type": "string",
+                    "description": "DynamoDB scan start time.\n"
+                },
+                "scanTotalRecords": {
+                    "type": "integer",
+                    "description": "Number of records in DynamoDB table at time of scan.\n"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "State of current ingest for this table.\n"
+                },
+                "streamLastProcessedAt": {
+                    "type": "string",
+                    "description": "ISO-8601 date when source was last processed.\n"
+                },
+                "tableName": {
+                    "type": "string",
+                    "description": "Name of DynamoDB table containing data.\n",
+                    "willReplaceOnChanges": true
+                },
+                "useScanApi": {
+                    "type": "boolean",
+                    "description": "Whether the initial table scan should use the DynamoDB scan API. If false, export will be performed using an S3 bucket.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "integrationName",
+                "tableName"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "integrationName",
+                        "scanEndTime",
+                        "scanRecordsProcessed",
+                        "scanStartTime",
+                        "scanTotalRecords",
+                        "state",
+                        "streamLastProcessedAt",
+                        "tableName"
+                    ]
+                }
+            }
+        },
+        "rockset:index/GcsCollectionSource:GcsCollectionSource": {
+            "properties": {
+                "bucket": {
+                    "type": "string",
+                    "description": "GCS bucket containing the target data.\n",
+                    "willReplaceOnChanges": true
+                },
+                "csv": {
+                    "$ref": "#/types/rockset:index/GcsCollectionSourceCsv:GcsCollectionSourceCsv",
+                    "willReplaceOnChanges": true
+                },
+                "format": {
+                    "type": "string",
+                    "description": "Format of the data. One of: json, csv, xml. xml and csv blocks can only be set for their respective formats.\n",
+                    "willReplaceOnChanges": true
+                },
+                "integrationName": {
+                    "type": "string",
+                    "description": "The name of the Rockset GCS integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "prefix": {
+                    "type": "string",
+                    "description": "Simple path prefix to GCS key.\n",
+                    "willReplaceOnChanges": true
+                },
+                "xml": {
+                    "$ref": "#/types/rockset:index/GcsCollectionSourceXml:GcsCollectionSourceXml",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "bucket",
+                "format",
+                "integrationName"
+            ]
+        },
+        "rockset:index/GcsCollectionSourceCsv:GcsCollectionSourceCsv": {
+            "properties": {
+                "columnNames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The names of the columns.\n",
+                    "willReplaceOnChanges": true
+                },
+                "columnTypes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The types of the columns.\n",
+                    "willReplaceOnChanges": true
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": "Can be one of: UTF-8, ISO*8859*1, UTF-16.\n",
+                    "willReplaceOnChanges": true
+                },
+                "escapeChar": {
+                    "type": "string",
+                    "description": "Escape character removes any special meaning from the character that follows it. Defaults to backslash.\n",
+                    "willReplaceOnChanges": true
+                },
+                "firstLineAsColumnNames": {
+                    "type": "boolean",
+                    "description": "If the first line in every object specifies the column names.\n",
+                    "willReplaceOnChanges": true
+                },
+                "quoteChar": {
+                    "type": "string",
+                    "description": "Character within which a cell value is enclosed. Defaults to double quote.\n",
+                    "willReplaceOnChanges": true
+                },
+                "separator": {
+                    "type": "string",
+                    "description": "A single character that is the column separator.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object"
+        },
+        "rockset:index/GcsCollectionSourceXml:GcsCollectionSourceXml": {
+            "properties": {
+                "attributePrefix": {
+                    "type": "string",
+                    "description": "Tag to differentiate between attributes and elements.\n",
+                    "willReplaceOnChanges": true
+                },
+                "docTag": {
+                    "type": "string",
+                    "description": "Tags with which documents are identified\n",
+                    "willReplaceOnChanges": true
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": "Can be one of: UTF-8, ISO*8859*1, UTF-16.\n",
+                    "willReplaceOnChanges": true
+                },
+                "rootTag": {
+                    "type": "string",
+                    "description": "Tag until which xml is ignored.\n",
+                    "willReplaceOnChanges": true
+                },
+                "valueTag": {
+                    "type": "string",
+                    "description": "Tag used for the value when there are attributes in the element having no child.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object"
+        },
+        "rockset:index/KafkaCollectionSource:KafkaCollectionSource": {
+            "properties": {
+                "consumerGroupId": {
+                    "type": "string",
+                    "description": "The Kafka consumer group Id being used.\n"
+                },
+                "integrationName": {
+                    "type": "string",
+                    "description": "The name of the Rockset Kafka integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "offsetResetPolicy": {
+                    "type": "string",
+                    "description": "The offset reset policy. Possible values: LATEST, EARLIEST. Only valid with v3 collections.\n",
+                    "willReplaceOnChanges": true
+                },
+                "statuses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/KafkaCollectionSourceStatus:KafkaCollectionSourceStatus"
+                    }
+                },
+                "topicName": {
+                    "type": "string",
+                    "description": "Name of Kafka topic to be tailed.\n",
+                    "willReplaceOnChanges": true
+                },
+                "useV3": {
+                    "type": "boolean",
+                    "description": "Whether to use v3 integration. Required if the kafka integration uses v3.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "integrationName",
+                "topicName"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "consumerGroupId",
+                        "integrationName",
+                        "statuses",
+                        "topicName"
+                    ]
+                }
+            }
+        },
+        "rockset:index/KafkaCollectionSourceStatus:KafkaCollectionSourceStatus": {
+            "properties": {
+                "documentsProcessed": {
+                    "type": "integer"
+                },
+                "lastConsumedTime": {
+                    "type": "string"
+                },
+                "partitions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/KafkaCollectionSourceStatusPartition:KafkaCollectionSourceStatusPartition"
+                    }
+                },
+                "state": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "documentsProcessed",
+                        "lastConsumedTime",
+                        "partitions",
+                        "state"
+                    ]
+                }
+            }
+        },
+        "rockset:index/KafkaCollectionSourceStatusPartition:KafkaCollectionSourceStatusPartition": {
+            "properties": {
+                "offsetLag": {
+                    "type": "integer"
+                },
+                "partitionNumber": {
+                    "type": "integer"
+                },
+                "partitionOffset": {
+                    "type": "integer"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "offsetLag",
+                        "partitionNumber",
+                        "partitionOffset"
+                    ]
+                }
+            }
+        },
+        "rockset:index/KinesisCollectionSource:KinesisCollectionSource": {
+            "properties": {
+                "awsRegion": {
+                    "type": "string",
+                    "description": "AWS region name for the Kinesis stream, by default us-west-2 is used\n",
+                    "willReplaceOnChanges": true
+                },
+                "dmsPrimaryKeys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Set of fields that correspond to a DMS primary key. Can only be set if format is mysql or postgres.\n",
+                    "willReplaceOnChanges": true
+                },
+                "format": {
+                    "type": "string",
+                    "description": "Format of the data. One of: json, mysql, postgres. dms*primary*keys list can only be set for mysql or postgres.\n",
+                    "willReplaceOnChanges": true
+                },
+                "integrationName": {
+                    "type": "string",
+                    "description": "The name of the Rockset Kinesis integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "streamName": {
+                    "type": "string",
+                    "description": "Name of Kinesis stream.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "format",
+                "integrationName",
+                "streamName"
+            ]
+        },
+        "rockset:index/MongodbCollectionSource:MongodbCollectionSource": {
+            "properties": {
+                "collectionName": {
+                    "type": "string",
+                    "description": "MongoDB collection name of the target collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "databaseName": {
+                    "type": "string",
+                    "description": "MongoDB database name containing the target collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "integrationName": {
+                    "type": "string",
+                    "description": "The name of the Rockset MongoDB integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retrieveFullDocument": {
+                    "type": "boolean"
+                },
+                "scanEndTime": {
+                    "type": "string",
+                    "description": "MongoDB scan end time.\n"
+                },
+                "scanRecordsProcessed": {
+                    "type": "integer",
+                    "description": "Number of records inserted using scan.\n"
+                },
+                "scanStartTime": {
+                    "type": "string",
+                    "description": "MongoDB scan start time.\n"
+                },
+                "scanTotalRecords": {
+                    "type": "integer",
+                    "description": "Number of records in MongoDB table at time of scan.\n"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "State of current ingest for this table.\n"
+                },
+                "streamLastDeleteProcessedAt": {
+                    "type": "string",
+                    "description": "ISO-8601 date when delete from source was last processed.\n"
+                },
+                "streamLastInsertProcessedAt": {
+                    "type": "string",
+                    "description": "ISO-8601 date when new insert from source was last processed.\n"
+                },
+                "streamLastUpdateProcessedAt": {
+                    "type": "string",
+                    "description": "ISO-8601 date when update from source was last processed.\n"
+                },
+                "streamRecordsDeleted": {
+                    "type": "integer",
+                    "description": "Number of new records deleted using stream.\n"
+                },
+                "streamRecordsInserted": {
+                    "type": "integer",
+                    "description": "Number of new records inserted using stream.\n"
+                },
+                "streamRecordsUpdated": {
+                    "type": "integer",
+                    "description": "Number of new records updated using stream.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "collectionName",
+                "databaseName",
+                "integrationName"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "collectionName",
+                        "databaseName",
+                        "integrationName",
+                        "scanEndTime",
+                        "scanRecordsProcessed",
+                        "scanStartTime",
+                        "scanTotalRecords",
+                        "state",
+                        "streamLastDeleteProcessedAt",
+                        "streamLastInsertProcessedAt",
+                        "streamLastUpdateProcessedAt",
+                        "streamRecordsDeleted",
+                        "streamRecordsInserted",
+                        "streamRecordsUpdated"
+                    ]
+                }
+            }
+        },
+        "rockset:index/QueryLambdaSql:QueryLambdaSql": {
+            "properties": {
+                "defaultParameters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/QueryLambdaSqlDefaultParameter:QueryLambdaSqlDefaultParameter"
+                    }
+                },
+                "query": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "query"
+            ]
+        },
+        "rockset:index/QueryLambdaSqlDefaultParameter:QueryLambdaSqlDefaultParameter": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "type",
+                "value"
+            ]
+        },
+        "rockset:index/RolePrivilege:RolePrivilege": {
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "The action allowed by this privilege.\n"
+                },
+                "cluster": {
+                    "type": "string",
+                    "description": "Rockset cluster ID for which this action is allowed. Only valid for Workspace actions. Use '*ALL*' for actions which apply to all clusters.\n"
+                },
+                "resourceName": {
+                    "type": "string",
+                    "description": "The resource on which this action is allowed. Defaults to 'All' if not specified.\n"
+                }
+            },
+            "type": "object",
+            "required": [
+                "action"
+            ]
+        },
+        "rockset:index/S3CollectionSource:S3CollectionSource": {
+            "properties": {
+                "bucket": {
+                    "type": "string",
+                    "description": "S3 bucket containing the target data.\n",
+                    "willReplaceOnChanges": true
+                },
+                "csv": {
+                    "$ref": "#/types/rockset:index/S3CollectionSourceCsv:S3CollectionSourceCsv",
+                    "willReplaceOnChanges": true
+                },
+                "format": {
+                    "type": "string",
+                    "description": "Format of the data. One of: json, csv, xml. xml and csv blocks can only be set for their respective formats.\n",
+                    "willReplaceOnChanges": true
+                },
+                "integrationName": {
+                    "type": "string",
+                    "description": "The name of the Rockset S3 integration. If no S3 integration is provided only data in public S3 buckets are accessible.\n",
+                    "willReplaceOnChanges": true
+                },
+                "pattern": {
+                    "type": "string",
+                    "description": "Regex path pattern to S3 keys.\n",
+                    "willReplaceOnChanges": true
+                },
+                "prefix": {
+                    "type": "string",
+                    "description": "Simple path prefix to S3 keys.\n",
+                    "deprecationMessage": "use pattern instead",
+                    "willReplaceOnChanges": true
+                },
+                "xml": {
+                    "$ref": "#/types/rockset:index/S3CollectionSourceXml:S3CollectionSourceXml",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "bucket",
+                "format",
+                "integrationName"
+            ]
+        },
+        "rockset:index/S3CollectionSourceCsv:S3CollectionSourceCsv": {
+            "properties": {
+                "columnNames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The names of the columns.\n",
+                    "willReplaceOnChanges": true
+                },
+                "columnTypes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The types of the columns.\n",
+                    "willReplaceOnChanges": true
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": "Can be one of: UTF-8, ISO*8859*1, UTF-16.\n",
+                    "willReplaceOnChanges": true
+                },
+                "escapeChar": {
+                    "type": "string",
+                    "description": "Escape character removes any special meaning from the character that follows it. Defaults to backslash.\n",
+                    "willReplaceOnChanges": true
+                },
+                "firstLineAsColumnNames": {
+                    "type": "boolean",
+                    "description": "If the first line in every object specifies the column names.\n",
+                    "willReplaceOnChanges": true
+                },
+                "quoteChar": {
+                    "type": "string",
+                    "description": "Character within which a cell value is enclosed. Defaults to double quote.\n",
+                    "willReplaceOnChanges": true
+                },
+                "separator": {
+                    "type": "string",
+                    "description": "A single character that is the column separator.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object"
+        },
+        "rockset:index/S3CollectionSourceXml:S3CollectionSourceXml": {
+            "properties": {
+                "attributePrefix": {
+                    "type": "string",
+                    "description": "Tag to differentiate between attributes and elements.\n",
+                    "willReplaceOnChanges": true
+                },
+                "docTag": {
+                    "type": "string",
+                    "description": "Tags with which documents are identified\n",
+                    "willReplaceOnChanges": true
+                },
+                "encoding": {
+                    "type": "string",
+                    "description": "Can be one of: UTF-8, ISO*8859*1, UTF-16.\n",
+                    "willReplaceOnChanges": true
+                },
+                "rootTag": {
+                    "type": "string",
+                    "description": "Tag until which xml is ignored.\n",
+                    "willReplaceOnChanges": true
+                },
+                "valueTag": {
+                    "type": "string",
+                    "description": "Tag used for the value when there are attributes in the element having no child.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "type": "object"
+        },
+        "rockset:index/getAccountCluster:getAccountCluster": {
+            "properties": {
+                "apiServer": {
+                    "type": "string"
+                },
+                "awsRegion": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "apiServer",
+                "awsRegion",
+                "type"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        }
+    },
+    "provider": {
+        "description": "The provider type for the rockset package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "apiKey": {
+                "type": "string",
+                "description": "The API key used to access Rockset\n",
+                "secret": true
+            },
+            "apiServer": {
+                "type": "string",
+                "description": "The API server for accessing Rockset\n"
+            }
+        },
+        "inputProperties": {
+            "apiKey": {
+                "type": "string",
+                "description": "The API key used to access Rockset\n",
+                "secret": true
+            },
+            "apiServer": {
+                "type": "string",
+                "description": "The API server for accessing Rockset\n"
+            }
+        }
+    },
+    "resources": {
+        "rockset:index/alias:Alias": {
+            "description": "Manages an alias for a set of collections.\n",
+            "properties": {
+                "collections": {
+                    "type": "string",
+                    "description": "List of collections for this alias to refer to.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the alias.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the alias. Can contain alphanumeric or dash characters.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "Name of the workspace the alias will be in.\n"
+                }
+            },
+            "required": [
+                "collections",
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "collections": {
+                    "type": "string",
+                    "description": "List of collections for this alias to refer to.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the alias.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the alias. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "Name of the workspace the alias will be in.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "collections",
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Alias resources.\n",
+                "properties": {
+                    "collections": {
+                        "type": "string",
+                        "description": "List of collections for this alias to refer to.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the alias.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the alias. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "Name of the workspace the alias will be in.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/apiKey:ApiKey": {
+            "description": "Manage a Rockset Api Key.\n\nCan be used together with roles to scope the actions the api key can take.\n",
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "The resulting Rockset api key.\n",
+                    "secret": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the api key.\n"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role the api key will use. If not specified, \"All User Assigned Roles\" will be used.\n"
+                },
+                "user": {
+                    "type": "string",
+                    "description": "The user the key is created for.\n"
+                }
+            },
+            "required": [
+                "key",
+                "name",
+                "user"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "Name of the api key.\n",
+                    "willReplaceOnChanges": true
+                },
+                "role": {
+                    "type": "string",
+                    "description": "The role the api key will use. If not specified, \"All User Assigned Roles\" will be used.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering ApiKey resources.\n",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "description": "The resulting Rockset api key.\n",
+                        "secret": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the api key.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "The role the api key will use. If not specified, \"All User Assigned Roles\" will be used.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "user": {
+                        "type": "string",
+                        "description": "The user the key is created for.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/collection:Collection": {
+            "description": "Manages a basic collection with no sources. Usually used for the write api.\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n"
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n"
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n"
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Collection resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n"
+                    },
+                    "ingestTransformation": {
+                        "type": "string",
+                        "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "retentionSecs": {
+                        "type": "integer",
+                        "description": "Number of seconds after which data is purged. Based on event time.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForCollection": {
+                        "type": "boolean",
+                        "description": "Wait until the collection is ready.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForDocuments": {
+                        "type": "integer",
+                        "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/collectionMount:CollectionMount": {
+            "description": "Manages a collection mount.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst data = new rockset.CollectionMount(\"data\", {\n    virtualInstanceId: rockset_virtual_instance.secondary.id,\n    path: \"commons.data\",\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\ndata = rockset.CollectionMount(\"data\",\n    virtual_instance_id=rockset_virtual_instance[\"secondary\"][\"id\"],\n    path=\"commons.data\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var data = new Rockset.CollectionMount(\"data\", new()\n    {\n        VirtualInstanceId = rockset_virtual_instance.Secondary.Id,\n        Path = \"commons.data\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.NewCollectionMount(ctx, \"data\", \u0026rockset.CollectionMountArgs{\n\t\t\tVirtualInstanceId: pulumi.Any(rockset_virtual_instance.Secondary.Id),\n\t\t\tPath:              pulumi.String(\"commons.data\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.CollectionMount;\nimport com.pulumi.rockset.CollectionMountArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var data = new CollectionMount(\"data\", CollectionMountArgs.builder()        \n            .virtualInstanceId(rockset_virtual_instance.secondary().id())\n            .path(\"commons.data\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  data:\n    type: rockset:CollectionMount\n    properties:\n      virtualInstanceId: ${rockset_virtual_instance.secondary.id}\n      path: commons.data\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import rockset:index/collectionMount:CollectionMount demo 29e4a43c-fff4-4fe6-80e3-1ee57bc22e82\n```\n\n ",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "description": "ISO 8601 date when the mount was created.\n"
+                },
+                "lastRefreshTime": {
+                    "type": "integer",
+                    "description": "UNIX timestamp in milliseconds for most recent refresh. Not applicable for live mounts.\n"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Collection path to be mounted, in the form workspace.collection\n"
+                },
+                "rrn": {
+                    "type": "string",
+                    "description": "RRN of this mount.\n"
+                },
+                "snapshotExpirationTime": {
+                    "type": "integer",
+                    "description": "UNIX timestamp in milliseconds when the snapshot expires.\n"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "Mount state.\n"
+                },
+                "virtualInstanceId": {
+                    "type": "string",
+                    "description": "Virtual Instance id\n"
+                },
+                "virtualInstanceRrn": {
+                    "type": "string",
+                    "description": "Virtual Instance RRN\n"
+                }
+            },
+            "required": [
+                "createdAt",
+                "lastRefreshTime",
+                "path",
+                "rrn",
+                "snapshotExpirationTime",
+                "state",
+                "virtualInstanceId",
+                "virtualInstanceRrn"
+            ],
+            "inputProperties": {
+                "path": {
+                    "type": "string",
+                    "description": "Collection path to be mounted, in the form workspace.collection\n",
+                    "willReplaceOnChanges": true
+                },
+                "virtualInstanceId": {
+                    "type": "string",
+                    "description": "Virtual Instance id\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "path",
+                "virtualInstanceId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering CollectionMount resources.\n",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "description": "ISO 8601 date when the mount was created.\n"
+                    },
+                    "lastRefreshTime": {
+                        "type": "integer",
+                        "description": "UNIX timestamp in milliseconds for most recent refresh. Not applicable for live mounts.\n"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Collection path to be mounted, in the form workspace.collection\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "rrn": {
+                        "type": "string",
+                        "description": "RRN of this mount.\n"
+                    },
+                    "snapshotExpirationTime": {
+                        "type": "integer",
+                        "description": "UNIX timestamp in milliseconds when the snapshot expires.\n"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "Mount state.\n"
+                    },
+                    "virtualInstanceId": {
+                        "type": "string",
+                        "description": "Virtual Instance id\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "virtualInstanceRrn": {
+                        "type": "string",
+                        "description": "Virtual Instance RRN\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/dynamodbCollection:DynamodbCollection": {
+            "description": "Manages a collection with an DynamoDB source attached.\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n"
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/DynamodbCollectionSource:DynamodbCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n"
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n"
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/DynamodbCollectionSource:DynamodbCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DynamodbCollection resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n"
+                    },
+                    "ingestTransformation": {
+                        "type": "string",
+                        "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "retentionSecs": {
+                        "type": "integer",
+                        "description": "Number of seconds after which data is purged. Based on event time.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/DynamodbCollectionSource:DynamodbCollectionSource"
+                        },
+                        "description": "Defines a source for this collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForCollection": {
+                        "type": "boolean",
+                        "description": "Wait until the collection is ready.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForDocuments": {
+                        "type": "integer",
+                        "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/dynamodbIntegration:DynamodbIntegration": {
+            "description": "Manages a Rockset DynamoDB Integration.\n",
+            "properties": {
+                "awsRoleArn": {
+                    "type": "string",
+                    "description": "The AWS Role Arn to use for this integration.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n"
+                },
+                "s3ExportBucketName": {
+                    "type": "string",
+                    "description": "AWS S3 bucket name used for exporting the DynamoDB tables.\n"
+                }
+            },
+            "required": [
+                "awsRoleArn",
+                "name",
+                "s3ExportBucketName"
+            ],
+            "inputProperties": {
+                "awsRoleArn": {
+                    "type": "string",
+                    "description": "The AWS Role Arn to use for this integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "s3ExportBucketName": {
+                    "type": "string",
+                    "description": "AWS S3 bucket name used for exporting the DynamoDB tables.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "awsRoleArn",
+                "s3ExportBucketName"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DynamodbIntegration resources.\n",
+                "properties": {
+                    "awsRoleArn": {
+                        "type": "string",
+                        "description": "The AWS Role Arn to use for this integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "s3ExportBucketName": {
+                        "type": "string",
+                        "description": "AWS S3 bucket name used for exporting the DynamoDB tables.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/gcsCollection:GcsCollection": {
+            "description": "Manages a collection with an GCS source attached.\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n"
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/GcsCollectionSource:GcsCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n"
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n"
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/GcsCollectionSource:GcsCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GcsCollection resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n"
+                    },
+                    "ingestTransformation": {
+                        "type": "string",
+                        "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "retentionSecs": {
+                        "type": "integer",
+                        "description": "Number of seconds after which data is purged. Based on event time.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/GcsCollectionSource:GcsCollectionSource"
+                        },
+                        "description": "Defines a source for this collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForCollection": {
+                        "type": "boolean",
+                        "description": "Wait until the collection is ready.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForDocuments": {
+                        "type": "integer",
+                        "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/gcsIntegration:GcsIntegration": {
+            "description": "Manages a Rockset GCS Integration.\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n"
+                },
+                "serviceAccountKey": {
+                    "type": "string",
+                    "description": "The GCP service account key JSON.\n"
+                }
+            },
+            "required": [
+                "name",
+                "serviceAccountKey"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "serviceAccountKey": {
+                    "type": "string",
+                    "description": "The GCP service account key JSON.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "serviceAccountKey"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering GcsIntegration resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "serviceAccountKey": {
+                        "type": "string",
+                        "description": "The GCP service account key JSON.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/kafkaCollection:KafkaCollection": {
+            "description": "Manages a collection created from a Kafka source. The `use_v3` field must match the integration which the collection is created from.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst config = new pulumi.Config();\nconst bootstrapServers = config.requireObject(\"bootstrapServers\");\nconst apikey = config.requireObject(\"apikey\");\nconst secret = config.requireObject(\"secret\");\nconst confluentKafkaIntegration = new rockset.KafkaIntegration(\"confluentKafkaIntegration\", {\n    description: \"Integration to ingest documents from Confluent Cloud\",\n    useV3: true,\n    bootstrapServers: bootstrapServers,\n    securityConfig: {\n        api_key: apikey,\n        secret: secret,\n    },\n});\nconst confluentWorkspace = new rockset.Workspace(\"confluentWorkspace\", {description: \"Collections from Confluent Cloud topics.\"});\nconst test = new rockset.KafkaCollection(\"test\", {\n    workspace: confluentWorkspace.name,\n    description: \"Collection from a Confluent Cloud topic.\",\n    retentionSecs: 3600,\n    sources: [{\n        integrationName: confluentKafkaIntegration.name,\n        useV3: true,\n        topicName: \"test_json\",\n        offsetResetPolicy: \"EARLIEST\",\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\nconfig = pulumi.Config()\nbootstrap_servers = config.require_object(\"bootstrapServers\")\napikey = config.require_object(\"apikey\")\nsecret = config.require_object(\"secret\")\nconfluent_kafka_integration = rockset.KafkaIntegration(\"confluentKafkaIntegration\",\n    description=\"Integration to ingest documents from Confluent Cloud\",\n    use_v3=True,\n    bootstrap_servers=bootstrap_servers,\n    security_config={\n        \"api_key\": apikey,\n        \"secret\": secret,\n    })\nconfluent_workspace = rockset.Workspace(\"confluentWorkspace\", description=\"Collections from Confluent Cloud topics.\")\ntest = rockset.KafkaCollection(\"test\",\n    workspace=confluent_workspace.name,\n    description=\"Collection from a Confluent Cloud topic.\",\n    retention_secs=3600,\n    sources=[rockset.KafkaCollectionSourceArgs(\n        integration_name=confluent_kafka_integration.name,\n        use_v3=True,\n        topic_name=\"test_json\",\n        offset_reset_policy=\"EARLIEST\",\n    )])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var config = new Config();\n    var bootstrapServers = config.RequireObject\u003cdynamic\u003e(\"bootstrapServers\");\n    var apikey = config.RequireObject\u003cdynamic\u003e(\"apikey\");\n    var secret = config.RequireObject\u003cdynamic\u003e(\"secret\");\n    var confluentKafkaIntegration = new Rockset.KafkaIntegration(\"confluentKafkaIntegration\", new()\n    {\n        Description = \"Integration to ingest documents from Confluent Cloud\",\n        UseV3 = true,\n        BootstrapServers = bootstrapServers,\n        SecurityConfig = \n        {\n            { \"api_key\", apikey },\n            { \"secret\", secret },\n        },\n    });\n\n    var confluentWorkspace = new Rockset.Workspace(\"confluentWorkspace\", new()\n    {\n        Description = \"Collections from Confluent Cloud topics.\",\n    });\n\n    var test = new Rockset.KafkaCollection(\"test\", new()\n    {\n        Workspace = confluentWorkspace.Name,\n        Description = \"Collection from a Confluent Cloud topic.\",\n        RetentionSecs = 3600,\n        Sources = new[]\n        {\n            new Rockset.Inputs.KafkaCollectionSourceArgs\n            {\n                IntegrationName = confluentKafkaIntegration.Name,\n                UseV3 = true,\n                TopicName = \"test_json\",\n                OffsetResetPolicy = \"EARLIEST\",\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tcfg := config.New(ctx, \"\")\n\t\tbootstrapServers := cfg.RequireObject(\"bootstrapServers\")\n\t\tapikey := cfg.RequireObject(\"apikey\")\n\t\tsecret := cfg.RequireObject(\"secret\")\n\t\tconfluentKafkaIntegration, err := rockset.NewKafkaIntegration(ctx, \"confluentKafkaIntegration\", \u0026rockset.KafkaIntegrationArgs{\n\t\t\tDescription:      pulumi.String(\"Integration to ingest documents from Confluent Cloud\"),\n\t\t\tUseV3:            pulumi.Bool(true),\n\t\t\tBootstrapServers: pulumi.Any(bootstrapServers),\n\t\t\tSecurityConfig: pulumi.StringMap{\n\t\t\t\t\"api_key\": pulumi.Any(apikey),\n\t\t\t\t\"secret\":  pulumi.Any(secret),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tconfluentWorkspace, err := rockset.NewWorkspace(ctx, \"confluentWorkspace\", \u0026rockset.WorkspaceArgs{\n\t\t\tDescription: pulumi.String(\"Collections from Confluent Cloud topics.\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = rockset.NewKafkaCollection(ctx, \"test\", \u0026rockset.KafkaCollectionArgs{\n\t\t\tWorkspace:     confluentWorkspace.Name,\n\t\t\tDescription:   pulumi.String(\"Collection from a Confluent Cloud topic.\"),\n\t\t\tRetentionSecs: pulumi.Int(3600),\n\t\t\tSources: rockset.KafkaCollectionSourceArray{\n\t\t\t\t\u0026rockset.KafkaCollectionSourceArgs{\n\t\t\t\t\tIntegrationName:   confluentKafkaIntegration.Name,\n\t\t\t\t\tUseV3:             pulumi.Bool(true),\n\t\t\t\t\tTopicName:         pulumi.String(\"test_json\"),\n\t\t\t\t\tOffsetResetPolicy: pulumi.String(\"EARLIEST\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.KafkaIntegration;\nimport com.pulumi.rockset.KafkaIntegrationArgs;\nimport com.pulumi.rockset.Workspace;\nimport com.pulumi.rockset.WorkspaceArgs;\nimport com.pulumi.rockset.KafkaCollection;\nimport com.pulumi.rockset.KafkaCollectionArgs;\nimport com.pulumi.rockset.inputs.KafkaCollectionSourceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var config = ctx.config();\n        final var bootstrapServers = config.get(\"bootstrapServers\");\n        final var apikey = config.get(\"apikey\");\n        final var secret = config.get(\"secret\");\n        var confluentKafkaIntegration = new KafkaIntegration(\"confluentKafkaIntegration\", KafkaIntegrationArgs.builder()        \n            .description(\"Integration to ingest documents from Confluent Cloud\")\n            .useV3(true)\n            .bootstrapServers(bootstrapServers)\n            .securityConfig(Map.ofEntries(\n                Map.entry(\"api_key\", apikey),\n                Map.entry(\"secret\", secret)\n            ))\n            .build());\n\n        var confluentWorkspace = new Workspace(\"confluentWorkspace\", WorkspaceArgs.builder()        \n            .description(\"Collections from Confluent Cloud topics.\")\n            .build());\n\n        var test = new KafkaCollection(\"test\", KafkaCollectionArgs.builder()        \n            .workspace(confluentWorkspace.name())\n            .description(\"Collection from a Confluent Cloud topic.\")\n            .retentionSecs(3600)\n            .sources(KafkaCollectionSourceArgs.builder()\n                .integrationName(confluentKafkaIntegration.name())\n                .useV3(true)\n                .topicName(\"test_json\")\n                .offsetResetPolicy(\"EARLIEST\")\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nconfiguration:\n  bootstrapServers:\n    type: dynamic\n  apikey:\n    type: dynamic\n  secret:\n    type: dynamic\nresources:\n  confluentKafkaIntegration:\n    type: rockset:KafkaIntegration\n    properties:\n      description: Integration to ingest documents from Confluent Cloud\n      useV3: true\n      bootstrapServers: ${bootstrapServers}\n      securityConfig:\n        api_key: ${apikey}\n        secret: ${secret}\n  confluentWorkspace:\n    type: rockset:Workspace\n    properties:\n      description: Collections from Confluent Cloud topics.\n  test:\n    type: rockset:KafkaCollection\n    properties:\n      workspace: ${confluentWorkspace.name}\n      description: Collection from a Confluent Cloud topic.\n      retentionSecs: 3600\n      sources:\n        - integrationName: ${confluentKafkaIntegration.name}\n          useV3: true\n          topicName: test_json\n          offsetResetPolicy: EARLIEST\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n"
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/KafkaCollectionSource:KafkaCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n"
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n"
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/KafkaCollectionSource:KafkaCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering KafkaCollection resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n"
+                    },
+                    "ingestTransformation": {
+                        "type": "string",
+                        "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "retentionSecs": {
+                        "type": "integer",
+                        "description": "Number of seconds after which data is purged. Based on event time.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/KafkaCollectionSource:KafkaCollectionSource"
+                        },
+                        "description": "Defines a source for this collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForCollection": {
+                        "type": "boolean",
+                        "description": "Wait until the collection is ready.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForDocuments": {
+                        "type": "integer",
+                        "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/kafkaIntegration:KafkaIntegration": {
+            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as _null from \"@pulumi/null\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst config = new pulumi.Config();\nconst rocksetApiserver = config.get(\"rocksetApiserver\") || \"https://api.usw2a1.rockset.com\";\nconst kafkaConnect = config.get(\"kafkaConnect\") || \"localhost:8083\";\nconst topics = config.requireObject(\"topics\");\nconst maxTasks = config.getNumber(\"maxTasks\") || 10;\nconst local = new rockset.KafkaIntegration(\"local\", {\n    description: \"Integration to ingest from a local kafka.\",\n    kafkaDataFormat: \"JSON\",\n    kafkaTopicNames: [\n        \"foo\",\n        \"bar\",\n    ],\n    waitForIntegration: false,\n});\nconst configure_kafka_connect = new _null.Resource(\"configure-kafka-connect\", {});\n```\n```python\nimport pulumi\nimport pulumi_null as null\nimport pulumi_rockset as rockset\n\nconfig = pulumi.Config()\nrockset_apiserver = config.get(\"rocksetApiserver\")\nif rockset_apiserver is None:\n    rockset_apiserver = \"https://api.usw2a1.rockset.com\"\nkafka_connect = config.get(\"kafkaConnect\")\nif kafka_connect is None:\n    kafka_connect = \"localhost:8083\"\ntopics = config.require_object(\"topics\")\nmax_tasks = config.get_float(\"maxTasks\")\nif max_tasks is None:\n    max_tasks = 10\nlocal = rockset.KafkaIntegration(\"local\",\n    description=\"Integration to ingest from a local kafka.\",\n    kafka_data_format=\"JSON\",\n    kafka_topic_names=[\n        \"foo\",\n        \"bar\",\n    ],\n    wait_for_integration=False)\nconfigure_kafka_connect = null.Resource(\"configure-kafka-connect\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Null = Pulumi.Null;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var config = new Config();\n    var rocksetApiserver = config.Get(\"rocksetApiserver\") ?? \"https://api.usw2a1.rockset.com\";\n    var kafkaConnect = config.Get(\"kafkaConnect\") ?? \"localhost:8083\";\n    var topics = config.RequireObject\u003cdynamic\u003e(\"topics\");\n    var maxTasks = config.GetDouble(\"maxTasks\") ?? 10;\n    var local = new Rockset.KafkaIntegration(\"local\", new()\n    {\n        Description = \"Integration to ingest from a local kafka.\",\n        KafkaDataFormat = \"JSON\",\n        KafkaTopicNames = new[]\n        {\n            \"foo\",\n            \"bar\",\n        },\n        WaitForIntegration = false,\n    });\n\n    var configure_kafka_connect = new Null.Resource(\"configure-kafka-connect\");\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi-null/sdk/go/null\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tcfg := config.New(ctx, \"\")\n\t\trocksetApiserver := \"https://api.usw2a1.rockset.com\"\n\t\tif param := cfg.Get(\"rocksetApiserver\"); param != \"\" {\n\t\t\trocksetApiserver = param\n\t\t}\n\t\tkafkaConnect := \"localhost:8083\"\n\t\tif param := cfg.Get(\"kafkaConnect\"); param != \"\" {\n\t\t\tkafkaConnect = param\n\t\t}\n\t\ttopics := cfg.RequireObject(\"topics\")\n\t\tmaxTasks := float64(10)\n\t\tif param := cfg.GetFloat64(\"maxTasks\"); param != 0 {\n\t\t\tmaxTasks = param\n\t\t}\n\t\t_, err := rockset.NewKafkaIntegration(ctx, \"local\", \u0026rockset.KafkaIntegrationArgs{\n\t\t\tDescription:     pulumi.String(\"Integration to ingest from a local kafka.\"),\n\t\t\tKafkaDataFormat: pulumi.String(\"JSON\"),\n\t\t\tKafkaTopicNames: pulumi.StringArray{\n\t\t\t\tpulumi.String(\"foo\"),\n\t\t\t\tpulumi.String(\"bar\"),\n\t\t\t},\n\t\t\tWaitForIntegration: pulumi.Bool(false),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = null.NewResource(ctx, \"configure-kafka-connect\", nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.KafkaIntegration;\nimport com.pulumi.rockset.KafkaIntegrationArgs;\nimport com.pulumi.null.Resource;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var config = ctx.config();\n        final var rocksetApiserver = config.get(\"rocksetApiserver\").orElse(\"https://api.usw2a1.rockset.com\");\n        final var kafkaConnect = config.get(\"kafkaConnect\").orElse(\"localhost:8083\");\n        final var topics = config.get(\"topics\");\n        final var maxTasks = config.get(\"maxTasks\").orElse(10);\n        var local = new KafkaIntegration(\"local\", KafkaIntegrationArgs.builder()        \n            .description(\"Integration to ingest from a local kafka.\")\n            .kafkaDataFormat(\"JSON\")\n            .kafkaTopicNames(            \n                \"foo\",\n                \"bar\")\n            .waitForIntegration(false)\n            .build());\n\n        var configure_kafka_connect = new Resource(\"configure-kafka-connect\");\n\n    }\n}\n```\n```yaml\nconfiguration:\n  rocksetApiserver:\n    type: string\n    default: https://api.usw2a1.rockset.com\n  kafkaConnect:\n    type: string\n    default: localhost:8083\n  topics:\n    type: dynamic\n  maxTasks:\n    type: number\n    default: 10\nresources:\n  local:\n    type: rockset:KafkaIntegration\n    properties:\n      description: Integration to ingest from a local kafka.\n      kafkaDataFormat: JSON\n      kafkaTopicNames:\n        - foo\n        - bar\n      waitForIntegration: false\n  configure-kafka-connect:\n    type: null:Resource\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "bootstrapServers": {
+                    "type": "string",
+                    "description": "The Kafka bootstrap server url(s). Required only for V3 integration.\n"
+                },
+                "connectionString": {
+                    "type": "string",
+                    "description": "Kafka connection string.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n"
+                },
+                "kafkaDataFormat": {
+                    "type": "string",
+                    "description": "The format of the Kafka topics being tailed. Possible values: JSON, AVRO.\n"
+                },
+                "kafkaTopicNames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Kafka topics to tail.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n"
+                },
+                "schemaRegistryConfig": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Kafka configuration for schema registry. Required only for V3 integration.\n"
+                },
+                "securityConfig": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Kafka security configurations. Required only for V3 integration.\n"
+                },
+                "useV3": {
+                    "type": "boolean",
+                    "description": "Use v3 for Confluent Cloud.\n"
+                },
+                "waitForIntegration": {
+                    "type": "boolean",
+                    "description": "Wait until the integration is active.\n"
+                }
+            },
+            "required": [
+                "connectionString",
+                "name"
+            ],
+            "inputProperties": {
+                "bootstrapServers": {
+                    "type": "string",
+                    "description": "The Kafka bootstrap server url(s). Required only for V3 integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "connectionString": {
+                    "type": "string",
+                    "description": "Kafka connection string.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "kafkaDataFormat": {
+                    "type": "string",
+                    "description": "The format of the Kafka topics being tailed. Possible values: JSON, AVRO.\n",
+                    "willReplaceOnChanges": true
+                },
+                "kafkaTopicNames": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Kafka topics to tail.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "schemaRegistryConfig": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Kafka configuration for schema registry. Required only for V3 integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "securityConfig": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Kafka security configurations. Required only for V3 integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "useV3": {
+                    "type": "boolean",
+                    "description": "Use v3 for Confluent Cloud.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForIntegration": {
+                    "type": "boolean",
+                    "description": "Wait until the integration is active.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering KafkaIntegration resources.\n",
+                "properties": {
+                    "bootstrapServers": {
+                        "type": "string",
+                        "description": "The Kafka bootstrap server url(s). Required only for V3 integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "connectionString": {
+                        "type": "string",
+                        "description": "Kafka connection string.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "kafkaDataFormat": {
+                        "type": "string",
+                        "description": "The format of the Kafka topics being tailed. Possible values: JSON, AVRO.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "kafkaTopicNames": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Kafka topics to tail.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "schemaRegistryConfig": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Kafka configuration for schema registry. Required only for V3 integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "securityConfig": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Kafka security configurations. Required only for V3 integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "useV3": {
+                        "type": "boolean",
+                        "description": "Use v3 for Confluent Cloud.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForIntegration": {
+                        "type": "boolean",
+                        "description": "Wait until the integration is active.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/kinesisCollection:KinesisCollection": {
+            "description": "Manages a collection with an Kinesis source attached.\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n"
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/KinesisCollectionSource:KinesisCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n"
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n"
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/KinesisCollectionSource:KinesisCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering KinesisCollection resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n"
+                    },
+                    "ingestTransformation": {
+                        "type": "string",
+                        "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "retentionSecs": {
+                        "type": "integer",
+                        "description": "Number of seconds after which data is purged. Based on event time.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/KinesisCollectionSource:KinesisCollectionSource"
+                        },
+                        "description": "Defines a source for this collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForCollection": {
+                        "type": "boolean",
+                        "description": "Wait until the collection is ready.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForDocuments": {
+                        "type": "integer",
+                        "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/kinesisIntegration:KinesisIntegration": {
+            "description": "Manages a Rockset Kinesis Integration.\n",
+            "properties": {
+                "awsRoleArn": {
+                    "type": "string",
+                    "description": "The AWS Role Arn to use for this integration.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n"
+                }
+            },
+            "required": [
+                "awsRoleArn",
+                "name"
+            ],
+            "inputProperties": {
+                "awsRoleArn": {
+                    "type": "string",
+                    "description": "The AWS Role Arn to use for this integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "awsRoleArn"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering KinesisIntegration resources.\n",
+                "properties": {
+                    "awsRoleArn": {
+                        "type": "string",
+                        "description": "The AWS Role Arn to use for this integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/mongodbCollection:MongodbCollection": {
+            "description": "Manages a collection with an MongoDB source attached.\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n"
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/MongodbCollectionSource:MongodbCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n"
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n"
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/MongodbCollectionSource:MongodbCollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering MongodbCollection resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n"
+                    },
+                    "ingestTransformation": {
+                        "type": "string",
+                        "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "retentionSecs": {
+                        "type": "integer",
+                        "description": "Number of seconds after which data is purged. Based on event time.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/MongodbCollectionSource:MongodbCollectionSource"
+                        },
+                        "description": "Defines a source for this collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForCollection": {
+                        "type": "boolean",
+                        "description": "Wait until the collection is ready.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForDocuments": {
+                        "type": "integer",
+                        "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/mongodbIntegration:MongodbIntegration": {
+            "description": "Manages a Rockset MongoDB Integration.\n",
+            "properties": {
+                "connectionUri": {
+                    "type": "string",
+                    "description": "MongoDB connection URI string. The password is scrubbed from the URI when fetched by the API so this field is NOT set on imports and reads.\n",
+                    "secret": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n"
+                }
+            },
+            "required": [
+                "connectionUri",
+                "name"
+            ],
+            "inputProperties": {
+                "connectionUri": {
+                    "type": "string",
+                    "description": "MongoDB connection URI string. The password is scrubbed from the URI when fetched by the API so this field is NOT set on imports and reads.\n",
+                    "secret": true,
+                    "willReplaceOnChanges": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "connectionUri"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering MongodbIntegration resources.\n",
+                "properties": {
+                    "connectionUri": {
+                        "type": "string",
+                        "description": "MongoDB connection URI string. The password is scrubbed from the URI when fetched by the API so this field is NOT set on imports and reads.\n",
+                        "secret": true,
+                        "willReplaceOnChanges": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/queryLambda:QueryLambda": {
+            "description": "Manages a Rockset Query Lambda.\n",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the query lambda.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the query lambda. Can contain alphanumeric or dash characters.\n"
+                },
+                "sqls": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/QueryLambdaSql:QueryLambdaSql"
+                    }
+                },
+                "state": {
+                    "type": "string",
+                    "description": "The latest state of this query lambda.\n"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The latest version string of this query lambda.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "sqls",
+                "state",
+                "version",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the query lambda.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the query lambda. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sqls": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/QueryLambdaSql:QueryLambdaSql"
+                    }
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "sqls",
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering QueryLambda resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the query lambda.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the query lambda. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sqls": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/QueryLambdaSql:QueryLambdaSql"
+                        }
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "The latest state of this query lambda.\n"
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "The latest version string of this query lambda.\n"
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/queryLambdaTag:QueryLambdaTag": {
+            "description": "Manages a Rockset Query Lambda Tag.\n",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the tag. Can contain alphanumeric or dash characters.\n"
+                },
+                "queryLambda": {
+                    "type": "string",
+                    "description": "Unique identifier for the query lambda. Can contain alphanumeric or dash characters.\n"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Version of the query lambda this tag should point to.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace the query lambda is in.\n"
+                }
+            },
+            "required": [
+                "name",
+                "queryLambda",
+                "version",
+                "workspace"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the tag. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "queryLambda": {
+                    "type": "string",
+                    "description": "Unique identifier for the query lambda. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Version of the query lambda this tag should point to.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace the query lambda is in.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "queryLambda",
+                "version",
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering QueryLambdaTag resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the tag. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "queryLambda": {
+                        "type": "string",
+                        "description": "Unique identifier for the query lambda. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "Version of the query lambda this tag should point to.\n"
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace the query lambda is in.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/role:Role": {
+            "description": "Manages a Rockset [Role](https://rockset.com/docs/iam/).\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst query_onlyRole = new rockset.Role(\"query-onlyRole\", {\n    description: \"This role can only query collections in the prod workspace in the usw2a1 cluster\",\n    privileges: [\n        {\n            action: \"QUERY_DATA_WS\",\n            resourceName: \"prod\",\n            cluster: \"usw2a1\",\n        },\n        {\n            action: \"EXECUTE_QUERY_LAMBDA_WS\",\n            resourceName: \"prod\",\n            cluster: \"usw2a1\",\n        },\n    ],\n});\nconst query_onlyApiKey = new rockset.ApiKey(\"query-onlyApiKey\", {role: query_onlyRole.name});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\nquery_only_role = rockset.Role(\"query-onlyRole\",\n    description=\"This role can only query collections in the prod workspace in the usw2a1 cluster\",\n    privileges=[\n        rockset.RolePrivilegeArgs(\n            action=\"QUERY_DATA_WS\",\n            resource_name=\"prod\",\n            cluster=\"usw2a1\",\n        ),\n        rockset.RolePrivilegeArgs(\n            action=\"EXECUTE_QUERY_LAMBDA_WS\",\n            resource_name=\"prod\",\n            cluster=\"usw2a1\",\n        ),\n    ])\nquery_only_api_key = rockset.ApiKey(\"query-onlyApiKey\", role=query_only_role.name)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var query_onlyRole = new Rockset.Role(\"query-onlyRole\", new()\n    {\n        Description = \"This role can only query collections in the prod workspace in the usw2a1 cluster\",\n        Privileges = new[]\n        {\n            new Rockset.Inputs.RolePrivilegeArgs\n            {\n                Action = \"QUERY_DATA_WS\",\n                ResourceName = \"prod\",\n                Cluster = \"usw2a1\",\n            },\n            new Rockset.Inputs.RolePrivilegeArgs\n            {\n                Action = \"EXECUTE_QUERY_LAMBDA_WS\",\n                ResourceName = \"prod\",\n                Cluster = \"usw2a1\",\n            },\n        },\n    });\n\n    var query_onlyApiKey = new Rockset.ApiKey(\"query-onlyApiKey\", new()\n    {\n        Role = query_onlyRole.Name,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.NewRole(ctx, \"query-onlyRole\", \u0026rockset.RoleArgs{\n\t\t\tDescription: pulumi.String(\"This role can only query collections in the prod workspace in the usw2a1 cluster\"),\n\t\t\tPrivileges: rockset.RolePrivilegeArray{\n\t\t\t\t\u0026rockset.RolePrivilegeArgs{\n\t\t\t\t\tAction:       pulumi.String(\"QUERY_DATA_WS\"),\n\t\t\t\t\tResourceName: pulumi.String(\"prod\"),\n\t\t\t\t\tCluster:      pulumi.String(\"usw2a1\"),\n\t\t\t\t},\n\t\t\t\t\u0026rockset.RolePrivilegeArgs{\n\t\t\t\t\tAction:       pulumi.String(\"EXECUTE_QUERY_LAMBDA_WS\"),\n\t\t\t\t\tResourceName: pulumi.String(\"prod\"),\n\t\t\t\t\tCluster:      pulumi.String(\"usw2a1\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = rockset.NewApiKey(ctx, \"query-onlyApiKey\", \u0026rockset.ApiKeyArgs{\n\t\t\tRole: query_onlyRole.Name,\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.Role;\nimport com.pulumi.rockset.RoleArgs;\nimport com.pulumi.rockset.inputs.RolePrivilegeArgs;\nimport com.pulumi.rockset.ApiKey;\nimport com.pulumi.rockset.ApiKeyArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var query_onlyRole = new Role(\"query-onlyRole\", RoleArgs.builder()        \n            .description(\"This role can only query collections in the prod workspace in the usw2a1 cluster\")\n            .privileges(            \n                RolePrivilegeArgs.builder()\n                    .action(\"QUERY_DATA_WS\")\n                    .resourceName(\"prod\")\n                    .cluster(\"usw2a1\")\n                    .build(),\n                RolePrivilegeArgs.builder()\n                    .action(\"EXECUTE_QUERY_LAMBDA_WS\")\n                    .resourceName(\"prod\")\n                    .cluster(\"usw2a1\")\n                    .build())\n            .build());\n\n        var query_onlyApiKey = new ApiKey(\"query-onlyApiKey\", ApiKeyArgs.builder()        \n            .role(query_onlyRole.name())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  query-onlyRole:\n    type: rockset:Role\n    properties:\n      description: This role can only query collections in the prod workspace in the usw2a1 cluster\n      privileges:\n        - action: QUERY_DATA_WS\n          resourceName: prod\n          cluster: usw2a1\n        - action: EXECUTE_QUERY_LAMBDA_WS\n          resourceName: prod\n          cluster: usw2a1\n  query-onlyApiKey:\n    type: rockset:ApiKey\n    properties:\n      role: ${[\"query-onlyRole\"].name}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "description": "When the role was created.\n"
+                },
+                "createdBy": {
+                    "type": "string",
+                    "description": "Who created the role.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Role description.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Role name.\n"
+                },
+                "ownerEmail": {
+                    "type": "string",
+                    "description": "The email of the user who currently owns the role.\n"
+                },
+                "privileges": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/RolePrivilege:RolePrivilege"
+                    },
+                    "description": "Privileges associated with the role. For a full list see [API documentation](https://rockset.com/docs/iam/#supported-privileges)\n"
+                }
+            },
+            "required": [
+                "createdAt",
+                "createdBy",
+                "name",
+                "ownerEmail"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Role description.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Role name.\n",
+                    "willReplaceOnChanges": true
+                },
+                "privileges": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/RolePrivilege:RolePrivilege"
+                    },
+                    "description": "Privileges associated with the role. For a full list see [API documentation](https://rockset.com/docs/iam/#supported-privileges)\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Role resources.\n",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "description": "When the role was created.\n"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "description": "Who created the role.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Role description.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Role name.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "ownerEmail": {
+                        "type": "string",
+                        "description": "The email of the user who currently owns the role.\n"
+                    },
+                    "privileges": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/RolePrivilege:RolePrivilege"
+                        },
+                        "description": "Privileges associated with the role. For a full list see [API documentation](https://rockset.com/docs/iam/#supported-privileges)\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/s3Collection:S3Collection": {
+            "description": "Manages a collection with on or more S3 sources attached. Uses an S3 integration to access the S3 bucket. If no integration is provided, only data in public buckets are accessible.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst sample = new rockset.Workspace(\"sample\", {description: \"sample datasets\"});\nconst _public = new rockset.S3Integration(\"public\", {\n    description: \"Integration to access Rockset's public datasets\",\n    awsRoleArn: \"arn:aws:iam::469279130686:role/rockset-public-datasets\",\n});\nconst cities = new rockset.S3Collection(\"cities\", {\n    workspace: sample.name,\n    sources: [{\n        bucket: \"rockset-public-datasets\",\n        integrationName: _public.name,\n        pattern: \"cities/*.json\",\n        format: \"json\",\n    }],\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\nsample = rockset.Workspace(\"sample\", description=\"sample datasets\")\npublic = rockset.S3Integration(\"public\",\n    description=\"Integration to access Rockset's public datasets\",\n    aws_role_arn=\"arn:aws:iam::469279130686:role/rockset-public-datasets\")\ncities = rockset.S3Collection(\"cities\",\n    workspace=sample.name,\n    sources=[rockset.S3CollectionSourceArgs(\n        bucket=\"rockset-public-datasets\",\n        integration_name=public.name,\n        pattern=\"cities/*.json\",\n        format=\"json\",\n    )])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var sample = new Rockset.Workspace(\"sample\", new()\n    {\n        Description = \"sample datasets\",\n    });\n\n    var @public = new Rockset.S3Integration(\"public\", new()\n    {\n        Description = \"Integration to access Rockset's public datasets\",\n        AwsRoleArn = \"arn:aws:iam::469279130686:role/rockset-public-datasets\",\n    });\n\n    var cities = new Rockset.S3Collection(\"cities\", new()\n    {\n        Workspace = sample.Name,\n        Sources = new[]\n        {\n            new Rockset.Inputs.S3CollectionSourceArgs\n            {\n                Bucket = \"rockset-public-datasets\",\n                IntegrationName = @public.Name,\n                Pattern = \"cities/*.json\",\n                Format = \"json\",\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tsample, err := rockset.NewWorkspace(ctx, \"sample\", \u0026rockset.WorkspaceArgs{\n\t\t\tDescription: pulumi.String(\"sample datasets\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tpublic, err := rockset.NewS3Integration(ctx, \"public\", \u0026rockset.S3IntegrationArgs{\n\t\t\tDescription: pulumi.String(\"Integration to access Rockset's public datasets\"),\n\t\t\tAwsRoleArn:  pulumi.String(\"arn:aws:iam::469279130686:role/rockset-public-datasets\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = rockset.NewS3Collection(ctx, \"cities\", \u0026rockset.S3CollectionArgs{\n\t\t\tWorkspace: sample.Name,\n\t\t\tSources: rockset.S3CollectionSourceArray{\n\t\t\t\t\u0026rockset.S3CollectionSourceArgs{\n\t\t\t\t\tBucket:          pulumi.String(\"rockset-public-datasets\"),\n\t\t\t\t\tIntegrationName: public.Name,\n\t\t\t\t\tPattern:         pulumi.String(\"cities/*.json\"),\n\t\t\t\t\tFormat:          pulumi.String(\"json\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.Workspace;\nimport com.pulumi.rockset.WorkspaceArgs;\nimport com.pulumi.rockset.S3Integration;\nimport com.pulumi.rockset.S3IntegrationArgs;\nimport com.pulumi.rockset.S3Collection;\nimport com.pulumi.rockset.S3CollectionArgs;\nimport com.pulumi.rockset.inputs.S3CollectionSourceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var sample = new Workspace(\"sample\", WorkspaceArgs.builder()        \n            .description(\"sample datasets\")\n            .build());\n\n        var public_ = new S3Integration(\"public\", S3IntegrationArgs.builder()        \n            .description(\"Integration to access Rockset's public datasets\")\n            .awsRoleArn(\"arn:aws:iam::469279130686:role/rockset-public-datasets\")\n            .build());\n\n        var cities = new S3Collection(\"cities\", S3CollectionArgs.builder()        \n            .workspace(sample.name())\n            .sources(S3CollectionSourceArgs.builder()\n                .bucket(\"rockset-public-datasets\")\n                .integrationName(public_.name())\n                .pattern(\"cities/*.json\")\n                .format(\"json\")\n                .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  sample:\n    type: rockset:Workspace\n    properties:\n      description: sample datasets\n  public:\n    type: rockset:S3Integration\n    properties:\n      description: Integration to access Rockset's public datasets\n      awsRoleArn: arn:aws:iam::469279130686:role/rockset-public-datasets\n  cities:\n    type: rockset:S3Collection\n    properties:\n      workspace: ${sample.name}\n      sources:\n        - bucket: rockset-public-datasets\n          integrationName: ${public.name}\n          pattern: cities/*.json\n          format: json\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n"
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n"
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/S3CollectionSource:S3CollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n"
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n"
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n"
+                }
+            },
+            "required": [
+                "name",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "ingestTransformation": {
+                    "type": "string",
+                    "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "retentionSecs": {
+                    "type": "integer",
+                    "description": "Number of seconds after which data is purged. Based on event time.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sources": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/rockset:index/S3CollectionSource:S3CollectionSource"
+                    },
+                    "description": "Defines a source for this collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForCollection": {
+                    "type": "boolean",
+                    "description": "Wait until the collection is ready.\n",
+                    "willReplaceOnChanges": true
+                },
+                "waitForDocuments": {
+                    "type": "integer",
+                    "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                    "willReplaceOnChanges": true
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "The name of the workspace.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering S3Collection resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n"
+                    },
+                    "ingestTransformation": {
+                        "type": "string",
+                        "description": "Ingest transformation SQL query. Turns the collection into insert_only mode.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the collection. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "retentionSecs": {
+                        "type": "integer",
+                        "description": "Number of seconds after which data is purged. Based on event time.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/S3CollectionSource:S3CollectionSource"
+                        },
+                        "description": "Defines a source for this collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForCollection": {
+                        "type": "boolean",
+                        "description": "Wait until the collection is ready.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "waitForDocuments": {
+                        "type": "integer",
+                        "description": "Wait until the collection has documents. The default is to wait for 0 documents, which means it doesn't wait.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "The name of the workspace.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/s3Integration:S3Integration": {
+            "description": "Manages a Rockset S3 Integration.\n",
+            "properties": {
+                "awsRoleArn": {
+                    "type": "string",
+                    "description": "The AWS Role Arn to use for this integration.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n"
+                }
+            },
+            "required": [
+                "awsRoleArn",
+                "name"
+            ],
+            "inputProperties": {
+                "awsRoleArn": {
+                    "type": "string",
+                    "description": "The AWS Role Arn to use for this integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the integration.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "awsRoleArn"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering S3Integration resources.\n",
+                "properties": {
+                    "awsRoleArn": {
+                        "type": "string",
+                        "description": "The AWS Role Arn to use for this integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the integration.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for the integration. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/user:User": {
+            "description": "Manages a Rockset User.\n\nFirst and last name can only be managed for users who have accepted the invite,\ni.e. when the state is ACCEPTED.\n",
+            "properties": {
+                "createdAt": {
+                    "type": "string",
+                    "description": "The ISO-8601 time of when the user was created.\n"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address of the user. Also used to identify the user.\n"
+                },
+                "firstName": {
+                    "type": "string",
+                    "description": "User's first name. This can only be set once the state is ACTIVE, i.e after the user has accepted the invite.\n"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "User's last name. This can only be set once the state is ACTIVE, i.e after the user has accepted the invite.\n"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of roles for the user. E.g. 'admin', 'member', 'read-only'.\n"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "State of the user, either NEW or ACTIVE.\n"
+                }
+            },
+            "required": [
+                "createdAt",
+                "email",
+                "roles",
+                "state"
+            ],
+            "inputProperties": {
+                "email": {
+                    "type": "string",
+                    "description": "Email address of the user. Also used to identify the user.\n",
+                    "willReplaceOnChanges": true
+                },
+                "firstName": {
+                    "type": "string",
+                    "description": "User's first name. This can only be set once the state is ACTIVE, i.e after the user has accepted the invite.\n"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "User's last name. This can only be set once the state is ACTIVE, i.e after the user has accepted the invite.\n"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of roles for the user. E.g. 'admin', 'member', 'read-only'.\n"
+                }
+            },
+            "requiredInputs": [
+                "email",
+                "roles"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering User resources.\n",
+                "properties": {
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The ISO-8601 time of when the user was created.\n"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the user. Also used to identify the user.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "User's first name. This can only be set once the state is ACTIVE, i.e after the user has accepted the invite.\n"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "User's last name. This can only be set once the state is ACTIVE, i.e after the user has accepted the invite.\n"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of roles for the user. E.g. 'admin', 'member', 'read-only'.\n"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "State of the user, either NEW or ACTIVE.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/view:View": {
+            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst sample = new rockset.Workspace(\"sample\", {description: \"sample datasets\"});\nconst _public = new rockset.S3Integration(\"public\", {\n    description: \"Integration to access Rockset's public datasets\",\n    awsRoleArn: \"arn:aws:iam::469279130686:role/rockset-public-datasets\",\n});\nconst cities = new rockset.S3Collection(\"cities\", {\n    workspace: sample.name,\n    sources: [{\n        bucket: \"rockset-public-datasets\",\n        integrationName: _public.name,\n        pattern: \"cities/*.json\",\n        format: \"json\",\n    }],\n});\nconst brazil = new rockset.View(\"brazil\", {\n    query: \"SELECT * FROM sample.cities c WHERE c.fields.country_code = 'BR'\",\n    workspace: sample.name,\n}, {\n    dependsOn: [cities],\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\nsample = rockset.Workspace(\"sample\", description=\"sample datasets\")\npublic = rockset.S3Integration(\"public\",\n    description=\"Integration to access Rockset's public datasets\",\n    aws_role_arn=\"arn:aws:iam::469279130686:role/rockset-public-datasets\")\ncities = rockset.S3Collection(\"cities\",\n    workspace=sample.name,\n    sources=[rockset.S3CollectionSourceArgs(\n        bucket=\"rockset-public-datasets\",\n        integration_name=public.name,\n        pattern=\"cities/*.json\",\n        format=\"json\",\n    )])\nbrazil = rockset.View(\"brazil\",\n    query=\"SELECT * FROM sample.cities c WHERE c.fields.country_code = 'BR'\",\n    workspace=sample.name,\n    opts=pulumi.ResourceOptions(depends_on=[cities]))\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var sample = new Rockset.Workspace(\"sample\", new()\n    {\n        Description = \"sample datasets\",\n    });\n\n    var @public = new Rockset.S3Integration(\"public\", new()\n    {\n        Description = \"Integration to access Rockset's public datasets\",\n        AwsRoleArn = \"arn:aws:iam::469279130686:role/rockset-public-datasets\",\n    });\n\n    var cities = new Rockset.S3Collection(\"cities\", new()\n    {\n        Workspace = sample.Name,\n        Sources = new[]\n        {\n            new Rockset.Inputs.S3CollectionSourceArgs\n            {\n                Bucket = \"rockset-public-datasets\",\n                IntegrationName = @public.Name,\n                Pattern = \"cities/*.json\",\n                Format = \"json\",\n            },\n        },\n    });\n\n    var brazil = new Rockset.View(\"brazil\", new()\n    {\n        Query = \"SELECT * FROM sample.cities c WHERE c.fields.country_code = 'BR'\",\n        Workspace = sample.Name,\n    }, new CustomResourceOptions\n    {\n        DependsOn = new[]\n        {\n            cities,\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tsample, err := rockset.NewWorkspace(ctx, \"sample\", \u0026rockset.WorkspaceArgs{\n\t\t\tDescription: pulumi.String(\"sample datasets\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tpublic, err := rockset.NewS3Integration(ctx, \"public\", \u0026rockset.S3IntegrationArgs{\n\t\t\tDescription: pulumi.String(\"Integration to access Rockset's public datasets\"),\n\t\t\tAwsRoleArn:  pulumi.String(\"arn:aws:iam::469279130686:role/rockset-public-datasets\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tcities, err := rockset.NewS3Collection(ctx, \"cities\", \u0026rockset.S3CollectionArgs{\n\t\t\tWorkspace: sample.Name,\n\t\t\tSources: rockset.S3CollectionSourceArray{\n\t\t\t\t\u0026rockset.S3CollectionSourceArgs{\n\t\t\t\t\tBucket:          pulumi.String(\"rockset-public-datasets\"),\n\t\t\t\t\tIntegrationName: public.Name,\n\t\t\t\t\tPattern:         pulumi.String(\"cities/*.json\"),\n\t\t\t\t\tFormat:          pulumi.String(\"json\"),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = rockset.NewView(ctx, \"brazil\", \u0026rockset.ViewArgs{\n\t\t\tQuery:     pulumi.String(\"SELECT * FROM sample.cities c WHERE c.fields.country_code = 'BR'\"),\n\t\t\tWorkspace: sample.Name,\n\t\t}, pulumi.DependsOn([]pulumi.Resource{\n\t\t\tcities,\n\t\t}))\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.Workspace;\nimport com.pulumi.rockset.WorkspaceArgs;\nimport com.pulumi.rockset.S3Integration;\nimport com.pulumi.rockset.S3IntegrationArgs;\nimport com.pulumi.rockset.S3Collection;\nimport com.pulumi.rockset.S3CollectionArgs;\nimport com.pulumi.rockset.inputs.S3CollectionSourceArgs;\nimport com.pulumi.rockset.View;\nimport com.pulumi.rockset.ViewArgs;\nimport com.pulumi.resources.CustomResourceOptions;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var sample = new Workspace(\"sample\", WorkspaceArgs.builder()        \n            .description(\"sample datasets\")\n            .build());\n\n        var public_ = new S3Integration(\"public\", S3IntegrationArgs.builder()        \n            .description(\"Integration to access Rockset's public datasets\")\n            .awsRoleArn(\"arn:aws:iam::469279130686:role/rockset-public-datasets\")\n            .build());\n\n        var cities = new S3Collection(\"cities\", S3CollectionArgs.builder()        \n            .workspace(sample.name())\n            .sources(S3CollectionSourceArgs.builder()\n                .bucket(\"rockset-public-datasets\")\n                .integrationName(public_.name())\n                .pattern(\"cities/*.json\")\n                .format(\"json\")\n                .build())\n            .build());\n\n        var brazil = new View(\"brazil\", ViewArgs.builder()        \n            .query(\"SELECT * FROM sample.cities c WHERE c.fields.country_code = 'BR'\")\n            .workspace(sample.name())\n            .build(), CustomResourceOptions.builder()\n                .dependsOn(cities)\n                .build());\n\n    }\n}\n```\n```yaml\nresources:\n  sample:\n    type: rockset:Workspace\n    properties:\n      description: sample datasets\n  public:\n    type: rockset:S3Integration\n    properties:\n      description: Integration to access Rockset's public datasets\n      awsRoleArn: arn:aws:iam::469279130686:role/rockset-public-datasets\n  cities:\n    type: rockset:S3Collection\n    properties:\n      workspace: ${sample.name}\n      sources:\n        - bucket: rockset-public-datasets\n          integrationName: ${public.name}\n          pattern: cities/*.json\n          format: json\n  brazil:\n    type: rockset:View\n    properties:\n      query: SELECT * FROM sample.cities c WHERE c.fields.country_code = 'BR'\n      workspace: ${sample.name}\n    options:\n      dependson:\n        - ${cities}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "properties": {
+                "createdBy": {
+                    "type": "string",
+                    "description": "The user who created the view.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique name for the view in the workspace. Can contain alphanumeric or dash characters.\n"
+                },
+                "query": {
+                    "type": "string",
+                    "description": "SQL query used for thw view.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "Workspace name.\n"
+                }
+            },
+            "required": [
+                "createdBy",
+                "name",
+                "query",
+                "workspace"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique name for the view in the workspace. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                },
+                "query": {
+                    "type": "string",
+                    "description": "SQL query used for thw view.\n"
+                },
+                "workspace": {
+                    "type": "string",
+                    "description": "Workspace name.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "query",
+                "workspace"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering View resources.\n",
+                "properties": {
+                    "createdBy": {
+                        "type": "string",
+                        "description": "The user who created the view.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique name for the view in the workspace. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "query": {
+                        "type": "string",
+                        "description": "SQL query used for thw view.\n"
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "Workspace name.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/virtualInstance:VirtualInstance": {
+            "description": "Manages a Rockset Virtual Instance. To be able to create a new Virtual Instance,\nThe main virtual instance must use a dedicated instance to create a secondary virtual instance, \nwhich must be SMALL or larger. To enable live mount, the secondary virtual instance must be MEDIUM or larger.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst query = new rockset.VirtualInstance(\"query\", {\n    description: \"vi for executing query lambdas\",\n    size: \"MEDIUM\",\n    remountOnResume: true,\n});\nconst patch = new rockset.CollectionMount(\"patch\", {\n    virtualInstanceId: query.id,\n    path: \"commons.data\",\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\nquery = rockset.VirtualInstance(\"query\",\n    description=\"vi for executing query lambdas\",\n    size=\"MEDIUM\",\n    remount_on_resume=True)\npatch = rockset.CollectionMount(\"patch\",\n    virtual_instance_id=query.id,\n    path=\"commons.data\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var query = new Rockset.VirtualInstance(\"query\", new()\n    {\n        Description = \"vi for executing query lambdas\",\n        Size = \"MEDIUM\",\n        RemountOnResume = true,\n    });\n\n    var patch = new Rockset.CollectionMount(\"patch\", new()\n    {\n        VirtualInstanceId = query.Id,\n        Path = \"commons.data\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tquery, err := rockset.NewVirtualInstance(ctx, \"query\", \u0026rockset.VirtualInstanceArgs{\n\t\t\tDescription:     pulumi.String(\"vi for executing query lambdas\"),\n\t\t\tSize:            pulumi.String(\"MEDIUM\"),\n\t\t\tRemountOnResume: pulumi.Bool(true),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = rockset.NewCollectionMount(ctx, \"patch\", \u0026rockset.CollectionMountArgs{\n\t\t\tVirtualInstanceId: query.ID(),\n\t\t\tPath:              pulumi.String(\"commons.data\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.VirtualInstance;\nimport com.pulumi.rockset.VirtualInstanceArgs;\nimport com.pulumi.rockset.CollectionMount;\nimport com.pulumi.rockset.CollectionMountArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var query = new VirtualInstance(\"query\", VirtualInstanceArgs.builder()        \n            .description(\"vi for executing query lambdas\")\n            .size(\"MEDIUM\")\n            .remountOnResume(true)\n            .build());\n\n        var patch = new CollectionMount(\"patch\", CollectionMountArgs.builder()        \n            .virtualInstanceId(query.id())\n            .path(\"commons.data\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  query:\n    type: rockset:VirtualInstance\n    properties:\n      description: vi for executing query lambdas\n      size: MEDIUM\n      remountOnResume: true\n  patch:\n    type: rockset:CollectionMount\n    properties:\n      virtualInstanceId: ${query.id}\n      path: commons.data\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import rockset:index/virtualInstance:VirtualInstance query 29e4a43c-fff4-4fe6-80e3-1ee57bc22e82\n```\n\n ",
+            "properties": {
+                "autoSuspendSeconds": {
+                    "type": "integer",
+                    "description": "Number of seconds without queries after which the Virtual Instance is suspended.\n"
+                },
+                "currentSize": {
+                    "type": "string",
+                    "description": "Current size of the virtual instance.\n"
+                },
+                "default": {
+                    "type": "boolean",
+                    "description": "Is this Virtual Instance the default.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Description of the virtual instance.\n"
+                },
+                "desiredSize": {
+                    "type": "string",
+                    "description": "Desired size of the virtual instance.\n"
+                },
+                "monitoringEnabled": {
+                    "type": "boolean",
+                    "description": "Is monitoring enabled for this Virtual Instance.\n"
+                },
+                "mountRefreshIntervalSeconds": {
+                    "type": "integer",
+                    "description": "Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the virtual instance.\n"
+                },
+                "remountOnResume": {
+                    "type": "boolean",
+                    "description": "When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.\n"
+                },
+                "rrn": {
+                    "type": "string",
+                    "description": "RRN of this Virtual Instance.\n"
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Requested virtual instance size. Note that this field is called type in the API documentation.\n"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "Virtual Instance state.\n"
+                }
+            },
+            "required": [
+                "currentSize",
+                "default",
+                "desiredSize",
+                "monitoringEnabled",
+                "name",
+                "rrn",
+                "size",
+                "state"
+            ],
+            "inputProperties": {
+                "autoSuspendSeconds": {
+                    "type": "integer",
+                    "description": "Number of seconds without queries after which the Virtual Instance is suspended.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Description of the virtual instance.\n"
+                },
+                "mountRefreshIntervalSeconds": {
+                    "type": "integer",
+                    "description": "Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the virtual instance.\n"
+                },
+                "remountOnResume": {
+                    "type": "boolean",
+                    "description": "When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.\n"
+                },
+                "size": {
+                    "type": "string",
+                    "description": "Requested virtual instance size. Note that this field is called type in the API documentation.\n"
+                }
+            },
+            "requiredInputs": [
+                "size"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering VirtualInstance resources.\n",
+                "properties": {
+                    "autoSuspendSeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds without queries after which the Virtual Instance is suspended.\n"
+                    },
+                    "currentSize": {
+                        "type": "string",
+                        "description": "Current size of the virtual instance.\n"
+                    },
+                    "default": {
+                        "type": "boolean",
+                        "description": "Is this Virtual Instance the default.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description of the virtual instance.\n"
+                    },
+                    "desiredSize": {
+                        "type": "string",
+                        "description": "Desired size of the virtual instance.\n"
+                    },
+                    "monitoringEnabled": {
+                        "type": "boolean",
+                        "description": "Is monitoring enabled for this Virtual Instance.\n"
+                    },
+                    "mountRefreshIntervalSeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the virtual instance.\n"
+                    },
+                    "remountOnResume": {
+                        "type": "boolean",
+                        "description": "When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.\n"
+                    },
+                    "rrn": {
+                        "type": "string",
+                        "description": "RRN of this Virtual Instance.\n"
+                    },
+                    "size": {
+                        "type": "string",
+                        "description": "Requested virtual instance size. Note that this field is called type in the API documentation.\n"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "Virtual Instance state.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "rockset:index/workspace:Workspace": {
+            "description": "Manages a Rockset workspace, which can hold collections, query lambdas and views.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst demo = new rockset.Workspace(\"demo\", {description: \"a workspace for demo collections\"});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\ndemo = rockset.Workspace(\"demo\", description=\"a workspace for demo collections\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var demo = new Rockset.Workspace(\"demo\", new()\n    {\n        Description = \"a workspace for demo collections\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.NewWorkspace(ctx, \"demo\", \u0026rockset.WorkspaceArgs{\n\t\t\tDescription: pulumi.String(\"a workspace for demo collections\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.Workspace;\nimport com.pulumi.rockset.WorkspaceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var demo = new Workspace(\"demo\", WorkspaceArgs.builder()        \n            .description(\"a workspace for demo collections\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  demo:\n    type: rockset:Workspace\n    properties:\n      description: a workspace for demo collections\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n\n\n```sh\n $ pulumi import rockset:index/workspace:Workspace demo demo\n```\n\n ",
+            "properties": {
+                "collectionCount": {
+                    "type": "integer",
+                    "description": "Number of collections in the workspace.\n"
+                },
+                "createdAt": {
+                    "type": "string",
+                    "description": "Created at in ISO-8601.\n"
+                },
+                "createdBy": {
+                    "type": "string",
+                    "description": "The user who created the workspace.\n"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for workspace. Can contain alphanumeric or dash characters.\n"
+                }
+            },
+            "required": [
+                "collectionCount",
+                "createdAt",
+                "createdBy",
+                "name"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "Text describing the collection.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Unique identifier for workspace. Can contain alphanumeric or dash characters.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Workspace resources.\n",
+                "properties": {
+                    "collectionCount": {
+                        "type": "integer",
+                        "description": "Number of collections in the workspace.\n"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Created at in ISO-8601.\n"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "description": "The user who created the workspace.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Text describing the collection.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Unique identifier for workspace. Can contain alphanumeric or dash characters.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "rockset:index/getAccount:getAccount": {
+            "description": "Gets information about the Rockset deployment for the specified api server.\n",
+            "outputs": {
+                "description": "A collection of values returned by getAccount.\n",
+                "properties": {
+                    "accountId": {
+                        "type": "string",
+                        "description": "The AWS account ID to reference in AWS policies.\n"
+                    },
+                    "clusters": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/rockset:index/getAccountCluster:getAccountCluster"
+                        },
+                        "description": "The Rockset clusters available to this API key.\n"
+                    },
+                    "externalId": {
+                        "type": "string",
+                        "description": "The external ID to use in AWS trust policies.\n",
+                        "secret": true
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "organization": {
+                        "type": "string",
+                        "description": "The name of the organization for the API key.\n"
+                    },
+                    "rocksetUser": {
+                        "type": "string",
+                        "description": "The name of the Rockset user used for AWS trust policies.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "accountId",
+                    "clusters",
+                    "externalId",
+                    "organization",
+                    "rocksetUser",
+                    "id"
+                ]
+            }
+        },
+        "rockset:index/getQueryLambdaTag:getQueryLambdaTag": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getQueryLambdaTag.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the query lambda.\n"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Tag name.\n"
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "Workspace the query lambda resides in.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "tag",
+                    "workspace"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getQueryLambdaTag.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Description of the query lambda.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "lastExecuted": {
+                        "type": "string",
+                        "description": "Last time the query lambda was executed.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the query lambda.\n"
+                    },
+                    "sql": {
+                        "type": "string",
+                        "description": "Query lambda SQL.\n"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Tag name.\n"
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "Query lambda tag version.\n"
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "Workspace the query lambda resides in.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "description",
+                    "lastExecuted",
+                    "name",
+                    "sql",
+                    "tag",
+                    "version",
+                    "workspace",
+                    "id"
+                ]
+            }
+        },
+        "rockset:index/getUser:getUser": {
+            "description": "This data source can be used to fetch information about a specific user.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst pme = rockset.getUser({\n    email: \"pme@rockset.com\",\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\npme = rockset.get_user(email=\"pme@rockset.com\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var pme = Rockset.GetUser.Invoke(new()\n    {\n        Email = \"pme@rockset.com\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.LookupUser(ctx, \u0026rockset.LookupUserArgs{\n\t\t\tEmail: \"pme@rockset.com\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.RocksetFunctions;\nimport com.pulumi.rockset.inputs.GetUserArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var pme = RocksetFunctions.getUser(GetUserArgs.builder()\n            .email(\"pme@rockset.com\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  pme:\n    fn::invoke:\n      Function: rockset:getUser\n      Arguments:\n        email: pme@rockset.com\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getUser.\n",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User email.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getUser.\n",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User email.\n"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "User's first name.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The user ID, in the form of the `email`.\n"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "User's last name.\n"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of roles for the user. E.g. 'admin', 'member', 'read-only'.\n"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "State of the user, either NEW or ACTIVE.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "email",
+                    "firstName",
+                    "id",
+                    "lastName",
+                    "roles",
+                    "state"
+                ]
+            }
+        },
+        "rockset:index/getVirtualInstance:getVirtualInstance": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getVirtualInstance.\n",
+                "properties": {
+                    "autoSuspendSeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds without queries after which the Virtual Instance is suspended.\n"
+                    },
+                    "currentSize": {
+                        "type": "string",
+                        "description": "Virtual Instance current size.\n"
+                    },
+                    "default": {
+                        "type": "boolean",
+                        "description": "Virtual Instance name.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Virtual Instance description.\n"
+                    },
+                    "desiredSize": {
+                        "type": "string",
+                        "description": "Virtual Instance desired size.\n"
+                    },
+                    "enableRemountOnResume": {
+                        "type": "boolean",
+                        "description": "When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Virtual Instance id.\n"
+                    },
+                    "mountRefreshIntervalSeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds between data refreshes for mounts on this Virtual Instance.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Virtual Instance name.\n"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "Virtual Instance state.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getVirtualInstance.\n",
+                "properties": {
+                    "autoSuspendSeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds without queries after which the Virtual Instance is suspended.\n"
+                    },
+                    "currentSize": {
+                        "type": "string",
+                        "description": "Virtual Instance current size.\n"
+                    },
+                    "default": {
+                        "type": "boolean",
+                        "description": "Virtual Instance name.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Virtual Instance description.\n"
+                    },
+                    "desiredSize": {
+                        "type": "string",
+                        "description": "Virtual Instance desired size.\n"
+                    },
+                    "enableRemountOnResume": {
+                        "type": "boolean",
+                        "description": "When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Virtual Instance id.\n"
+                    },
+                    "mountRefreshIntervalSeconds": {
+                        "type": "integer",
+                        "description": "Number of seconds between data refreshes for mounts on this Virtual Instance.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Virtual Instance name.\n"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "Virtual Instance state.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id"
+                ]
+            }
+        },
+        "rockset:index/getWorkspace:getWorkspace": {
+            "description": "Gets information about a workspace.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst demo = rockset.getWorkspace({\n    name: \"demo\",\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\ndemo = rockset.get_workspace(name=\"demo\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var demo = Rockset.GetWorkspace.Invoke(new()\n    {\n        Name = \"demo\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.LookupWorkspace(ctx, \u0026rockset.LookupWorkspaceArgs{\n\t\t\tName: \"demo\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.RocksetFunctions;\nimport com.pulumi.rockset.inputs.GetWorkspaceArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var demo = RocksetFunctions.getWorkspace(GetWorkspaceArgs.builder()\n            .name(\"demo\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  demo:\n    fn::invoke:\n      Function: rockset:getWorkspace\n      Arguments:\n        name: demo\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getWorkspace.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Workspace name.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getWorkspace.\n",
+                "properties": {
+                    "collectionCount": {
+                        "type": "integer",
+                        "description": "Number of collections in the workspace.\n"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Created at in ISO-8601.\n"
+                    },
+                    "createdBy": {
+                        "type": "string",
+                        "description": "Created by.\n"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Workspace description.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The workspace `name`.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Workspace name.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "collectionCount",
+                    "createdAt",
+                    "createdBy",
+                    "description",
+                    "id",
+                    "name"
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,82 @@
+# Simplified form of https://github.com/pulumi/pulumi-package-publisher/main/action.yml
+name: release
+on:
+  push:
+    tags:
+    - v*.*.*
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - run: git fetch --force --tags
+    - name: Install Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        cache-dependency-path: '**/go.sum'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      with:
+        repo: pulumi/pulumictl
+    - run: make build_python
+    - run: make build_go
+    - uses: actions/upload-artifact@v3
+      with:
+        name: python-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/python
+    - uses: actions/upload-artifact@v3
+      with:
+        name: go-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/go
+
+  publish-go:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    environment: release
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - run: git fetch --force --tags
+    - name: Install Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        cache-dependency-path: '**/go.sum'
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      with:
+        repo: pulumi/pulumictl
+    - uses: goreleaser/goreleaser-action@v5
+      with:
+        args: release --clean
+        version: latest
+
+  publish-python:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: pypi
+      url: https://pypi.org/p/pulumi_rockset
+    permissions:
+      # Required for trusted publishing
+      id-token: write
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: python-sdk.tar.gz
+        path: ${{ github.workspace }}/sdk/python
+    - uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: ${{ github.workspace }}/sdk/python/bin/dist
