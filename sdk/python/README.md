@@ -2,7 +2,16 @@
 
 The Rockset Resource Provider lets you manage [Rockset](https://rockset.com) resources.
 
-## Installing
+## Installing Pulumi Resource Plugin
+
+You'll need to install this plugin manually to override the default Pulumi
+repository location.
+
+```sh
+pulumi plugin install resource rockset --server github://api.github.com/ddn0/
+```
+
+## Installing SDKs
 
 This package is available for several languages/platforms:
 
@@ -11,7 +20,7 @@ This package is available for several languages/platforms:
 To use from Python, install using `pip`:
 
 ```bash
-pip install pulumi_rockset
+pip install pulumi-rockset
 ```
 
 ### Go
