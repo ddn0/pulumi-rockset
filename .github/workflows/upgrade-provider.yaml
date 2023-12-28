@@ -9,7 +9,29 @@ jobs:
   upgrade-provider:
     name: upgrade-provider
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-    - uses: pulumi/pulumi-upgrade-provider-action@main
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - run: git fetch --force --tags
+    - name: Install Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        cache-dependency-path: '**/go.sum'
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.10.0
+      with:
+        repo: pulumi/pulumictl
+    - run: go install github.com/pulumi/upgrade-provider@main
+    - name: Run upgrade-provider
+      run: |
+        upgrade-provider ddn0/pulumi-rockset --kind=all
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
