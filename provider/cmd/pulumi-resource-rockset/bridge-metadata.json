@@ -222,6 +222,7 @@
             }
         }
     },
+    "auto-settings": {},
     "renames": {
         "resources": {
             "rockset:index/alias:Alias": "rockset_alias",
