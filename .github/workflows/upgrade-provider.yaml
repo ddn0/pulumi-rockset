@@ -1,22 +1,35 @@
 name: Upgrade provider
 on:
-  issues:
-    types:
-    - opened
+  # upgrade-provider creates a PR per 
+  #
+  #   https://docs.github.com/en/actions/security-guides/automatic-token-authentication#using-the-github_token-in-a-workflow
+  #
+  # only workflows triggered by workflow_dispatch (and repository_dispatch) may
+  # trigger additional workflow runs when using GITHUB_TOKEN. This means the
+  # required checks in ci.yaml will not run on PRs created by this workflow
+  # when triggered by schedule.
+  #
+  # Either separately manually trigger this workflow for every "interesting"
+  # cron execution or push to the created PR branch to trigger required checks.
   schedule:
-    - cron: '0 5 * * *'
+  - cron: '0 5 * * *'
+  workflow_dispatch:
 jobs:
   upgrade-provider:
     name: upgrade-provider
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - run: git fetch --force --tags
+    - name: "Set up git identity"
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
     - name: Install Go
       uses: actions/setup-go@v4
       with:
@@ -32,6 +45,7 @@ jobs:
     - run: go install github.com/pulumi/upgrade-provider@main
     - name: Run upgrade-provider
       run: |
-        upgrade-provider ddn0/pulumi-rockset --kind=all
+        upgrade-provider ddn0/pulumi-rockset --kind=all --pr-assign 'ddn0'
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
