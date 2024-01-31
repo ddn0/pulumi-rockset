@@ -9,10 +9,14 @@ on:
   # required checks in ci.yaml will not run on PRs created by this workflow
   # when triggered by schedule.
   #
-  # Either separately manually trigger this workflow for every "interesting"
-  # cron execution or push to the created PR branch to trigger required checks.
-  schedule:
-  - cron: '0 5 * * *'
+  # schedule:
+  # - cron: '0 5 * * *'
+  #
+  # Also, there is no deduping/reusing of upgrade PRs, so the bot left
+  # unattended will generate garbage for humans to cleanup.
+  #
+  # In light of the above, just assume a human will manually trigger this
+  # workflow periodically.
   workflow_dispatch:
 jobs:
   upgrade-provider:
