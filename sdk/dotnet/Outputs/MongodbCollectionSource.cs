@@ -25,6 +25,10 @@ namespace Pulumi.Rockset.Outputs
         /// The name of the Rockset MongoDB integration.
         /// </summary>
         public readonly string IntegrationName;
+        /// <summary>
+        /// Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+        /// Selecting this option will increase load on your upstream MongoDB database.
+        /// </summary>
         public readonly bool? RetrieveFullDocument;
         /// <summary>
         /// MongoDB scan end time.

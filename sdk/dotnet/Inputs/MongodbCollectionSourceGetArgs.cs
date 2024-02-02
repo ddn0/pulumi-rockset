@@ -30,6 +30,10 @@ namespace Pulumi.Rockset.Inputs
         [Input("integrationName", required: true)]
         public Input<string> IntegrationName { get; set; } = null!;
 
+        /// <summary>
+        /// Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+        /// Selecting this option will increase load on your upstream MongoDB database.
+        /// </summary>
         [Input("retrieveFullDocument")]
         public Input<bool>? RetrieveFullDocument { get; set; }
 

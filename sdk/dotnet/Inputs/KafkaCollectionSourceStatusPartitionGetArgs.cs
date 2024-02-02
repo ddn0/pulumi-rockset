@@ -12,12 +12,21 @@ namespace Pulumi.Rockset.Inputs
 
     public sealed class KafkaCollectionSourceStatusPartitionGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Per partition lag for offset.
+        /// </summary>
         [Input("offsetLag")]
         public Input<int>? OffsetLag { get; set; }
 
+        /// <summary>
+        /// The number of this partition.
+        /// </summary>
         [Input("partitionNumber")]
         public Input<int>? PartitionNumber { get; set; }
 
+        /// <summary>
+        /// Latest offset of this partition.
+        /// </summary>
         [Input("partitionOffset")]
         public Input<int>? PartitionOffset { get; set; }
 
