@@ -610,6 +610,12 @@ class KafkaCollectionSourceStatusArgs:
                  last_consumed_time: Optional[pulumi.Input[str]] = None,
                  partitions: Optional[pulumi.Input[Sequence[pulumi.Input['KafkaCollectionSourceStatusPartitionArgs']]]] = None,
                  state: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[int] documents_processed: Number of documents processed by this Kafka topic.
+        :param pulumi.Input[str] last_consumed_time: The type of partitions on a field.
+        :param pulumi.Input[Sequence[pulumi.Input['KafkaCollectionSourceStatusPartitionArgs']]] partitions: The status info per partition.
+        :param pulumi.Input[str] state: State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+        """
         if documents_processed is not None:
             pulumi.set(__self__, "documents_processed", documents_processed)
         if last_consumed_time is not None:
@@ -622,6 +628,9 @@ class KafkaCollectionSourceStatusArgs:
     @property
     @pulumi.getter(name="documentsProcessed")
     def documents_processed(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of documents processed by this Kafka topic.
+        """
         return pulumi.get(self, "documents_processed")
 
     @documents_processed.setter
@@ -631,6 +640,9 @@ class KafkaCollectionSourceStatusArgs:
     @property
     @pulumi.getter(name="lastConsumedTime")
     def last_consumed_time(self) -> Optional[pulumi.Input[str]]:
+        """
+        The type of partitions on a field.
+        """
         return pulumi.get(self, "last_consumed_time")
 
     @last_consumed_time.setter
@@ -640,6 +652,9 @@ class KafkaCollectionSourceStatusArgs:
     @property
     @pulumi.getter
     def partitions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['KafkaCollectionSourceStatusPartitionArgs']]]]:
+        """
+        The status info per partition.
+        """
         return pulumi.get(self, "partitions")
 
     @partitions.setter
@@ -649,6 +664,9 @@ class KafkaCollectionSourceStatusArgs:
     @property
     @pulumi.getter
     def state(self) -> Optional[pulumi.Input[str]]:
+        """
+        State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+        """
         return pulumi.get(self, "state")
 
     @state.setter
@@ -662,6 +680,11 @@ class KafkaCollectionSourceStatusPartitionArgs:
                  offset_lag: Optional[pulumi.Input[int]] = None,
                  partition_number: Optional[pulumi.Input[int]] = None,
                  partition_offset: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[int] offset_lag: Per partition lag for offset.
+        :param pulumi.Input[int] partition_number: The number of this partition.
+        :param pulumi.Input[int] partition_offset: Latest offset of this partition.
+        """
         if offset_lag is not None:
             pulumi.set(__self__, "offset_lag", offset_lag)
         if partition_number is not None:
@@ -672,6 +695,9 @@ class KafkaCollectionSourceStatusPartitionArgs:
     @property
     @pulumi.getter(name="offsetLag")
     def offset_lag(self) -> Optional[pulumi.Input[int]]:
+        """
+        Per partition lag for offset.
+        """
         return pulumi.get(self, "offset_lag")
 
     @offset_lag.setter
@@ -681,6 +707,9 @@ class KafkaCollectionSourceStatusPartitionArgs:
     @property
     @pulumi.getter(name="partitionNumber")
     def partition_number(self) -> Optional[pulumi.Input[int]]:
+        """
+        The number of this partition.
+        """
         return pulumi.get(self, "partition_number")
 
     @partition_number.setter
@@ -690,6 +719,9 @@ class KafkaCollectionSourceStatusPartitionArgs:
     @property
     @pulumi.getter(name="partitionOffset")
     def partition_offset(self) -> Optional[pulumi.Input[int]]:
+        """
+        Latest offset of this partition.
+        """
         return pulumi.get(self, "partition_offset")
 
     @partition_offset.setter
@@ -803,6 +835,8 @@ class MongodbCollectionSourceArgs:
         :param pulumi.Input[str] collection_name: MongoDB collection name of the target collection.
         :param pulumi.Input[str] database_name: MongoDB database name containing the target collection.
         :param pulumi.Input[str] integration_name: The name of the Rockset MongoDB integration.
+        :param pulumi.Input[bool] retrieve_full_document: Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+               Selecting this option will increase load on your upstream MongoDB database.
         :param pulumi.Input[str] scan_end_time: MongoDB scan end time.
         :param pulumi.Input[int] scan_records_processed: Number of records inserted using scan.
         :param pulumi.Input[str] scan_start_time: MongoDB scan start time.
@@ -882,6 +916,10 @@ class MongodbCollectionSourceArgs:
     @property
     @pulumi.getter(name="retrieveFullDocument")
     def retrieve_full_document(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+        Selecting this option will increase load on your upstream MongoDB database.
+        """
         return pulumi.get(self, "retrieve_full_document")
 
     @retrieve_full_document.setter
