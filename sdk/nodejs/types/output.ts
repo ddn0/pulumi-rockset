@@ -158,15 +158,36 @@ export interface KafkaCollectionSource {
 }
 
 export interface KafkaCollectionSourceStatus {
+    /**
+     * Number of documents processed by this Kafka topic.
+     */
     documentsProcessed: number;
+    /**
+     * The type of partitions on a field.
+     */
     lastConsumedTime: string;
+    /**
+     * The status info per partition.
+     */
     partitions: outputs.KafkaCollectionSourceStatusPartition[];
+    /**
+     * State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+     */
     state: string;
 }
 
 export interface KafkaCollectionSourceStatusPartition {
+    /**
+     * Per partition lag for offset.
+     */
     offsetLag: number;
+    /**
+     * The number of this partition.
+     */
     partitionNumber: number;
+    /**
+     * Latest offset of this partition.
+     */
     partitionOffset: number;
 }
 
@@ -206,6 +227,10 @@ export interface MongodbCollectionSource {
      * The name of the Rockset MongoDB integration.
      */
     integrationName: string;
+    /**
+     * Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+     * Selecting this option will increase load on your upstream MongoDB database.
+     */
     retrieveFullDocument?: boolean;
     /**
      * MongoDB scan end time.

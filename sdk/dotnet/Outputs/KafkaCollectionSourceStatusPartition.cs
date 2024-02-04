@@ -13,8 +13,17 @@ namespace Pulumi.Rockset.Outputs
     [OutputType]
     public sealed class KafkaCollectionSourceStatusPartition
     {
+        /// <summary>
+        /// Per partition lag for offset.
+        /// </summary>
         public readonly int? OffsetLag;
+        /// <summary>
+        /// The number of this partition.
+        /// </summary>
         public readonly int? PartitionNumber;
+        /// <summary>
+        /// Latest offset of this partition.
+        /// </summary>
         public readonly int? PartitionOffset;
 
         [OutputConstructor]
