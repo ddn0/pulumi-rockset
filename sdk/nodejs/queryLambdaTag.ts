@@ -6,6 +6,19 @@ import * as utilities from "./utilities";
 
 /**
  * Manages a Rockset Query Lambda Tag.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as rockset from "@pulumi/rockset";
+ *
+ * const active = new rockset.QueryLambdaTag("active", {
+ *     queryLambda: "top-movies",
+ *     version: "b22fb578b8106694",
+ *     workspace: "commons",
+ * });
+ * ```
  */
 export class QueryLambdaTag extends pulumi.CustomResource {
     /**

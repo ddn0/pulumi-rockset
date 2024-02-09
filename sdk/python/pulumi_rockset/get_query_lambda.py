@@ -10,16 +10,16 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
-    'GetQueryLambdaTagResult',
-    'AwaitableGetQueryLambdaTagResult',
-    'get_query_lambda_tag',
-    'get_query_lambda_tag_output',
+    'GetQueryLambdaResult',
+    'AwaitableGetQueryLambdaResult',
+    'get_query_lambda',
+    'get_query_lambda_output',
 ]
 
 @pulumi.output_type
-class GetQueryLambdaTagResult:
+class GetQueryLambdaResult:
     """
-    A collection of values returned by getQueryLambdaTag.
+    A collection of values returned by getQueryLambda.
     """
     def __init__(__self__, description=None, id=None, last_executed=None, name=None, sql=None, tag=None, version=None, workspace=None):
         if description and not isinstance(description, str):
@@ -89,7 +89,7 @@ class GetQueryLambdaTagResult:
 
     @property
     @pulumi.getter
-    def tag(self) -> str:
+    def tag(self) -> Optional[str]:
         """
         Tag name.
         """
@@ -112,12 +112,12 @@ class GetQueryLambdaTagResult:
         return pulumi.get(self, "workspace")
 
 
-class AwaitableGetQueryLambdaTagResult(GetQueryLambdaTagResult):
+class AwaitableGetQueryLambdaResult(GetQueryLambdaResult):
     # pylint: disable=using-constant-test
     def __await__(self):
         if False:
             yield self
-        return GetQueryLambdaTagResult(
+        return GetQueryLambdaResult(
             description=self.description,
             id=self.id,
             last_executed=self.last_executed,
@@ -128,12 +128,12 @@ class AwaitableGetQueryLambdaTagResult(GetQueryLambdaTagResult):
             workspace=self.workspace)
 
 
-def get_query_lambda_tag(name: Optional[str] = None,
-                         tag: Optional[str] = None,
-                         workspace: Optional[str] = None,
-                         opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetQueryLambdaTagResult:
+def get_query_lambda(name: Optional[str] = None,
+                     tag: Optional[str] = None,
+                     workspace: Optional[str] = None,
+                     opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetQueryLambdaResult:
     """
-    Deprecated. Use `QueryLambda` instead and specify the `tag`.
+    Gets information about a query lambda. The `tag` defaults to `latest`.
 
 
     :param str name: Name of the query lambda.
@@ -145,9 +145,9 @@ def get_query_lambda_tag(name: Optional[str] = None,
     __args__['tag'] = tag
     __args__['workspace'] = workspace
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke('rockset:index/getQueryLambdaTag:getQueryLambdaTag', __args__, opts=opts, typ=GetQueryLambdaTagResult).value
+    __ret__ = pulumi.runtime.invoke('rockset:index/getQueryLambda:getQueryLambda', __args__, opts=opts, typ=GetQueryLambdaResult).value
 
-    return AwaitableGetQueryLambdaTagResult(
+    return AwaitableGetQueryLambdaResult(
         description=pulumi.get(__ret__, 'description'),
         id=pulumi.get(__ret__, 'id'),
         last_executed=pulumi.get(__ret__, 'last_executed'),
@@ -158,13 +158,13 @@ def get_query_lambda_tag(name: Optional[str] = None,
         workspace=pulumi.get(__ret__, 'workspace'))
 
 
-@_utilities.lift_output_func(get_query_lambda_tag)
-def get_query_lambda_tag_output(name: Optional[pulumi.Input[str]] = None,
-                                tag: Optional[pulumi.Input[str]] = None,
-                                workspace: Optional[pulumi.Input[str]] = None,
-                                opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetQueryLambdaTagResult]:
+@_utilities.lift_output_func(get_query_lambda)
+def get_query_lambda_output(name: Optional[pulumi.Input[str]] = None,
+                            tag: Optional[pulumi.Input[Optional[str]]] = None,
+                            workspace: Optional[pulumi.Input[str]] = None,
+                            opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetQueryLambdaResult]:
     """
-    Deprecated. Use `QueryLambda` instead and specify the `tag`.
+    Gets information about a query lambda. The `tag` defaults to `latest`.
 
 
     :param str name: Name of the query lambda.

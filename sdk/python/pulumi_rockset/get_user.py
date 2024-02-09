@@ -43,9 +43,9 @@ class GetUserResult:
 
     @property
     @pulumi.getter
-    def email(self) -> str:
+    def email(self) -> Optional[str]:
         """
-        User email.
+        User email. If absent or blank, it gets the current user.
         """
         return pulumi.get(self, "email")
 
@@ -119,7 +119,7 @@ def get_user(email: Optional[str] = None,
     ```
 
 
-    :param str email: User email.
+    :param str email: User email. If absent or blank, it gets the current user.
     """
     __args__ = dict()
     __args__['email'] = email
@@ -136,7 +136,7 @@ def get_user(email: Optional[str] = None,
 
 
 @_utilities.lift_output_func(get_user)
-def get_user_output(email: Optional[pulumi.Input[str]] = None,
+def get_user_output(email: Optional[pulumi.Input[Optional[str]]] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetUserResult]:
     """
     This data source can be used to fetch information about a specific user.
@@ -151,6 +151,6 @@ def get_user_output(email: Optional[pulumi.Input[str]] = None,
     ```
 
 
-    :param str email: User email.
+    :param str email: User email. If absent or blank, it gets the current user.
     """
     ...

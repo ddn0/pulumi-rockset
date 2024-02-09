@@ -70,10 +70,6 @@ export class CollectionMount extends pulumi.CustomResource {
      */
     public /*out*/ readonly rrn!: pulumi.Output<string>;
     /**
-     * UNIX timestamp in milliseconds when the snapshot expires.
-     */
-    public /*out*/ readonly snapshotExpirationTime!: pulumi.Output<number>;
-    /**
      * Mount state.
      */
     public /*out*/ readonly state!: pulumi.Output<string>;
@@ -103,7 +99,6 @@ export class CollectionMount extends pulumi.CustomResource {
             resourceInputs["lastRefreshTime"] = state ? state.lastRefreshTime : undefined;
             resourceInputs["path"] = state ? state.path : undefined;
             resourceInputs["rrn"] = state ? state.rrn : undefined;
-            resourceInputs["snapshotExpirationTime"] = state ? state.snapshotExpirationTime : undefined;
             resourceInputs["state"] = state ? state.state : undefined;
             resourceInputs["virtualInstanceId"] = state ? state.virtualInstanceId : undefined;
             resourceInputs["virtualInstanceRrn"] = state ? state.virtualInstanceRrn : undefined;
@@ -120,7 +115,6 @@ export class CollectionMount extends pulumi.CustomResource {
             resourceInputs["createdAt"] = undefined /*out*/;
             resourceInputs["lastRefreshTime"] = undefined /*out*/;
             resourceInputs["rrn"] = undefined /*out*/;
-            resourceInputs["snapshotExpirationTime"] = undefined /*out*/;
             resourceInputs["state"] = undefined /*out*/;
             resourceInputs["virtualInstanceRrn"] = undefined /*out*/;
         }
@@ -149,10 +143,6 @@ export interface CollectionMountState {
      * RRN of this mount.
      */
     rrn?: pulumi.Input<string>;
-    /**
-     * UNIX timestamp in milliseconds when the snapshot expires.
-     */
-    snapshotExpirationTime?: pulumi.Input<number>;
     /**
      * Mount state.
      */

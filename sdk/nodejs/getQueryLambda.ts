@@ -5,12 +5,12 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * Deprecated. Use `rockset.QueryLambda` instead and specify the `tag`.
+ * Gets information about a query lambda. The `tag` defaults to `latest`.
  */
-export function getQueryLambdaTag(args: GetQueryLambdaTagArgs, opts?: pulumi.InvokeOptions): Promise<GetQueryLambdaTagResult> {
+export function getQueryLambda(args: GetQueryLambdaArgs, opts?: pulumi.InvokeOptions): Promise<GetQueryLambdaResult> {
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
-    return pulumi.runtime.invoke("rockset:index/getQueryLambdaTag:getQueryLambdaTag", {
+    return pulumi.runtime.invoke("rockset:index/getQueryLambda:getQueryLambda", {
         "name": args.name,
         "tag": args.tag,
         "workspace": args.workspace,
@@ -18,9 +18,9 @@ export function getQueryLambdaTag(args: GetQueryLambdaTagArgs, opts?: pulumi.Inv
 }
 
 /**
- * A collection of arguments for invoking getQueryLambdaTag.
+ * A collection of arguments for invoking getQueryLambda.
  */
-export interface GetQueryLambdaTagArgs {
+export interface GetQueryLambdaArgs {
     /**
      * Name of the query lambda.
      */
@@ -28,7 +28,7 @@ export interface GetQueryLambdaTagArgs {
     /**
      * Tag name.
      */
-    tag: string;
+    tag?: string;
     /**
      * Workspace the query lambda resides in.
      */
@@ -36,9 +36,9 @@ export interface GetQueryLambdaTagArgs {
 }
 
 /**
- * A collection of values returned by getQueryLambdaTag.
+ * A collection of values returned by getQueryLambda.
  */
-export interface GetQueryLambdaTagResult {
+export interface GetQueryLambdaResult {
     /**
      * Description of the query lambda.
      */
@@ -62,7 +62,7 @@ export interface GetQueryLambdaTagResult {
     /**
      * Tag name.
      */
-    readonly tag: string;
+    readonly tag?: string;
     /**
      * Query lambda tag version.
      */
@@ -73,16 +73,16 @@ export interface GetQueryLambdaTagResult {
     readonly workspace: string;
 }
 /**
- * Deprecated. Use `rockset.QueryLambda` instead and specify the `tag`.
+ * Gets information about a query lambda. The `tag` defaults to `latest`.
  */
-export function getQueryLambdaTagOutput(args: GetQueryLambdaTagOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetQueryLambdaTagResult> {
-    return pulumi.output(args).apply((a: any) => getQueryLambdaTag(a, opts))
+export function getQueryLambdaOutput(args: GetQueryLambdaOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetQueryLambdaResult> {
+    return pulumi.output(args).apply((a: any) => getQueryLambda(a, opts))
 }
 
 /**
- * A collection of arguments for invoking getQueryLambdaTag.
+ * A collection of arguments for invoking getQueryLambda.
  */
-export interface GetQueryLambdaTagOutputArgs {
+export interface GetQueryLambdaOutputArgs {
     /**
      * Name of the query lambda.
      */
@@ -90,7 +90,7 @@ export interface GetQueryLambdaTagOutputArgs {
     /**
      * Tag name.
      */
-    tag: pulumi.Input<string>;
+    tag?: pulumi.Input<string>;
     /**
      * Workspace the query lambda resides in.
      */

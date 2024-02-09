@@ -56,7 +56,6 @@ class _CollectionMountState:
                  last_refresh_time: Optional[pulumi.Input[int]] = None,
                  path: Optional[pulumi.Input[str]] = None,
                  rrn: Optional[pulumi.Input[str]] = None,
-                 snapshot_expiration_time: Optional[pulumi.Input[int]] = None,
                  state: Optional[pulumi.Input[str]] = None,
                  virtual_instance_id: Optional[pulumi.Input[str]] = None,
                  virtual_instance_rrn: Optional[pulumi.Input[str]] = None):
@@ -66,7 +65,6 @@ class _CollectionMountState:
         :param pulumi.Input[int] last_refresh_time: UNIX timestamp in milliseconds for most recent refresh. Not applicable for live mounts.
         :param pulumi.Input[str] path: Collection path to be mounted, in the form workspace.collection
         :param pulumi.Input[str] rrn: RRN of this mount.
-        :param pulumi.Input[int] snapshot_expiration_time: UNIX timestamp in milliseconds when the snapshot expires.
         :param pulumi.Input[str] state: Mount state.
         :param pulumi.Input[str] virtual_instance_id: Virtual Instance id
         :param pulumi.Input[str] virtual_instance_rrn: Virtual Instance RRN
@@ -79,8 +77,6 @@ class _CollectionMountState:
             pulumi.set(__self__, "path", path)
         if rrn is not None:
             pulumi.set(__self__, "rrn", rrn)
-        if snapshot_expiration_time is not None:
-            pulumi.set(__self__, "snapshot_expiration_time", snapshot_expiration_time)
         if state is not None:
             pulumi.set(__self__, "state", state)
         if virtual_instance_id is not None:
@@ -135,18 +131,6 @@ class _CollectionMountState:
     @rrn.setter
     def rrn(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "rrn", value)
-
-    @property
-    @pulumi.getter(name="snapshotExpirationTime")
-    def snapshot_expiration_time(self) -> Optional[pulumi.Input[int]]:
-        """
-        UNIX timestamp in milliseconds when the snapshot expires.
-        """
-        return pulumi.get(self, "snapshot_expiration_time")
-
-    @snapshot_expiration_time.setter
-    def snapshot_expiration_time(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "snapshot_expiration_time", value)
 
     @property
     @pulumi.getter
@@ -279,7 +263,6 @@ class CollectionMount(pulumi.CustomResource):
             __props__.__dict__["created_at"] = None
             __props__.__dict__["last_refresh_time"] = None
             __props__.__dict__["rrn"] = None
-            __props__.__dict__["snapshot_expiration_time"] = None
             __props__.__dict__["state"] = None
             __props__.__dict__["virtual_instance_rrn"] = None
         super(CollectionMount, __self__).__init__(
@@ -296,7 +279,6 @@ class CollectionMount(pulumi.CustomResource):
             last_refresh_time: Optional[pulumi.Input[int]] = None,
             path: Optional[pulumi.Input[str]] = None,
             rrn: Optional[pulumi.Input[str]] = None,
-            snapshot_expiration_time: Optional[pulumi.Input[int]] = None,
             state: Optional[pulumi.Input[str]] = None,
             virtual_instance_id: Optional[pulumi.Input[str]] = None,
             virtual_instance_rrn: Optional[pulumi.Input[str]] = None) -> 'CollectionMount':
@@ -311,7 +293,6 @@ class CollectionMount(pulumi.CustomResource):
         :param pulumi.Input[int] last_refresh_time: UNIX timestamp in milliseconds for most recent refresh. Not applicable for live mounts.
         :param pulumi.Input[str] path: Collection path to be mounted, in the form workspace.collection
         :param pulumi.Input[str] rrn: RRN of this mount.
-        :param pulumi.Input[int] snapshot_expiration_time: UNIX timestamp in milliseconds when the snapshot expires.
         :param pulumi.Input[str] state: Mount state.
         :param pulumi.Input[str] virtual_instance_id: Virtual Instance id
         :param pulumi.Input[str] virtual_instance_rrn: Virtual Instance RRN
@@ -324,7 +305,6 @@ class CollectionMount(pulumi.CustomResource):
         __props__.__dict__["last_refresh_time"] = last_refresh_time
         __props__.__dict__["path"] = path
         __props__.__dict__["rrn"] = rrn
-        __props__.__dict__["snapshot_expiration_time"] = snapshot_expiration_time
         __props__.__dict__["state"] = state
         __props__.__dict__["virtual_instance_id"] = virtual_instance_id
         __props__.__dict__["virtual_instance_rrn"] = virtual_instance_rrn
@@ -361,14 +341,6 @@ class CollectionMount(pulumi.CustomResource):
         RRN of this mount.
         """
         return pulumi.get(self, "rrn")
-
-    @property
-    @pulumi.getter(name="snapshotExpirationTime")
-    def snapshot_expiration_time(self) -> pulumi.Output[int]:
-        """
-        UNIX timestamp in milliseconds when the snapshot expires.
-        """
-        return pulumi.get(self, "snapshot_expiration_time")
 
     @property
     @pulumi.getter

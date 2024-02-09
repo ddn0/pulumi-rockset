@@ -37,8 +37,6 @@ type LookupVirtualInstanceArgs struct {
 	EnableRemountOnResume *bool `pulumi:"enableRemountOnResume"`
 	// Virtual Instance id.
 	Id string `pulumi:"id"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance.
-	MountRefreshIntervalSeconds *int `pulumi:"mountRefreshIntervalSeconds"`
 	// Virtual Instance name.
 	Name *string `pulumi:"name"`
 	// Virtual Instance state.
@@ -61,8 +59,6 @@ type LookupVirtualInstanceResult struct {
 	EnableRemountOnResume *bool `pulumi:"enableRemountOnResume"`
 	// Virtual Instance id.
 	Id string `pulumi:"id"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance.
-	MountRefreshIntervalSeconds *int `pulumi:"mountRefreshIntervalSeconds"`
 	// Virtual Instance name.
 	Name *string `pulumi:"name"`
 	// Virtual Instance state.
@@ -98,8 +94,6 @@ type LookupVirtualInstanceOutputArgs struct {
 	EnableRemountOnResume pulumi.BoolPtrInput `pulumi:"enableRemountOnResume"`
 	// Virtual Instance id.
 	Id pulumi.StringInput `pulumi:"id"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance.
-	MountRefreshIntervalSeconds pulumi.IntPtrInput `pulumi:"mountRefreshIntervalSeconds"`
 	// Virtual Instance name.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Virtual Instance state.
@@ -158,11 +152,6 @@ func (o LookupVirtualInstanceResultOutput) EnableRemountOnResume() pulumi.BoolPt
 // Virtual Instance id.
 func (o LookupVirtualInstanceResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupVirtualInstanceResult) string { return v.Id }).(pulumi.StringOutput)
-}
-
-// Number of seconds between data refreshes for mounts on this Virtual Instance.
-func (o LookupVirtualInstanceResultOutput) MountRefreshIntervalSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v LookupVirtualInstanceResult) *int { return v.MountRefreshIntervalSeconds }).(pulumi.IntPtrOutput)
 }
 
 // Virtual Instance name.

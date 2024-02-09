@@ -8,6 +8,28 @@ import * as utilities from "./utilities";
 
 /**
  * Manages a Rockset Query Lambda.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as fs from "fs";
+ * import * as rockset from "@pulumi/rockset";
+ *
+ * const config = new pulumi.Config();
+ * const pinned_version = config.requireObject("pinned-version");
+ * const top_movies = new rockset.QueryLambda("top-movies", {
+ *     workspace: "commons",
+ *     sqls: [{
+ *         query: fs.readFileSync(`${path.module}/data/top_movies.sql`, "utf8"),
+ *     }],
+ * });
+ * const active = new rockset.QueryLambdaTag("active", {
+ *     queryLambda: top_movies.name,
+ *     workspace: "commons",
+ *     version: pinned_version == undefined ? top_movies.version : pinned_version,
+ * });
+ * ```
  */
 export class QueryLambda extends pulumi.CustomResource {
     /**

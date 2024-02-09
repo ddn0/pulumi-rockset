@@ -203,6 +203,9 @@
                     }
                 }
             },
+            "rockset_query_lambda": {
+                "current": "rockset:index/getQueryLambda:getQueryLambda"
+            },
             "rockset_query_lambda_tag": {
                 "current": "rockset:index/getQueryLambdaTag:getQueryLambdaTag"
             },
@@ -251,6 +254,7 @@
         },
         "functions": {
             "rockset:index/getAccount:getAccount": "rockset_account",
+            "rockset:index/getQueryLambda:getQueryLambda": "rockset_query_lambda",
             "rockset:index/getQueryLambdaTag:getQueryLambdaTag": "rockset_query_lambda_tag",
             "rockset:index/getUser:getUser": "rockset_user",
             "rockset:index/getVirtualInstance:getVirtualInstance": "rockset_virtual_instance",
@@ -354,7 +358,6 @@
             "rockset:index/collectionMount:CollectionMount": {
                 "createdAt": "created_at",
                 "lastRefreshTime": "last_refresh_time",
-                "snapshotExpirationTime": "snapshot_expiration_time",
                 "virtualInstanceId": "virtual_instance_id",
                 "virtualInstanceRrn": "virtual_instance_rrn"
             },
@@ -388,6 +391,9 @@
                 "apiServer": "api_server",
                 "awsRegion": "aws_region"
             },
+            "rockset:index/getQueryLambda:getQueryLambda": {
+                "lastExecuted": "last_executed"
+            },
             "rockset:index/getQueryLambdaTag:getQueryLambdaTag": {
                 "lastExecuted": "last_executed"
             },
@@ -399,8 +405,7 @@
                 "autoSuspendSeconds": "auto_suspend_seconds",
                 "currentSize": "current_size",
                 "desiredSize": "desired_size",
-                "enableRemountOnResume": "enable_remount_on_resume",
-                "mountRefreshIntervalSeconds": "mount_refresh_interval_seconds"
+                "enableRemountOnResume": "enable_remount_on_resume"
             },
             "rockset:index/getWorkspace:getWorkspace": {
                 "collectionCount": "collection_count",
@@ -479,7 +484,6 @@
                 "currentSize": "current_size",
                 "desiredSize": "desired_size",
                 "monitoringEnabled": "monitoring_enabled",
-                "mountRefreshIntervalSeconds": "mount_refresh_interval_seconds",
                 "remountOnResume": "remount_on_resume"
             },
             "rockset:index/workspace:Workspace": {

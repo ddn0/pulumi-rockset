@@ -50,6 +50,11 @@ export const getAccount: typeof import("./getAccount").getAccount = null as any;
 export const getAccountOutput: typeof import("./getAccount").getAccountOutput = null as any;
 utilities.lazyLoad(exports, ["getAccount","getAccountOutput"], () => require("./getAccount"));
 
+export { GetQueryLambdaArgs, GetQueryLambdaResult, GetQueryLambdaOutputArgs } from "./getQueryLambda";
+export const getQueryLambda: typeof import("./getQueryLambda").getQueryLambda = null as any;
+export const getQueryLambdaOutput: typeof import("./getQueryLambda").getQueryLambdaOutput = null as any;
+utilities.lazyLoad(exports, ["getQueryLambda","getQueryLambdaOutput"], () => require("./getQueryLambda"));
+
 export { GetQueryLambdaTagArgs, GetQueryLambdaTagResult, GetQueryLambdaTagOutputArgs } from "./getQueryLambdaTag";
 export const getQueryLambdaTag: typeof import("./getQueryLambdaTag").getQueryLambdaTag = null as any;
 export const getQueryLambdaTagOutput: typeof import("./getQueryLambdaTag").getQueryLambdaTagOutput = null as any;
