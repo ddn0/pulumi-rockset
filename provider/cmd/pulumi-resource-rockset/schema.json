@@ -299,19 +299,23 @@
         "rockset:index/KafkaCollectionSourceStatus:KafkaCollectionSourceStatus": {
             "properties": {
                 "documentsProcessed": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Number of documents processed by this Kafka topic.\n"
                 },
                 "lastConsumedTime": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The type of partitions on a field.\n"
                 },
                 "partitions": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/rockset:index/KafkaCollectionSourceStatusPartition:KafkaCollectionSourceStatusPartition"
-                    }
+                    },
+                    "description": "The status info per partition.\n"
                 },
                 "state": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.\n"
                 }
             },
             "type": "object",
@@ -329,13 +333,16 @@
         "rockset:index/KafkaCollectionSourceStatusPartition:KafkaCollectionSourceStatusPartition": {
             "properties": {
                 "offsetLag": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Per partition lag for offset.\n"
                 },
                 "partitionNumber": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "The number of this partition.\n"
                 },
                 "partitionOffset": {
-                    "type": "integer"
+                    "type": "integer",
+                    "description": "Latest offset of this partition.\n"
                 }
             },
             "type": "object",
@@ -405,7 +412,8 @@
                     "willReplaceOnChanges": true
                 },
                 "retrieveFullDocument": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.\nSelecting this option will increase load on your upstream MongoDB database.\n"
                 },
                 "scanEndTime": {
                     "type": "string",
@@ -977,10 +985,6 @@
                     "type": "string",
                     "description": "RRN of this mount.\n"
                 },
-                "snapshotExpirationTime": {
-                    "type": "integer",
-                    "description": "UNIX timestamp in milliseconds when the snapshot expires.\n"
-                },
                 "state": {
                     "type": "string",
                     "description": "Mount state.\n"
@@ -999,7 +1003,6 @@
                 "lastRefreshTime",
                 "path",
                 "rrn",
-                "snapshotExpirationTime",
                 "state",
                 "virtualInstanceId",
                 "virtualInstanceRrn"
@@ -1039,10 +1042,6 @@
                     "rrn": {
                         "type": "string",
                         "description": "RRN of this mount.\n"
-                    },
-                    "snapshotExpirationTime": {
-                        "type": "integer",
-                        "description": "UNIX timestamp in milliseconds when the snapshot expires.\n"
                     },
                     "state": {
                         "type": "string",
@@ -2196,7 +2195,7 @@
             }
         },
         "rockset:index/queryLambda:QueryLambda": {
-            "description": "Manages a Rockset Query Lambda.\n",
+            "description": "Manages a Rockset Query Lambda.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as fs from \"fs\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst config = new pulumi.Config();\nconst pinned_version = config.requireObject(\"pinned-version\");\nconst top_movies = new rockset.QueryLambda(\"top-movies\", {\n    workspace: \"commons\",\n    sqls: [{\n        query: fs.readFileSync(`${path.module}/data/top_movies.sql`, \"utf8\"),\n    }],\n});\nconst active = new rockset.QueryLambdaTag(\"active\", {\n    queryLambda: top_movies.name,\n    workspace: \"commons\",\n    version: pinned_version == undefined ? top_movies.version : pinned_version,\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\nconfig = pulumi.Config()\npinned_version = config.require_object(\"pinned-version\")\ntop_movies = rockset.QueryLambda(\"top-movies\",\n    workspace=\"commons\",\n    sqls=[rockset.QueryLambdaSqlArgs(\n        query=(lambda path: open(path).read())(f\"{path['module']}/data/top_movies.sql\"),\n    )])\nactive = rockset.QueryLambdaTag(\"active\",\n    query_lambda=top_movies.name,\n    workspace=\"commons\",\n    version=top_movies.version if pinned_version == None else pinned_version)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.IO;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var config = new Config();\n    var pinned_version = config.RequireObject\u003cdynamic\u003e(\"pinned-version\");\n    var top_movies = new Rockset.QueryLambda(\"top-movies\", new()\n    {\n        Workspace = \"commons\",\n        Sqls = new[]\n        {\n            new Rockset.Inputs.QueryLambdaSqlArgs\n            {\n                Query = File.ReadAllText($\"{path.Module}/data/top_movies.sql\"),\n            },\n        },\n    });\n\n    var active = new Rockset.QueryLambdaTag(\"active\", new()\n    {\n        QueryLambda = top_movies.Name,\n        Workspace = \"commons\",\n        Version = pinned_version == null ? top_movies.Version : pinned_version,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"fmt\"\n\t\"os\"\n\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config\"\n)\n\nfunc readFileOrPanic(path string) pulumi.StringPtrInput {\n\tdata, err := os.ReadFile(path)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\treturn pulumi.String(string(data))\n}\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tcfg := config.New(ctx, \"\")\n\t\tpinned_version := cfg.RequireObject(\"pinned-version\")\n\t\t_, err := rockset.NewQueryLambda(ctx, \"top-movies\", \u0026rockset.QueryLambdaArgs{\n\t\t\tWorkspace: pulumi.String(\"commons\"),\n\t\t\tSqls: rockset.QueryLambdaSqlArray{\n\t\t\t\t\u0026rockset.QueryLambdaSqlArgs{\n\t\t\t\t\tQuery: readFileOrPanic(fmt.Sprintf(\"%v/data/top_movies.sql\", path.Module)),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tvar tmp0 pulumi.String\n\t\tif pinned_version == nil {\n\t\t\ttmp0 = top_movies.Version\n\t\t} else {\n\t\t\ttmp0 = pulumi.Any(pinned_version)\n\t\t}\n\t\t_, err = rockset.NewQueryLambdaTag(ctx, \"active\", \u0026rockset.QueryLambdaTagArgs{\n\t\t\tQueryLambda: top_movies.Name,\n\t\t\tWorkspace:   pulumi.String(\"commons\"),\n\t\t\tVersion:     pulumi.String(tmp0),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.QueryLambda;\nimport com.pulumi.rockset.QueryLambdaArgs;\nimport com.pulumi.rockset.inputs.QueryLambdaSqlArgs;\nimport com.pulumi.rockset.QueryLambdaTag;\nimport com.pulumi.rockset.QueryLambdaTagArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var config = ctx.config();\n        final var pinned_version = config.get(\"pinned-version\");\n        var top_movies = new QueryLambda(\"top-movies\", QueryLambdaArgs.builder()        \n            .workspace(\"commons\")\n            .sqls(QueryLambdaSqlArgs.builder()\n                .query(Files.readString(Paths.get(String.format(\"%s/data/top_movies.sql\", path.module()))))\n                .build())\n            .build());\n\n        var active = new QueryLambdaTag(\"active\", QueryLambdaTagArgs.builder()        \n            .queryLambda(top_movies.name())\n            .workspace(\"commons\")\n            .version(pinned_version == null ? top_movies.version() : pinned_version)\n            .build());\n\n    }\n}\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
                 "description": {
                     "type": "string",
@@ -2294,7 +2293,7 @@
             }
         },
         "rockset:index/queryLambdaTag:QueryLambdaTag": {
-            "description": "Manages a Rockset Query Lambda Tag.\n",
+            "description": "Manages a Rockset Query Lambda Tag.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst active = new rockset.QueryLambdaTag(\"active\", {\n    queryLambda: \"top-movies\",\n    version: \"b22fb578b8106694\",\n    workspace: \"commons\",\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\nactive = rockset.QueryLambdaTag(\"active\",\n    query_lambda=\"top-movies\",\n    version=\"b22fb578b8106694\",\n    workspace=\"commons\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var active = new Rockset.QueryLambdaTag(\"active\", new()\n    {\n        QueryLambda = \"top-movies\",\n        Version = \"b22fb578b8106694\",\n        Workspace = \"commons\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.NewQueryLambdaTag(ctx, \"active\", \u0026rockset.QueryLambdaTagArgs{\n\t\t\tQueryLambda: pulumi.String(\"top-movies\"),\n\t\t\tVersion:     pulumi.String(\"b22fb578b8106694\"),\n\t\t\tWorkspace:   pulumi.String(\"commons\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.QueryLambdaTag;\nimport com.pulumi.rockset.QueryLambdaTagArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var active = new QueryLambdaTag(\"active\", QueryLambdaTagArgs.builder()        \n            .queryLambda(\"top-movies\")\n            .version(\"b22fb578b8106694\")\n            .workspace(\"commons\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  active:\n    type: rockset:QueryLambdaTag\n    properties:\n      queryLambda: top-movies\n      version: b22fb578b8106694\n      workspace: commons\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
                 "name": {
                     "type": "string",
@@ -2870,10 +2869,6 @@
                     "type": "boolean",
                     "description": "Is monitoring enabled for this Virtual Instance.\n"
                 },
-                "mountRefreshIntervalSeconds": {
-                    "type": "integer",
-                    "description": "Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.\n"
-                },
                 "name": {
                     "type": "string",
                     "description": "Name of the virtual instance.\n"
@@ -2913,10 +2908,6 @@
                 "description": {
                     "type": "string",
                     "description": "Description of the virtual instance.\n"
-                },
-                "mountRefreshIntervalSeconds": {
-                    "type": "integer",
-                    "description": "Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.\n"
                 },
                 "name": {
                     "type": "string",
@@ -2960,10 +2951,6 @@
                     "monitoringEnabled": {
                         "type": "boolean",
                         "description": "Is monitoring enabled for this Virtual Instance.\n"
-                    },
-                    "mountRefreshIntervalSeconds": {
-                        "type": "integer",
-                        "description": "Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.\n"
                     },
                     "name": {
                         "type": "string",
@@ -3107,7 +3094,80 @@
                 ]
             }
         },
+        "rockset:index/getQueryLambda:getQueryLambda": {
+            "description": "Gets information about a query lambda. The `tag` defaults to `latest`.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getQueryLambda.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the query lambda.\n"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Tag name.\n"
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "Workspace the query lambda resides in.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name",
+                    "workspace"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getQueryLambda.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "Description of the query lambda.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "lastExecuted": {
+                        "type": "string",
+                        "description": "Last time the query lambda was executed.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the query lambda.\n"
+                    },
+                    "sql": {
+                        "type": "string",
+                        "description": "Query lambda SQL.\n"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "description": "Tag name.\n"
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "Query lambda tag version.\n"
+                    },
+                    "workspace": {
+                        "type": "string",
+                        "description": "Workspace the query lambda resides in.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "description",
+                    "lastExecuted",
+                    "name",
+                    "sql",
+                    "version",
+                    "workspace",
+                    "id"
+                ]
+            }
+        },
         "rockset:index/getQueryLambdaTag:getQueryLambdaTag": {
+            "description": "Deprecated. Use `rockset.QueryLambda` instead and specify the `tag`.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getQueryLambdaTag.\n",
                 "properties": {
@@ -3181,26 +3241,23 @@
             }
         },
         "rockset:index/getUser:getUser": {
-            "description": "This data source can be used to fetch information about a specific user.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst pme = rockset.getUser({\n    email: \"pme@rockset.com\",\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\npme = rockset.get_user(email=\"pme@rockset.com\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var pme = Rockset.GetUser.Invoke(new()\n    {\n        Email = \"pme@rockset.com\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.LookupUser(ctx, \u0026rockset.LookupUserArgs{\n\t\t\tEmail: \"pme@rockset.com\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.RocksetFunctions;\nimport com.pulumi.rockset.inputs.GetUserArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var pme = RocksetFunctions.getUser(GetUserArgs.builder()\n            .email(\"pme@rockset.com\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  pme:\n    fn::invoke:\n      Function: rockset:getUser\n      Arguments:\n        email: pme@rockset.com\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "This data source can be used to fetch information about a specific user.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as rockset from \"@pulumi/rockset\";\n\nconst pme = rockset.getUser({\n    email: \"pme@rockset.com\",\n});\n```\n```python\nimport pulumi\nimport pulumi_rockset as rockset\n\npme = rockset.get_user(email=\"pme@rockset.com\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Rockset = Pulumi.Rockset;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var pme = Rockset.GetUser.Invoke(new()\n    {\n        Email = \"pme@rockset.com\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/ddn0/pulumi-rockset/sdk/go/rockset\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := rockset.LookupUser(ctx, \u0026rockset.LookupUserArgs{\n\t\t\tEmail: pulumi.StringRef(\"pme@rockset.com\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.rockset.RocksetFunctions;\nimport com.pulumi.rockset.inputs.GetUserArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var pme = RocksetFunctions.getUser(GetUserArgs.builder()\n            .email(\"pme@rockset.com\")\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  pme:\n    fn::invoke:\n      Function: rockset:getUser\n      Arguments:\n        email: pme@rockset.com\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getUser.\n",
                 "properties": {
                     "email": {
                         "type": "string",
-                        "description": "User email.\n"
+                        "description": "User email. If absent or blank, it gets the current user.\n"
                     }
                 },
-                "type": "object",
-                "required": [
-                    "email"
-                ]
+                "type": "object"
             },
             "outputs": {
                 "description": "A collection of values returned by getUser.\n",
                 "properties": {
                     "email": {
                         "type": "string",
-                        "description": "User email.\n"
+                        "description": "User email. If absent or blank, it gets the current user.\n"
                     },
                     "firstName": {
                         "type": "string",
@@ -3228,7 +3285,6 @@
                 },
                 "type": "object",
                 "required": [
-                    "email",
                     "firstName",
                     "id",
                     "lastName",
@@ -3268,10 +3324,6 @@
                     "id": {
                         "type": "string",
                         "description": "Virtual Instance id.\n"
-                    },
-                    "mountRefreshIntervalSeconds": {
-                        "type": "integer",
-                        "description": "Number of seconds between data refreshes for mounts on this Virtual Instance.\n"
                     },
                     "name": {
                         "type": "string",
@@ -3317,10 +3369,6 @@
                     "id": {
                         "type": "string",
                         "description": "Virtual Instance id.\n"
-                    },
-                    "mountRefreshIntervalSeconds": {
-                        "type": "integer",
-                        "description": "Number of seconds between data refreshes for mounts on this Virtual Instance.\n"
                     },
                     "name": {
                         "type": "string",

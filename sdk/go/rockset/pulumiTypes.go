@@ -940,10 +940,14 @@ func (o KafkaCollectionSourceArrayOutput) Index(i pulumi.IntInput) KafkaCollecti
 }
 
 type KafkaCollectionSourceStatus struct {
-	DocumentsProcessed *int                                   `pulumi:"documentsProcessed"`
-	LastConsumedTime   *string                                `pulumi:"lastConsumedTime"`
-	Partitions         []KafkaCollectionSourceStatusPartition `pulumi:"partitions"`
-	State              *string                                `pulumi:"state"`
+	// Number of documents processed by this Kafka topic.
+	DocumentsProcessed *int `pulumi:"documentsProcessed"`
+	// The type of partitions on a field.
+	LastConsumedTime *string `pulumi:"lastConsumedTime"`
+	// The status info per partition.
+	Partitions []KafkaCollectionSourceStatusPartition `pulumi:"partitions"`
+	// State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+	State *string `pulumi:"state"`
 }
 
 // KafkaCollectionSourceStatusInput is an input type that accepts KafkaCollectionSourceStatusArgs and KafkaCollectionSourceStatusOutput values.
@@ -958,10 +962,14 @@ type KafkaCollectionSourceStatusInput interface {
 }
 
 type KafkaCollectionSourceStatusArgs struct {
-	DocumentsProcessed pulumi.IntPtrInput                             `pulumi:"documentsProcessed"`
-	LastConsumedTime   pulumi.StringPtrInput                          `pulumi:"lastConsumedTime"`
-	Partitions         KafkaCollectionSourceStatusPartitionArrayInput `pulumi:"partitions"`
-	State              pulumi.StringPtrInput                          `pulumi:"state"`
+	// Number of documents processed by this Kafka topic.
+	DocumentsProcessed pulumi.IntPtrInput `pulumi:"documentsProcessed"`
+	// The type of partitions on a field.
+	LastConsumedTime pulumi.StringPtrInput `pulumi:"lastConsumedTime"`
+	// The status info per partition.
+	Partitions KafkaCollectionSourceStatusPartitionArrayInput `pulumi:"partitions"`
+	// State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+	State pulumi.StringPtrInput `pulumi:"state"`
 }
 
 func (KafkaCollectionSourceStatusArgs) ElementType() reflect.Type {
@@ -1015,18 +1023,22 @@ func (o KafkaCollectionSourceStatusOutput) ToKafkaCollectionSourceStatusOutputWi
 	return o
 }
 
+// Number of documents processed by this Kafka topic.
 func (o KafkaCollectionSourceStatusOutput) DocumentsProcessed() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v KafkaCollectionSourceStatus) *int { return v.DocumentsProcessed }).(pulumi.IntPtrOutput)
 }
 
+// The type of partitions on a field.
 func (o KafkaCollectionSourceStatusOutput) LastConsumedTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v KafkaCollectionSourceStatus) *string { return v.LastConsumedTime }).(pulumi.StringPtrOutput)
 }
 
+// The status info per partition.
 func (o KafkaCollectionSourceStatusOutput) Partitions() KafkaCollectionSourceStatusPartitionArrayOutput {
 	return o.ApplyT(func(v KafkaCollectionSourceStatus) []KafkaCollectionSourceStatusPartition { return v.Partitions }).(KafkaCollectionSourceStatusPartitionArrayOutput)
 }
 
+// State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
 func (o KafkaCollectionSourceStatusOutput) State() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v KafkaCollectionSourceStatus) *string { return v.State }).(pulumi.StringPtrOutput)
 }
@@ -1052,8 +1064,11 @@ func (o KafkaCollectionSourceStatusArrayOutput) Index(i pulumi.IntInput) KafkaCo
 }
 
 type KafkaCollectionSourceStatusPartition struct {
-	OffsetLag       *int `pulumi:"offsetLag"`
+	// Per partition lag for offset.
+	OffsetLag *int `pulumi:"offsetLag"`
+	// The number of this partition.
 	PartitionNumber *int `pulumi:"partitionNumber"`
+	// Latest offset of this partition.
 	PartitionOffset *int `pulumi:"partitionOffset"`
 }
 
@@ -1069,8 +1084,11 @@ type KafkaCollectionSourceStatusPartitionInput interface {
 }
 
 type KafkaCollectionSourceStatusPartitionArgs struct {
-	OffsetLag       pulumi.IntPtrInput `pulumi:"offsetLag"`
+	// Per partition lag for offset.
+	OffsetLag pulumi.IntPtrInput `pulumi:"offsetLag"`
+	// The number of this partition.
 	PartitionNumber pulumi.IntPtrInput `pulumi:"partitionNumber"`
+	// Latest offset of this partition.
 	PartitionOffset pulumi.IntPtrInput `pulumi:"partitionOffset"`
 }
 
@@ -1125,14 +1143,17 @@ func (o KafkaCollectionSourceStatusPartitionOutput) ToKafkaCollectionSourceStatu
 	return o
 }
 
+// Per partition lag for offset.
 func (o KafkaCollectionSourceStatusPartitionOutput) OffsetLag() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v KafkaCollectionSourceStatusPartition) *int { return v.OffsetLag }).(pulumi.IntPtrOutput)
 }
 
+// The number of this partition.
 func (o KafkaCollectionSourceStatusPartitionOutput) PartitionNumber() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v KafkaCollectionSourceStatusPartition) *int { return v.PartitionNumber }).(pulumi.IntPtrOutput)
 }
 
+// Latest offset of this partition.
 func (o KafkaCollectionSourceStatusPartitionOutput) PartitionOffset() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v KafkaCollectionSourceStatusPartition) *int { return v.PartitionOffset }).(pulumi.IntPtrOutput)
 }
@@ -1296,8 +1317,10 @@ type MongodbCollectionSource struct {
 	// MongoDB database name containing the target collection.
 	DatabaseName string `pulumi:"databaseName"`
 	// The name of the Rockset MongoDB integration.
-	IntegrationName      string `pulumi:"integrationName"`
-	RetrieveFullDocument *bool  `pulumi:"retrieveFullDocument"`
+	IntegrationName string `pulumi:"integrationName"`
+	// Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+	// Selecting this option will increase load on your upstream MongoDB database.
+	RetrieveFullDocument *bool `pulumi:"retrieveFullDocument"`
 	// MongoDB scan end time.
 	ScanEndTime *string `pulumi:"scanEndTime"`
 	// Number of records inserted using scan.
@@ -1339,7 +1362,9 @@ type MongodbCollectionSourceArgs struct {
 	// MongoDB database name containing the target collection.
 	DatabaseName pulumi.StringInput `pulumi:"databaseName"`
 	// The name of the Rockset MongoDB integration.
-	IntegrationName      pulumi.StringInput  `pulumi:"integrationName"`
+	IntegrationName pulumi.StringInput `pulumi:"integrationName"`
+	// Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+	// Selecting this option will increase load on your upstream MongoDB database.
 	RetrieveFullDocument pulumi.BoolPtrInput `pulumi:"retrieveFullDocument"`
 	// MongoDB scan end time.
 	ScanEndTime pulumi.StringPtrInput `pulumi:"scanEndTime"`
@@ -1431,6 +1456,8 @@ func (o MongodbCollectionSourceOutput) IntegrationName() pulumi.StringOutput {
 	return o.ApplyT(func(v MongodbCollectionSource) string { return v.IntegrationName }).(pulumi.StringOutput)
 }
 
+// Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+// Selecting this option will increase load on your upstream MongoDB database.
 func (o MongodbCollectionSourceOutput) RetrieveFullDocument() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v MongodbCollectionSource) *bool { return v.RetrieveFullDocument }).(pulumi.BoolPtrOutput)
 }

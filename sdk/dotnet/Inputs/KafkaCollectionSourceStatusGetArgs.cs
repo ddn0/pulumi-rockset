@@ -12,20 +12,33 @@ namespace Pulumi.Rockset.Inputs
 
     public sealed class KafkaCollectionSourceStatusGetArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Number of documents processed by this Kafka topic.
+        /// </summary>
         [Input("documentsProcessed")]
         public Input<int>? DocumentsProcessed { get; set; }
 
+        /// <summary>
+        /// The type of partitions on a field.
+        /// </summary>
         [Input("lastConsumedTime")]
         public Input<string>? LastConsumedTime { get; set; }
 
         [Input("partitions")]
         private InputList<Inputs.KafkaCollectionSourceStatusPartitionGetArgs>? _partitions;
+
+        /// <summary>
+        /// The status info per partition.
+        /// </summary>
         public InputList<Inputs.KafkaCollectionSourceStatusPartitionGetArgs> Partitions
         {
             get => _partitions ?? (_partitions = new InputList<Inputs.KafkaCollectionSourceStatusPartitionGetArgs>());
             set => _partitions = value;
         }
 
+        /// <summary>
+        /// State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+        /// </summary>
         [Input("state")]
         public Input<string>? State { get; set; }
 

@@ -13,6 +13,34 @@ import (
 )
 
 // Manages a Rockset Query Lambda Tag.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/ddn0/pulumi-rockset/sdk/go/rockset"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := rockset.NewQueryLambdaTag(ctx, "active", &rockset.QueryLambdaTagArgs{
+//				QueryLambda: pulumi.String("top-movies"),
+//				Version:     pulumi.String("b22fb578b8106694"),
+//				Workspace:   pulumi.String("commons"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type QueryLambdaTag struct {
 	pulumi.CustomResourceState
 

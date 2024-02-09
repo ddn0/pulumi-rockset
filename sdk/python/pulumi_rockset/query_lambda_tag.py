@@ -165,6 +165,18 @@ class QueryLambdaTag(pulumi.CustomResource):
         """
         Manages a Rockset Query Lambda Tag.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_rockset as rockset
+
+        active = rockset.QueryLambdaTag("active",
+            query_lambda="top-movies",
+            version="b22fb578b8106694",
+            workspace="commons")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] name: Unique identifier for the tag. Can contain alphanumeric or dash characters.
@@ -180,6 +192,18 @@ class QueryLambdaTag(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages a Rockset Query Lambda Tag.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_rockset as rockset
+
+        active = rockset.QueryLambdaTag("active",
+            query_lambda="top-movies",
+            version="b22fb578b8106694",
+            workspace="commons")
+        ```
 
         :param str resource_name: The name of the resource.
         :param QueryLambdaTagArgs args: The arguments to use to populate this resource's properties.

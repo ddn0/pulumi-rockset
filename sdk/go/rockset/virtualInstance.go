@@ -73,8 +73,6 @@ type VirtualInstance struct {
 	DesiredSize pulumi.StringOutput `pulumi:"desiredSize"`
 	// Is monitoring enabled for this Virtual Instance.
 	MonitoringEnabled pulumi.BoolOutput `pulumi:"monitoringEnabled"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-	MountRefreshIntervalSeconds pulumi.IntPtrOutput `pulumi:"mountRefreshIntervalSeconds"`
 	// Name of the virtual instance.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
@@ -132,8 +130,6 @@ type virtualInstanceState struct {
 	DesiredSize *string `pulumi:"desiredSize"`
 	// Is monitoring enabled for this Virtual Instance.
 	MonitoringEnabled *bool `pulumi:"monitoringEnabled"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-	MountRefreshIntervalSeconds *int `pulumi:"mountRefreshIntervalSeconds"`
 	// Name of the virtual instance.
 	Name *string `pulumi:"name"`
 	// When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
@@ -159,8 +155,6 @@ type VirtualInstanceState struct {
 	DesiredSize pulumi.StringPtrInput
 	// Is monitoring enabled for this Virtual Instance.
 	MonitoringEnabled pulumi.BoolPtrInput
-	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-	MountRefreshIntervalSeconds pulumi.IntPtrInput
 	// Name of the virtual instance.
 	Name pulumi.StringPtrInput
 	// When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
@@ -182,8 +176,6 @@ type virtualInstanceArgs struct {
 	AutoSuspendSeconds *int `pulumi:"autoSuspendSeconds"`
 	// Description of the virtual instance.
 	Description *string `pulumi:"description"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-	MountRefreshIntervalSeconds *int `pulumi:"mountRefreshIntervalSeconds"`
 	// Name of the virtual instance.
 	Name *string `pulumi:"name"`
 	// When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
@@ -198,8 +190,6 @@ type VirtualInstanceArgs struct {
 	AutoSuspendSeconds pulumi.IntPtrInput
 	// Description of the virtual instance.
 	Description pulumi.StringPtrInput
-	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-	MountRefreshIntervalSeconds pulumi.IntPtrInput
 	// Name of the virtual instance.
 	Name pulumi.StringPtrInput
 	// When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
@@ -323,11 +313,6 @@ func (o VirtualInstanceOutput) DesiredSize() pulumi.StringOutput {
 // Is monitoring enabled for this Virtual Instance.
 func (o VirtualInstanceOutput) MonitoringEnabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *VirtualInstance) pulumi.BoolOutput { return v.MonitoringEnabled }).(pulumi.BoolOutput)
-}
-
-// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-func (o VirtualInstanceOutput) MountRefreshIntervalSeconds() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *VirtualInstance) pulumi.IntPtrOutput { return v.MountRefreshIntervalSeconds }).(pulumi.IntPtrOutput)
 }
 
 // Name of the virtual instance.

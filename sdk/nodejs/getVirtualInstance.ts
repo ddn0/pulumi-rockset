@@ -15,7 +15,6 @@ export function getVirtualInstance(args: GetVirtualInstanceArgs, opts?: pulumi.I
         "desiredSize": args.desiredSize,
         "enableRemountOnResume": args.enableRemountOnResume,
         "id": args.id,
-        "mountRefreshIntervalSeconds": args.mountRefreshIntervalSeconds,
         "name": args.name,
         "state": args.state,
     }, opts);
@@ -53,10 +52,6 @@ export interface GetVirtualInstanceArgs {
      * Virtual Instance id.
      */
     id: string;
-    /**
-     * Number of seconds between data refreshes for mounts on this Virtual Instance.
-     */
-    mountRefreshIntervalSeconds?: number;
     /**
      * Virtual Instance name.
      */
@@ -99,10 +94,6 @@ export interface GetVirtualInstanceResult {
      * Virtual Instance id.
      */
     readonly id: string;
-    /**
-     * Number of seconds between data refreshes for mounts on this Virtual Instance.
-     */
-    readonly mountRefreshIntervalSeconds?: number;
     /**
      * Virtual Instance name.
      */
@@ -148,10 +139,6 @@ export interface GetVirtualInstanceOutputArgs {
      * Virtual Instance id.
      */
     id: pulumi.Input<string>;
-    /**
-     * Number of seconds between data refreshes for mounts on this Virtual Instance.
-     */
-    mountRefreshIntervalSeconds?: pulumi.Input<number>;
     /**
      * Virtual Instance name.
      */

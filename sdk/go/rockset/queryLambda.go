@@ -13,6 +13,65 @@ import (
 )
 
 // Manages a Rockset Query Lambda.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"fmt"
+//	"os"
+//
+//	"github.com/ddn0/pulumi-rockset/sdk/go/rockset"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+//
+// )
+//
+//	func readFileOrPanic(path string) pulumi.StringPtrInput {
+//		data, err := os.ReadFile(path)
+//		if err != nil {
+//			panic(err.Error())
+//		}
+//		return pulumi.String(string(data))
+//	}
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			cfg := config.New(ctx, "")
+//			pinned_version := cfg.RequireObject("pinned-version")
+//			_, err := rockset.NewQueryLambda(ctx, "top-movies", &rockset.QueryLambdaArgs{
+//				Workspace: pulumi.String("commons"),
+//				Sqls: rockset.QueryLambdaSqlArray{
+//					&rockset.QueryLambdaSqlArgs{
+//						Query: readFileOrPanic(fmt.Sprintf("%v/data/top_movies.sql", path.Module)),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			var tmp0 pulumi.String
+//			if pinned_version == nil {
+//				tmp0 = top_movies.Version
+//			} else {
+//				tmp0 = pulumi.Any(pinned_version)
+//			}
+//			_, err = rockset.NewQueryLambdaTag(ctx, "active", &rockset.QueryLambdaTagArgs{
+//				QueryLambda: top_movies.Name,
+//				Workspace:   pulumi.String("commons"),
+//				Version:     pulumi.String(tmp0),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type QueryLambda struct {
 	pulumi.CustomResourceState
 

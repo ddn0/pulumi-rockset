@@ -86,12 +86,6 @@ namespace Pulumi.Rockset
         public Output<bool> MonitoringEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-        /// </summary>
-        [Output("mountRefreshIntervalSeconds")]
-        public Output<int?> MountRefreshIntervalSeconds { get; private set; } = null!;
-
-        /// <summary>
         /// Name of the virtual instance.
         /// </summary>
         [Output("name")]
@@ -180,12 +174,6 @@ namespace Pulumi.Rockset
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-        /// </summary>
-        [Input("mountRefreshIntervalSeconds")]
-        public Input<int>? MountRefreshIntervalSeconds { get; set; }
-
-        /// <summary>
         /// Name of the virtual instance.
         /// </summary>
         [Input("name")]
@@ -246,12 +234,6 @@ namespace Pulumi.Rockset
         /// </summary>
         [Input("monitoringEnabled")]
         public Input<bool>? MonitoringEnabled { get; set; }
-
-        /// <summary>
-        /// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-        /// </summary>
-        [Input("mountRefreshIntervalSeconds")]
-        public Input<int>? MountRefreshIntervalSeconds { get; set; }
 
         /// <summary>
         /// Name of the virtual instance.

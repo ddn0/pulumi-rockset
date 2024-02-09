@@ -11,6 +11,26 @@ namespace Pulumi.Rockset
 {
     /// <summary>
     /// Manages a Rockset Query Lambda Tag.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
+    /// using Pulumi;
+    /// using Rockset = Pulumi.Rockset;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var active = new Rockset.QueryLambdaTag("active", new()
+    ///     {
+    ///         QueryLambda = "top-movies",
+    ///         Version = "b22fb578b8106694",
+    ///         Workspace = "commons",
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [RocksetResourceType("rockset:index/queryLambdaTag:QueryLambdaTag")]
     public partial class QueryLambdaTag : global::Pulumi.CustomResource

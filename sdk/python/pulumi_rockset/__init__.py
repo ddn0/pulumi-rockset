@@ -14,6 +14,7 @@ from .dynamodb_integration import *
 from .gcs_collection import *
 from .gcs_integration import *
 from .get_account import *
+from .get_query_lambda import *
 from .get_query_lambda_tag import *
 from .get_user import *
 from .get_virtual_instance import *

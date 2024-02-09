@@ -192,6 +192,25 @@ class QueryLambda(pulumi.CustomResource):
         """
         Manages a Rockset Query Lambda.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_rockset as rockset
+
+        config = pulumi.Config()
+        pinned_version = config.require_object("pinned-version")
+        top_movies = rockset.QueryLambda("top-movies",
+            workspace="commons",
+            sqls=[rockset.QueryLambdaSqlArgs(
+                query=(lambda path: open(path).read())(f"{path['module']}/data/top_movies.sql"),
+            )])
+        active = rockset.QueryLambdaTag("active",
+            query_lambda=top_movies.name,
+            workspace="commons",
+            version=top_movies.version if pinned_version == None else pinned_version)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: Text describing the query lambda.
@@ -206,6 +225,25 @@ class QueryLambda(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Manages a Rockset Query Lambda.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_rockset as rockset
+
+        config = pulumi.Config()
+        pinned_version = config.require_object("pinned-version")
+        top_movies = rockset.QueryLambda("top-movies",
+            workspace="commons",
+            sqls=[rockset.QueryLambdaSqlArgs(
+                query=(lambda path: open(path).read())(f"{path['module']}/data/top_movies.sql"),
+            )])
+        active = rockset.QueryLambdaTag("active",
+            query_lambda=top_movies.name,
+            workspace="commons",
+            version=top_movies.version if pinned_version == None else pinned_version)
+        ```
 
         :param str resource_name: The name of the resource.
         :param QueryLambdaArgs args: The arguments to use to populate this resource's properties.

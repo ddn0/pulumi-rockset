@@ -24,6 +24,7 @@
         "gcsCollection.ts",
         "gcsIntegration.ts",
         "getAccount.ts",
+        "getQueryLambda.ts",
         "getQueryLambdaTag.ts",
         "getUser.ts",
         "getVirtualInstance.ts",

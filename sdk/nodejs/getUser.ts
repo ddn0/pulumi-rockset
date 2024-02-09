@@ -18,7 +18,8 @@ import * as utilities from "./utilities";
  * });
  * ```
  */
-export function getUser(args: GetUserArgs, opts?: pulumi.InvokeOptions): Promise<GetUserResult> {
+export function getUser(args?: GetUserArgs, opts?: pulumi.InvokeOptions): Promise<GetUserResult> {
+    args = args || {};
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("rockset:index/getUser:getUser", {
@@ -31,9 +32,9 @@ export function getUser(args: GetUserArgs, opts?: pulumi.InvokeOptions): Promise
  */
 export interface GetUserArgs {
     /**
-     * User email.
+     * User email. If absent or blank, it gets the current user.
      */
-    email: string;
+    email?: string;
 }
 
 /**
@@ -41,9 +42,9 @@ export interface GetUserArgs {
  */
 export interface GetUserResult {
     /**
-     * User email.
+     * User email. If absent or blank, it gets the current user.
      */
-    readonly email: string;
+    readonly email?: string;
     /**
      * User's first name.
      */
@@ -79,7 +80,7 @@ export interface GetUserResult {
  * });
  * ```
  */
-export function getUserOutput(args: GetUserOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetUserResult> {
+export function getUserOutput(args?: GetUserOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetUserResult> {
     return pulumi.output(args).apply((a: any) => getUser(a, opts))
 }
 
@@ -88,7 +89,7 @@ export function getUserOutput(args: GetUserOutputArgs, opts?: pulumi.InvokeOptio
  */
 export interface GetUserOutputArgs {
     /**
-     * User email.
+     * User email. If absent or blank, it gets the current user.
      */
-    email: pulumi.Input<string>;
+    email?: pulumi.Input<string>;
 }

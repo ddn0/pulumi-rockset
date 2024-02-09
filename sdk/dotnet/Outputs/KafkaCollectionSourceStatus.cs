@@ -13,9 +13,21 @@ namespace Pulumi.Rockset.Outputs
     [OutputType]
     public sealed class KafkaCollectionSourceStatus
     {
+        /// <summary>
+        /// Number of documents processed by this Kafka topic.
+        /// </summary>
         public readonly int? DocumentsProcessed;
+        /// <summary>
+        /// The type of partitions on a field.
+        /// </summary>
         public readonly string? LastConsumedTime;
+        /// <summary>
+        /// The status info per partition.
+        /// </summary>
         public readonly ImmutableArray<Outputs.KafkaCollectionSourceStatusPartition> Partitions;
+        /// <summary>
+        /// State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+        /// </summary>
         public readonly string? State;
 
         [OutputConstructor]

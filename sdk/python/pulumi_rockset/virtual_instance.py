@@ -17,7 +17,6 @@ class VirtualInstanceArgs:
                  size: pulumi.Input[str],
                  auto_suspend_seconds: Optional[pulumi.Input[int]] = None,
                  description: Optional[pulumi.Input[str]] = None,
-                 mount_refresh_interval_seconds: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  remount_on_resume: Optional[pulumi.Input[bool]] = None):
         """
@@ -25,7 +24,6 @@ class VirtualInstanceArgs:
         :param pulumi.Input[str] size: Requested virtual instance size. Note that this field is called type in the API documentation.
         :param pulumi.Input[int] auto_suspend_seconds: Number of seconds without queries after which the Virtual Instance is suspended.
         :param pulumi.Input[str] description: Description of the virtual instance.
-        :param pulumi.Input[int] mount_refresh_interval_seconds: Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
         :param pulumi.Input[str] name: Name of the virtual instance.
         :param pulumi.Input[bool] remount_on_resume: When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
         """
@@ -34,8 +32,6 @@ class VirtualInstanceArgs:
             pulumi.set(__self__, "auto_suspend_seconds", auto_suspend_seconds)
         if description is not None:
             pulumi.set(__self__, "description", description)
-        if mount_refresh_interval_seconds is not None:
-            pulumi.set(__self__, "mount_refresh_interval_seconds", mount_refresh_interval_seconds)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if remount_on_resume is not None:
@@ -78,18 +74,6 @@ class VirtualInstanceArgs:
         pulumi.set(self, "description", value)
 
     @property
-    @pulumi.getter(name="mountRefreshIntervalSeconds")
-    def mount_refresh_interval_seconds(self) -> Optional[pulumi.Input[int]]:
-        """
-        Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-        """
-        return pulumi.get(self, "mount_refresh_interval_seconds")
-
-    @mount_refresh_interval_seconds.setter
-    def mount_refresh_interval_seconds(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "mount_refresh_interval_seconds", value)
-
-    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -123,7 +107,6 @@ class _VirtualInstanceState:
                  description: Optional[pulumi.Input[str]] = None,
                  desired_size: Optional[pulumi.Input[str]] = None,
                  monitoring_enabled: Optional[pulumi.Input[bool]] = None,
-                 mount_refresh_interval_seconds: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  remount_on_resume: Optional[pulumi.Input[bool]] = None,
                  rrn: Optional[pulumi.Input[str]] = None,
@@ -137,7 +120,6 @@ class _VirtualInstanceState:
         :param pulumi.Input[str] description: Description of the virtual instance.
         :param pulumi.Input[str] desired_size: Desired size of the virtual instance.
         :param pulumi.Input[bool] monitoring_enabled: Is monitoring enabled for this Virtual Instance.
-        :param pulumi.Input[int] mount_refresh_interval_seconds: Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
         :param pulumi.Input[str] name: Name of the virtual instance.
         :param pulumi.Input[bool] remount_on_resume: When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
         :param pulumi.Input[str] rrn: RRN of this Virtual Instance.
@@ -156,8 +138,6 @@ class _VirtualInstanceState:
             pulumi.set(__self__, "desired_size", desired_size)
         if monitoring_enabled is not None:
             pulumi.set(__self__, "monitoring_enabled", monitoring_enabled)
-        if mount_refresh_interval_seconds is not None:
-            pulumi.set(__self__, "mount_refresh_interval_seconds", mount_refresh_interval_seconds)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if remount_on_resume is not None:
@@ -242,18 +222,6 @@ class _VirtualInstanceState:
         pulumi.set(self, "monitoring_enabled", value)
 
     @property
-    @pulumi.getter(name="mountRefreshIntervalSeconds")
-    def mount_refresh_interval_seconds(self) -> Optional[pulumi.Input[int]]:
-        """
-        Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-        """
-        return pulumi.get(self, "mount_refresh_interval_seconds")
-
-    @mount_refresh_interval_seconds.setter
-    def mount_refresh_interval_seconds(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "mount_refresh_interval_seconds", value)
-
-    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -321,7 +289,6 @@ class VirtualInstance(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  auto_suspend_seconds: Optional[pulumi.Input[int]] = None,
                  description: Optional[pulumi.Input[str]] = None,
-                 mount_refresh_interval_seconds: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  remount_on_resume: Optional[pulumi.Input[bool]] = None,
                  size: Optional[pulumi.Input[str]] = None,
@@ -356,7 +323,6 @@ class VirtualInstance(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] auto_suspend_seconds: Number of seconds without queries after which the Virtual Instance is suspended.
         :param pulumi.Input[str] description: Description of the virtual instance.
-        :param pulumi.Input[int] mount_refresh_interval_seconds: Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
         :param pulumi.Input[str] name: Name of the virtual instance.
         :param pulumi.Input[bool] remount_on_resume: When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
         :param pulumi.Input[str] size: Requested virtual instance size. Note that this field is called type in the API documentation.
@@ -410,7 +376,6 @@ class VirtualInstance(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  auto_suspend_seconds: Optional[pulumi.Input[int]] = None,
                  description: Optional[pulumi.Input[str]] = None,
-                 mount_refresh_interval_seconds: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  remount_on_resume: Optional[pulumi.Input[bool]] = None,
                  size: Optional[pulumi.Input[str]] = None,
@@ -425,7 +390,6 @@ class VirtualInstance(pulumi.CustomResource):
 
             __props__.__dict__["auto_suspend_seconds"] = auto_suspend_seconds
             __props__.__dict__["description"] = description
-            __props__.__dict__["mount_refresh_interval_seconds"] = mount_refresh_interval_seconds
             __props__.__dict__["name"] = name
             __props__.__dict__["remount_on_resume"] = remount_on_resume
             if size is None and not opts.urn:
@@ -453,7 +417,6 @@ class VirtualInstance(pulumi.CustomResource):
             description: Optional[pulumi.Input[str]] = None,
             desired_size: Optional[pulumi.Input[str]] = None,
             monitoring_enabled: Optional[pulumi.Input[bool]] = None,
-            mount_refresh_interval_seconds: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
             remount_on_resume: Optional[pulumi.Input[bool]] = None,
             rrn: Optional[pulumi.Input[str]] = None,
@@ -472,7 +435,6 @@ class VirtualInstance(pulumi.CustomResource):
         :param pulumi.Input[str] description: Description of the virtual instance.
         :param pulumi.Input[str] desired_size: Desired size of the virtual instance.
         :param pulumi.Input[bool] monitoring_enabled: Is monitoring enabled for this Virtual Instance.
-        :param pulumi.Input[int] mount_refresh_interval_seconds: Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
         :param pulumi.Input[str] name: Name of the virtual instance.
         :param pulumi.Input[bool] remount_on_resume: When a Virtual Instance is resumed, remount all collections that were mounted when the Virtual Instance was suspended.
         :param pulumi.Input[str] rrn: RRN of this Virtual Instance.
@@ -489,7 +451,6 @@ class VirtualInstance(pulumi.CustomResource):
         __props__.__dict__["description"] = description
         __props__.__dict__["desired_size"] = desired_size
         __props__.__dict__["monitoring_enabled"] = monitoring_enabled
-        __props__.__dict__["mount_refresh_interval_seconds"] = mount_refresh_interval_seconds
         __props__.__dict__["name"] = name
         __props__.__dict__["remount_on_resume"] = remount_on_resume
         __props__.__dict__["rrn"] = rrn
@@ -544,14 +505,6 @@ class VirtualInstance(pulumi.CustomResource):
         Is monitoring enabled for this Virtual Instance.
         """
         return pulumi.get(self, "monitoring_enabled")
-
-    @property
-    @pulumi.getter(name="mountRefreshIntervalSeconds")
-    def mount_refresh_interval_seconds(self) -> pulumi.Output[Optional[int]]:
-        """
-        Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-        """
-        return pulumi.get(self, "mount_refresh_interval_seconds")
 
     @property
     @pulumi.getter

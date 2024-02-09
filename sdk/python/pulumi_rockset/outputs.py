@@ -614,6 +614,12 @@ class KafkaCollectionSourceStatus(dict):
                  last_consumed_time: Optional[str] = None,
                  partitions: Optional[Sequence['outputs.KafkaCollectionSourceStatusPartition']] = None,
                  state: Optional[str] = None):
+        """
+        :param int documents_processed: Number of documents processed by this Kafka topic.
+        :param str last_consumed_time: The type of partitions on a field.
+        :param Sequence['KafkaCollectionSourceStatusPartitionArgs'] partitions: The status info per partition.
+        :param str state: State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+        """
         if documents_processed is not None:
             pulumi.set(__self__, "documents_processed", documents_processed)
         if last_consumed_time is not None:
@@ -626,21 +632,33 @@ class KafkaCollectionSourceStatus(dict):
     @property
     @pulumi.getter(name="documentsProcessed")
     def documents_processed(self) -> Optional[int]:
+        """
+        Number of documents processed by this Kafka topic.
+        """
         return pulumi.get(self, "documents_processed")
 
     @property
     @pulumi.getter(name="lastConsumedTime")
     def last_consumed_time(self) -> Optional[str]:
+        """
+        The type of partitions on a field.
+        """
         return pulumi.get(self, "last_consumed_time")
 
     @property
     @pulumi.getter
     def partitions(self) -> Optional[Sequence['outputs.KafkaCollectionSourceStatusPartition']]:
+        """
+        The status info per partition.
+        """
         return pulumi.get(self, "partitions")
 
     @property
     @pulumi.getter
     def state(self) -> Optional[str]:
+        """
+        State of the Kafka source. Possible values: NO_DOCS_YET, ACTIVE, DORMANT.
+        """
         return pulumi.get(self, "state")
 
 
@@ -671,6 +689,11 @@ class KafkaCollectionSourceStatusPartition(dict):
                  offset_lag: Optional[int] = None,
                  partition_number: Optional[int] = None,
                  partition_offset: Optional[int] = None):
+        """
+        :param int offset_lag: Per partition lag for offset.
+        :param int partition_number: The number of this partition.
+        :param int partition_offset: Latest offset of this partition.
+        """
         if offset_lag is not None:
             pulumi.set(__self__, "offset_lag", offset_lag)
         if partition_number is not None:
@@ -681,16 +704,25 @@ class KafkaCollectionSourceStatusPartition(dict):
     @property
     @pulumi.getter(name="offsetLag")
     def offset_lag(self) -> Optional[int]:
+        """
+        Per partition lag for offset.
+        """
         return pulumi.get(self, "offset_lag")
 
     @property
     @pulumi.getter(name="partitionNumber")
     def partition_number(self) -> Optional[int]:
+        """
+        The number of this partition.
+        """
         return pulumi.get(self, "partition_number")
 
     @property
     @pulumi.getter(name="partitionOffset")
     def partition_offset(self) -> Optional[int]:
+        """
+        Latest offset of this partition.
+        """
         return pulumi.get(self, "partition_offset")
 
 
@@ -846,6 +878,8 @@ class MongodbCollectionSource(dict):
         :param str collection_name: MongoDB collection name of the target collection.
         :param str database_name: MongoDB database name containing the target collection.
         :param str integration_name: The name of the Rockset MongoDB integration.
+        :param bool retrieve_full_document: Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+               Selecting this option will increase load on your upstream MongoDB database.
         :param str scan_end_time: MongoDB scan end time.
         :param int scan_records_processed: Number of records inserted using scan.
         :param str scan_start_time: MongoDB scan start time.
@@ -913,6 +947,10 @@ class MongodbCollectionSource(dict):
     @property
     @pulumi.getter(name="retrieveFullDocument")
     def retrieve_full_document(self) -> Optional[bool]:
+        """
+        Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations.
+        Selecting this option will increase load on your upstream MongoDB database.
+        """
         return pulumi.get(self, "retrieve_full_document")
 
     @property

@@ -65,12 +65,6 @@ namespace Pulumi.Rockset
         public Output<string> Rrn { get; private set; } = null!;
 
         /// <summary>
-        /// UNIX timestamp in milliseconds when the snapshot expires.
-        /// </summary>
-        [Output("snapshotExpirationTime")]
-        public Output<int> SnapshotExpirationTime { get; private set; } = null!;
-
-        /// <summary>
         /// Mount state.
         /// </summary>
         [Output("state")]
@@ -177,12 +171,6 @@ namespace Pulumi.Rockset
         /// </summary>
         [Input("rrn")]
         public Input<string>? Rrn { get; set; }
-
-        /// <summary>
-        /// UNIX timestamp in milliseconds when the snapshot expires.
-        /// </summary>
-        [Input("snapshotExpirationTime")]
-        public Input<int>? SnapshotExpirationTime { get; set; }
 
         /// <summary>
         /// Mount state.

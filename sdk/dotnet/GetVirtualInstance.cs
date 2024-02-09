@@ -64,12 +64,6 @@ namespace Pulumi.Rockset
         public string Id { get; set; } = null!;
 
         /// <summary>
-        /// Number of seconds between data refreshes for mounts on this Virtual Instance.
-        /// </summary>
-        [Input("mountRefreshIntervalSeconds")]
-        public int? MountRefreshIntervalSeconds { get; set; }
-
-        /// <summary>
         /// Virtual Instance name.
         /// </summary>
         [Input("name")]
@@ -132,12 +126,6 @@ namespace Pulumi.Rockset
         public Input<string> Id { get; set; } = null!;
 
         /// <summary>
-        /// Number of seconds between data refreshes for mounts on this Virtual Instance.
-        /// </summary>
-        [Input("mountRefreshIntervalSeconds")]
-        public Input<int>? MountRefreshIntervalSeconds { get; set; }
-
-        /// <summary>
         /// Virtual Instance name.
         /// </summary>
         [Input("name")]
@@ -188,10 +176,6 @@ namespace Pulumi.Rockset
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// Number of seconds between data refreshes for mounts on this Virtual Instance.
-        /// </summary>
-        public readonly int? MountRefreshIntervalSeconds;
-        /// <summary>
         /// Virtual Instance name.
         /// </summary>
         public readonly string? Name;
@@ -216,8 +200,6 @@ namespace Pulumi.Rockset
 
             string id,
 
-            int? mountRefreshIntervalSeconds,
-
             string? name,
 
             string? state)
@@ -229,7 +211,6 @@ namespace Pulumi.Rockset
             DesiredSize = desiredSize;
             EnableRemountOnResume = enableRemountOnResume;
             Id = id;
-            MountRefreshIntervalSeconds = mountRefreshIntervalSeconds;
             Name = name;
             State = state;
         }

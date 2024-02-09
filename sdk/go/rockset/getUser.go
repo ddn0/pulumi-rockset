@@ -28,7 +28,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := rockset.LookupUser(ctx, &rockset.LookupUserArgs{
-//				Email: "pme@rockset.com",
+//				Email: pulumi.StringRef("pme@rockset.com"),
 //			}, nil)
 //			if err != nil {
 //				return err
@@ -50,14 +50,14 @@ func LookupUser(ctx *pulumi.Context, args *LookupUserArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getUser.
 type LookupUserArgs struct {
-	// User email.
-	Email string `pulumi:"email"`
+	// User email. If absent or blank, it gets the current user.
+	Email *string `pulumi:"email"`
 }
 
 // A collection of values returned by getUser.
 type LookupUserResult struct {
-	// User email.
-	Email string `pulumi:"email"`
+	// User email. If absent or blank, it gets the current user.
+	Email *string `pulumi:"email"`
 	// User's first name.
 	FirstName string `pulumi:"firstName"`
 	// The user ID, in the form of the `email`.
@@ -85,8 +85,8 @@ func LookupUserOutput(ctx *pulumi.Context, args LookupUserOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getUser.
 type LookupUserOutputArgs struct {
-	// User email.
-	Email pulumi.StringInput `pulumi:"email"`
+	// User email. If absent or blank, it gets the current user.
+	Email pulumi.StringPtrInput `pulumi:"email"`
 }
 
 func (LookupUserOutputArgs) ElementType() reflect.Type {
@@ -108,9 +108,9 @@ func (o LookupUserResultOutput) ToLookupUserResultOutputWithContext(ctx context.
 	return o
 }
 
-// User email.
-func (o LookupUserResultOutput) Email() pulumi.StringOutput {
-	return o.ApplyT(func(v LookupUserResult) string { return v.Email }).(pulumi.StringOutput)
+// User email. If absent or blank, it gets the current user.
+func (o LookupUserResultOutput) Email() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupUserResult) *string { return v.Email }).(pulumi.StringPtrOutput)
 }
 
 // User's first name.

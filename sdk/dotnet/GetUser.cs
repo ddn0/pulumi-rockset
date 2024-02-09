@@ -36,7 +36,7 @@ namespace Pulumi.Rockset
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
-        public static Task<GetUserResult> InvokeAsync(GetUserArgs args, InvokeOptions? options = null)
+        public static Task<GetUserResult> InvokeAsync(GetUserArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetUserResult>("rockset:index/getUser:getUser", args ?? new GetUserArgs(), options.WithDefaults());
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Pulumi.Rockset
         /// {{% /example %}}
         /// {{% /examples %}}
         /// </summary>
-        public static Output<GetUserResult> Invoke(GetUserInvokeArgs args, InvokeOptions? options = null)
+        public static Output<GetUserResult> Invoke(GetUserInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetUserResult>("rockset:index/getUser:getUser", args ?? new GetUserInvokeArgs(), options.WithDefaults());
     }
 
@@ -72,10 +72,10 @@ namespace Pulumi.Rockset
     public sealed class GetUserArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// User email.
+        /// User email. If absent or blank, it gets the current user.
         /// </summary>
-        [Input("email", required: true)]
-        public string Email { get; set; } = null!;
+        [Input("email")]
+        public string? Email { get; set; }
 
         public GetUserArgs()
         {
@@ -86,10 +86,10 @@ namespace Pulumi.Rockset
     public sealed class GetUserInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// User email.
+        /// User email. If absent or blank, it gets the current user.
         /// </summary>
-        [Input("email", required: true)]
-        public Input<string> Email { get; set; } = null!;
+        [Input("email")]
+        public Input<string>? Email { get; set; }
 
         public GetUserInvokeArgs()
         {
@@ -102,9 +102,9 @@ namespace Pulumi.Rockset
     public sealed class GetUserResult
     {
         /// <summary>
-        /// User email.
+        /// User email. If absent or blank, it gets the current user.
         /// </summary>
-        public readonly string Email;
+        public readonly string? Email;
         /// <summary>
         /// User's first name.
         /// </summary>
@@ -128,7 +128,7 @@ namespace Pulumi.Rockset
 
         [OutputConstructor]
         private GetUserResult(
-            string email,
+            string? email,
 
             string firstName,
 

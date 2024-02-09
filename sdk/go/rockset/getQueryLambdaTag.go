@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Deprecated. Use `QueryLambda` instead and specify the `tag`.
 func LookupQueryLambdaTag(ctx *pulumi.Context, args *LookupQueryLambdaTagArgs, opts ...pulumi.InvokeOption) (*LookupQueryLambdaTagResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupQueryLambdaTagResult

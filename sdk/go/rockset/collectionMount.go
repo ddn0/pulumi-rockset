@@ -59,8 +59,6 @@ type CollectionMount struct {
 	Path pulumi.StringOutput `pulumi:"path"`
 	// RRN of this mount.
 	Rrn pulumi.StringOutput `pulumi:"rrn"`
-	// UNIX timestamp in milliseconds when the snapshot expires.
-	SnapshotExpirationTime pulumi.IntOutput `pulumi:"snapshotExpirationTime"`
 	// Mount state.
 	State pulumi.StringOutput `pulumi:"state"`
 	// Virtual Instance id
@@ -113,8 +111,6 @@ type collectionMountState struct {
 	Path *string `pulumi:"path"`
 	// RRN of this mount.
 	Rrn *string `pulumi:"rrn"`
-	// UNIX timestamp in milliseconds when the snapshot expires.
-	SnapshotExpirationTime *int `pulumi:"snapshotExpirationTime"`
 	// Mount state.
 	State *string `pulumi:"state"`
 	// Virtual Instance id
@@ -132,8 +128,6 @@ type CollectionMountState struct {
 	Path pulumi.StringPtrInput
 	// RRN of this mount.
 	Rrn pulumi.StringPtrInput
-	// UNIX timestamp in milliseconds when the snapshot expires.
-	SnapshotExpirationTime pulumi.IntPtrInput
 	// Mount state.
 	State pulumi.StringPtrInput
 	// Virtual Instance id
@@ -266,11 +260,6 @@ func (o CollectionMountOutput) Path() pulumi.StringOutput {
 // RRN of this mount.
 func (o CollectionMountOutput) Rrn() pulumi.StringOutput {
 	return o.ApplyT(func(v *CollectionMount) pulumi.StringOutput { return v.Rrn }).(pulumi.StringOutput)
-}
-
-// UNIX timestamp in milliseconds when the snapshot expires.
-func (o CollectionMountOutput) SnapshotExpirationTime() pulumi.IntOutput {
-	return o.ApplyT(func(v *CollectionMount) pulumi.IntOutput { return v.SnapshotExpirationTime }).(pulumi.IntOutput)
 }
 
 // Mount state.

@@ -21,7 +21,7 @@ class GetVirtualInstanceResult:
     """
     A collection of values returned by getVirtualInstance.
     """
-    def __init__(__self__, auto_suspend_seconds=None, current_size=None, default=None, description=None, desired_size=None, enable_remount_on_resume=None, id=None, mount_refresh_interval_seconds=None, name=None, state=None):
+    def __init__(__self__, auto_suspend_seconds=None, current_size=None, default=None, description=None, desired_size=None, enable_remount_on_resume=None, id=None, name=None, state=None):
         if auto_suspend_seconds and not isinstance(auto_suspend_seconds, int):
             raise TypeError("Expected argument 'auto_suspend_seconds' to be a int")
         pulumi.set(__self__, "auto_suspend_seconds", auto_suspend_seconds)
@@ -43,9 +43,6 @@ class GetVirtualInstanceResult:
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
-        if mount_refresh_interval_seconds and not isinstance(mount_refresh_interval_seconds, int):
-            raise TypeError("Expected argument 'mount_refresh_interval_seconds' to be a int")
-        pulumi.set(__self__, "mount_refresh_interval_seconds", mount_refresh_interval_seconds)
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
@@ -110,14 +107,6 @@ class GetVirtualInstanceResult:
         return pulumi.get(self, "id")
 
     @property
-    @pulumi.getter(name="mountRefreshIntervalSeconds")
-    def mount_refresh_interval_seconds(self) -> Optional[int]:
-        """
-        Number of seconds between data refreshes for mounts on this Virtual Instance.
-        """
-        return pulumi.get(self, "mount_refresh_interval_seconds")
-
-    @property
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
@@ -147,7 +136,6 @@ class AwaitableGetVirtualInstanceResult(GetVirtualInstanceResult):
             desired_size=self.desired_size,
             enable_remount_on_resume=self.enable_remount_on_resume,
             id=self.id,
-            mount_refresh_interval_seconds=self.mount_refresh_interval_seconds,
             name=self.name,
             state=self.state)
 
@@ -159,7 +147,6 @@ def get_virtual_instance(auto_suspend_seconds: Optional[int] = None,
                          desired_size: Optional[str] = None,
                          enable_remount_on_resume: Optional[bool] = None,
                          id: Optional[str] = None,
-                         mount_refresh_interval_seconds: Optional[int] = None,
                          name: Optional[str] = None,
                          state: Optional[str] = None,
                          opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetVirtualInstanceResult:
@@ -173,7 +160,6 @@ def get_virtual_instance(auto_suspend_seconds: Optional[int] = None,
     :param str desired_size: Virtual Instance desired size.
     :param bool enable_remount_on_resume: When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
     :param str id: Virtual Instance id.
-    :param int mount_refresh_interval_seconds: Number of seconds between data refreshes for mounts on this Virtual Instance.
     :param str name: Virtual Instance name.
     :param str state: Virtual Instance state.
     """
@@ -185,7 +171,6 @@ def get_virtual_instance(auto_suspend_seconds: Optional[int] = None,
     __args__['desiredSize'] = desired_size
     __args__['enableRemountOnResume'] = enable_remount_on_resume
     __args__['id'] = id
-    __args__['mountRefreshIntervalSeconds'] = mount_refresh_interval_seconds
     __args__['name'] = name
     __args__['state'] = state
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -199,7 +184,6 @@ def get_virtual_instance(auto_suspend_seconds: Optional[int] = None,
         desired_size=pulumi.get(__ret__, 'desired_size'),
         enable_remount_on_resume=pulumi.get(__ret__, 'enable_remount_on_resume'),
         id=pulumi.get(__ret__, 'id'),
-        mount_refresh_interval_seconds=pulumi.get(__ret__, 'mount_refresh_interval_seconds'),
         name=pulumi.get(__ret__, 'name'),
         state=pulumi.get(__ret__, 'state'))
 
@@ -212,7 +196,6 @@ def get_virtual_instance_output(auto_suspend_seconds: Optional[pulumi.Input[Opti
                                 desired_size: Optional[pulumi.Input[Optional[str]]] = None,
                                 enable_remount_on_resume: Optional[pulumi.Input[Optional[bool]]] = None,
                                 id: Optional[pulumi.Input[str]] = None,
-                                mount_refresh_interval_seconds: Optional[pulumi.Input[Optional[int]]] = None,
                                 name: Optional[pulumi.Input[Optional[str]]] = None,
                                 state: Optional[pulumi.Input[Optional[str]]] = None,
                                 opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetVirtualInstanceResult]:
@@ -226,7 +209,6 @@ def get_virtual_instance_output(auto_suspend_seconds: Optional[pulumi.Input[Opti
     :param str desired_size: Virtual Instance desired size.
     :param bool enable_remount_on_resume: When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
     :param str id: Virtual Instance id.
-    :param int mount_refresh_interval_seconds: Number of seconds between data refreshes for mounts on this Virtual Instance.
     :param str name: Virtual Instance name.
     :param str state: Virtual Instance state.
     """

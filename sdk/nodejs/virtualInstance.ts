@@ -85,10 +85,6 @@ export class VirtualInstance extends pulumi.CustomResource {
      */
     public /*out*/ readonly monitoringEnabled!: pulumi.Output<boolean>;
     /**
-     * Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-     */
-    public readonly mountRefreshIntervalSeconds!: pulumi.Output<number | undefined>;
-    /**
      * Name of the virtual instance.
      */
     public readonly name!: pulumi.Output<string>;
@@ -128,7 +124,6 @@ export class VirtualInstance extends pulumi.CustomResource {
             resourceInputs["description"] = state ? state.description : undefined;
             resourceInputs["desiredSize"] = state ? state.desiredSize : undefined;
             resourceInputs["monitoringEnabled"] = state ? state.monitoringEnabled : undefined;
-            resourceInputs["mountRefreshIntervalSeconds"] = state ? state.mountRefreshIntervalSeconds : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["remountOnResume"] = state ? state.remountOnResume : undefined;
             resourceInputs["rrn"] = state ? state.rrn : undefined;
@@ -141,7 +136,6 @@ export class VirtualInstance extends pulumi.CustomResource {
             }
             resourceInputs["autoSuspendSeconds"] = args ? args.autoSuspendSeconds : undefined;
             resourceInputs["description"] = args ? args.description : undefined;
-            resourceInputs["mountRefreshIntervalSeconds"] = args ? args.mountRefreshIntervalSeconds : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["remountOnResume"] = args ? args.remountOnResume : undefined;
             resourceInputs["size"] = args ? args.size : undefined;
@@ -186,10 +180,6 @@ export interface VirtualInstanceState {
      */
     monitoringEnabled?: pulumi.Input<boolean>;
     /**
-     * Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-     */
-    mountRefreshIntervalSeconds?: pulumi.Input<number>;
-    /**
      * Name of the virtual instance.
      */
     name?: pulumi.Input<string>;
@@ -223,10 +213,6 @@ export interface VirtualInstanceArgs {
      * Description of the virtual instance.
      */
     description?: pulumi.Input<string>;
-    /**
-     * Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
-     */
-    mountRefreshIntervalSeconds?: pulumi.Input<number>;
     /**
      * Name of the virtual instance.
      */

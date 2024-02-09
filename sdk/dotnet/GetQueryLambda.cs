@@ -9,23 +9,23 @@ using Pulumi.Serialization;
 
 namespace Pulumi.Rockset
 {
-    public static class GetQueryLambdaTag
+    public static class GetQueryLambda
     {
         /// <summary>
-        /// Deprecated. Use `rockset.QueryLambda` instead and specify the `tag`.
+        /// Gets information about a query lambda. The `tag` defaults to `latest`.
         /// </summary>
-        public static Task<GetQueryLambdaTagResult> InvokeAsync(GetQueryLambdaTagArgs args, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.InvokeAsync<GetQueryLambdaTagResult>("rockset:index/getQueryLambdaTag:getQueryLambdaTag", args ?? new GetQueryLambdaTagArgs(), options.WithDefaults());
+        public static Task<GetQueryLambdaResult> InvokeAsync(GetQueryLambdaArgs args, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetQueryLambdaResult>("rockset:index/getQueryLambda:getQueryLambda", args ?? new GetQueryLambdaArgs(), options.WithDefaults());
 
         /// <summary>
-        /// Deprecated. Use `rockset.QueryLambda` instead and specify the `tag`.
+        /// Gets information about a query lambda. The `tag` defaults to `latest`.
         /// </summary>
-        public static Output<GetQueryLambdaTagResult> Invoke(GetQueryLambdaTagInvokeArgs args, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<GetQueryLambdaTagResult>("rockset:index/getQueryLambdaTag:getQueryLambdaTag", args ?? new GetQueryLambdaTagInvokeArgs(), options.WithDefaults());
+        public static Output<GetQueryLambdaResult> Invoke(GetQueryLambdaInvokeArgs args, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetQueryLambdaResult>("rockset:index/getQueryLambda:getQueryLambda", args ?? new GetQueryLambdaInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetQueryLambdaTagArgs : global::Pulumi.InvokeArgs
+    public sealed class GetQueryLambdaArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Name of the query lambda.
@@ -36,8 +36,8 @@ namespace Pulumi.Rockset
         /// <summary>
         /// Tag name.
         /// </summary>
-        [Input("tag", required: true)]
-        public string Tag { get; set; } = null!;
+        [Input("tag")]
+        public string? Tag { get; set; }
 
         /// <summary>
         /// Workspace the query lambda resides in.
@@ -45,13 +45,13 @@ namespace Pulumi.Rockset
         [Input("workspace", required: true)]
         public string Workspace { get; set; } = null!;
 
-        public GetQueryLambdaTagArgs()
+        public GetQueryLambdaArgs()
         {
         }
-        public static new GetQueryLambdaTagArgs Empty => new GetQueryLambdaTagArgs();
+        public static new GetQueryLambdaArgs Empty => new GetQueryLambdaArgs();
     }
 
-    public sealed class GetQueryLambdaTagInvokeArgs : global::Pulumi.InvokeArgs
+    public sealed class GetQueryLambdaInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// Name of the query lambda.
@@ -62,8 +62,8 @@ namespace Pulumi.Rockset
         /// <summary>
         /// Tag name.
         /// </summary>
-        [Input("tag", required: true)]
-        public Input<string> Tag { get; set; } = null!;
+        [Input("tag")]
+        public Input<string>? Tag { get; set; }
 
         /// <summary>
         /// Workspace the query lambda resides in.
@@ -71,15 +71,15 @@ namespace Pulumi.Rockset
         [Input("workspace", required: true)]
         public Input<string> Workspace { get; set; } = null!;
 
-        public GetQueryLambdaTagInvokeArgs()
+        public GetQueryLambdaInvokeArgs()
         {
         }
-        public static new GetQueryLambdaTagInvokeArgs Empty => new GetQueryLambdaTagInvokeArgs();
+        public static new GetQueryLambdaInvokeArgs Empty => new GetQueryLambdaInvokeArgs();
     }
 
 
     [OutputType]
-    public sealed class GetQueryLambdaTagResult
+    public sealed class GetQueryLambdaResult
     {
         /// <summary>
         /// Description of the query lambda.
@@ -104,7 +104,7 @@ namespace Pulumi.Rockset
         /// <summary>
         /// Tag name.
         /// </summary>
-        public readonly string Tag;
+        public readonly string? Tag;
         /// <summary>
         /// Query lambda tag version.
         /// </summary>
@@ -115,7 +115,7 @@ namespace Pulumi.Rockset
         public readonly string Workspace;
 
         [OutputConstructor]
-        private GetQueryLambdaTagResult(
+        private GetQueryLambdaResult(
             string description,
 
             string id,
@@ -126,7 +126,7 @@ namespace Pulumi.Rockset
 
             string sql,
 
-            string tag,
+            string? tag,
 
             string version,
 
